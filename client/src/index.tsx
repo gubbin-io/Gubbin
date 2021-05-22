@@ -2,15 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "react-jss";
+import { client } from "./constants/routes";
 import theme from "./theme";
-
-const client = new ApolloClient({
-  uri: "http://localhost:5000/",
-  cache: new InMemoryCache(),
-});
 
 ReactDOM.render(
   <React.StrictMode>
