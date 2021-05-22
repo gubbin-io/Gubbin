@@ -1,6 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import User from "./User";
+import Button from "./Button";
 
 const GET_USERS = gql`
   query {
@@ -28,6 +29,7 @@ function App() {
           username={username}
         />
       ))}
+      <Button> JSS demo </Button>
     </div>
   );
 }
