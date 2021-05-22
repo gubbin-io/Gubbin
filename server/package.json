@@ -4,7 +4,8 @@
   "description": "server for the Gubbin webapp.",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon ./src/index.ts",
+    "start": "node build",
+    "mon": "nodemon ./src/index.ts",
     "build": "tsc --project ./"
   },
   "repository": "https://github.com/gubbin-io/Gubbin",
