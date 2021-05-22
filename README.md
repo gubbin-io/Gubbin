@@ -42,6 +42,8 @@ const app = require("./app");
 module.exports = app;
 ```
 
+**4. Do not use `var` when declaring a variable, use `const` and `let`.**
+
 ## Instructions
 
 To run the application locally, first you need to clone the repository and install the dependencies.
