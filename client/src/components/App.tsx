@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import User from "./User";
 import MyButton from "./Button";
 import useStyles from "./style";
-import { Container, Row } from "react-bootstrap";
+import { Alert, Container, Row } from "react-bootstrap";
 
 const GET_USERS = gql`
   query {
