@@ -13,6 +13,7 @@ const typeDefs = gql`
   type User {
     id: ID!
     username: String!
+    firstLetterOfUsername: String!
   }
   type Error {
     field: String!
@@ -45,7 +46,7 @@ const resolvers = {
   },
   Mutation: {
     login: () => true,
-    register: () => ({
+    register: (parent: any, { userInfo: { username } }: any, context: any) => ({
       errors: [
         {
           field: "username",
@@ -54,13 +55,19 @@ const resolvers = {
       ],
       user: {
         id: 1,
-        username: "Gregg Eggington",
+        username,
       },
     }),
   },
+  User: {
+    firstLetterOfUsername: (parent: any) => parent.username[0],
+  },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
 // Use port from environment variables and 5000 as fallback
 const PORT = process.env.PORT || 5000;
