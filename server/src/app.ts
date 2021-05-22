@@ -11,6 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Set up API handling
-app.use('/api/v1/users', usersRouter);
+app.use("/api/v1/users", usersRouter);
 
 export default app;

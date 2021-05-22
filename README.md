@@ -1,24 +1,32 @@
 # Gubbin
-Projects, Simplified. 
+
+Projects, Simplified.
 
 ## Conventions
 
-#### use `yarn` instead of `npm`
+#### 1. Enable prettier on VSCode
 
-for example: 
+**DO NOT remove .vscode from repository**
+
+Install the [prettier VSCode extension](https://prettier.io/docs/en/editors.html).
+
+#### 2. Use `yarn` instead of `npm`
+
+for example:
 
 ```
 yarn add @types/cors
 ```
 
-instead of: 
+instead of:
 
 ```
 npm install @types/cors
 ```
 
-#### use ES6 `import` instead of commonjs `require`
-for example: 
+#### 3. Use ES6 `import` instead of commonjs `require`
+
+for example:
 
 ```
 export default app;
@@ -28,7 +36,7 @@ export default app;
 import app from "./app";
 ```
 
-instead of: 
+instead of:
 
 ```
 module.exports = app;
