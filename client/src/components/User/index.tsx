@@ -1,16 +1,24 @@
 import React from "react";
+import { Card, Col } from "react-bootstrap";
 
 export interface UserProp {
   username: String;
   firstLetter: String;
+  id: String;
 }
 
-const User: React.FC<UserProp> = ({ username, firstLetter }) => {
+const User: React.FC<UserProp> = ({ username, firstLetter, id }) => {
   return (
-    <div>
-      <p>{`Username: ${username}`}</p>
-      <p>{`firstLetter: ${firstLetter}`}</p>
-    </div>
+    <Col>
+      <Card>
+        <Card.Title>{username}</Card.Title>
+        <Card.Body>
+          firstLetter: {firstLetter}
+          <br />
+          ID: {id}
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

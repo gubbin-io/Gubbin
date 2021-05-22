@@ -1,7 +1,9 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import User from "./User";
-import Button from "./Button";
+import MyButton from "./Button";
+import useStyles from "./style";
+import { Container, Row } from "react-bootstrap";
 
 const GET_USERS = gql`
   query {
@@ -14,23 +16,28 @@ const GET_USERS = gql`
 `;
 
 function App() {
-  const { loading, error, data } = useQuery(GET_USERS);
+  useStyles();
 
+  const { loading, error, data } = useQuery(GET_USERS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
-  console.log(data);
 
   return (
-    <div>
-      {data.users.map(({ username, id, firstLetterOfUsername }: any) => (
-        <User
-          key={id}
-          firstLetter={firstLetterOfUsername}
-          username={username}
-        />
-      ))}
-      <Button> JSS demo </Button>
-    </div>
+    <Container>
+      <Row>
+        {data.users.map(({ username, id, firstLetterOfUsername }: any) => (
+          <User
+            key={id}
+            firstLetter={firstLetterOfUsername}
+            username={username}
+            id={id}
+          />
+        ))}
+      </Row>
+      <Row>
+        <MyButton> JSS demo </MyButton>
+      </Row>
+    </Container>
   );
 }
 
