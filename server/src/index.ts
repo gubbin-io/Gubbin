@@ -2,20 +2,68 @@ import { ApolloServer, gql } from "apollo-server";
 
 const typeDefs = gql`
   type Query {
-    users: [String!]!
+    users: [User]
+  }
+
+  type Mutation {
+    register(userInfo: UserInfo!): RegisterResponse!
+    login(userInfo: UserInfo!): Boolean!
+  }
+
+  type User {
+    id: ID!
+    username: String!
+  }
+  type Error {
+    field: String!
+    message: String!
+  }
+  type RegisterResponse {
+    errors: [Error!]!
+    user: User
+  }
+
+  input UserInfo {
+    username: String!
+    password: String!
+    age: Int
   }
 `;
 
 const resolvers = {
   Query: {
-    users: () => ["John Vuuton", "Gregg Eggington"],
+    users: () => [
+      {
+        id: 1,
+        username: "Gregg Eggington",
+      },
+      {
+        id: 2,
+        username: "John Vuuton",
+      },
+    ],
+  },
+  Mutation: {
+    login: () => true,
+    register: () => ({
+      errors: [
+        {
+          field: "username",
+          message: "bad",
+        },
+      ],
+      user: {
+        id: 1,
+        username: "Gregg Eggington",
+      },
+    }),
   },
 };
 
+const server = new ApolloServer({ typeDefs, resolvers });
+
 // Use port from environment variables and 5000 as fallback
 const PORT = process.env.PORT || 5000;
-
-const server = new ApolloServer({ typeDefs, resolvers });
 
 server.listen(PORT).then(({ url }) => {
   console.log(`server started at ${url}`);
