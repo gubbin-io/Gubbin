@@ -8,6 +8,7 @@ Projects, Simplified.
 
 Do not remove `.vscode` from repository, and always open `Gubbin` as a project instead of `client` or `server`.\
 Install the [prettier VSCode extension](https://prettier.io/docs/en/editors.html).
+Install [GraphQL for VSCode](https://marketplace.visualstudio.com/items?itemName=kumar-harsh.graphql-for-vscode).
 
 **2. Use `yarn` instead of `npm`**
 

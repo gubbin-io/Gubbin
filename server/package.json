@@ -2,23 +2,25 @@
   "name": "gubbin-server",
   "version": "1.0.0",
   "description": "server for the Gubbin webapp.",
-  "main": "src/server.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon ./src/server.ts",
+    "start": "nodemon ./src/index.ts",
     "build": "tsc --project ./"
   },
   "repository": "https://github.com/gubbin-io/Gubbin",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@types/cors": "^2.8.10",
+    "apollo-server": "^2.24.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "graphql": "^15.5.0",
     "path": "^0.12.7",
-    "querystring": "^0.2.1"
+    "querystring": "^0.2.1",
+    "types": "^0.1.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
     "@types/node": "^15.6.0",
     "nodemon": "^2.0.7",
