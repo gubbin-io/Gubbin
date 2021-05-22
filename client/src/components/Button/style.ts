@@ -1,8 +1,8 @@
 import { createUseStyles } from "react-jss";
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles((theme: any) => ({
   myButton: {
-    color: "white",
+    backgroundColor: theme.colorPrimary,
     margin: {
       top: 5,
       right: 0,
@@ -13,6 +13,6 @@ const useStyles = createUseStyles({
       fontWeight: "bold",
     },
   },
-});
+}));
 
 export default useStyles;

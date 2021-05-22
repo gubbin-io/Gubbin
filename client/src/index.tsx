@@ -4,6 +4,8 @@ import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { ThemeProvider } from "react-jss";
+import theme from "./theme";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000/",
@@ -13,7 +15,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
