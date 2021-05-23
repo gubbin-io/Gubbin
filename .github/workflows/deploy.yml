@@ -16,13 +16,12 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: --cwd ./client build
-          working-directory: ./client
 
       - id: deploy
         uses: google-github-actions/deploy-appengine@main
         with:
           credentials: ${{ secrets.gcp_credentials }}
-          working-directory: ./client
+          working_directory: ./client
 
       - id: test
         run: curl "${{ steps.deploy.outputs.url }}"
