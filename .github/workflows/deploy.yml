@@ -1,22 +1,19 @@
 name: Deploy to GCP
 on: [push]
-env:
-  client-directory: ./client
-  server-directory: ./server
 jobs:
   Deploy-Client:
     runs-on: ubuntu-latest
     steps:
       - name: build
         run: yarn build
-        working-directory: ${{ env.client-directory }}
+        working-directory: ./client
 
       - id: deploy
         uses: google-github-actions/deploy-appengine@main
         with:
           credentials: ${{ secrets.gcp_credentials }}
-          working-directory: ${{ env.client-directory }}
+          working-directory: ./client
 
       - id: test
         run: curl "${{ steps.deploy.outputs.url }}"
-        working-directory: ${{ env.client-directory }}
+        working-directory: ./client
