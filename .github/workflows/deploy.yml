@@ -5,24 +5,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: yarn install
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: --cwd ./client install
-          
-          
+
       - name: yarn build
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: --cwd ./client build
 
+      - name: yarn test
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: --cwd ./client test --watchAll=false --passWithNoTests
+
       - id: deploy
+        name: Deploy to Google app engine
         uses: google-github-actions/deploy-appengine@main
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
           working_directory: ./client
 
       - id: test
+        name: Check deployment succeeded
         run: curl "${{ steps.deploy.outputs.url }}"
         working-directory: ./client
