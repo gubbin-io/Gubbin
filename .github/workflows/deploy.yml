@@ -33,13 +33,13 @@ jobs:
         run: curl "${{ steps.deploy.outputs.url }}"
         working-directory: ./client
 
-    Deploy-Server:
+  Deploy-Server:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup Database Secret
-         run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
+        run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
 
       - name: yarn install
         uses: borales/actions-yarn@v2.0.0
