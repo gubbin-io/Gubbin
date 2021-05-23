@@ -32,3 +32,28 @@ jobs:
         name: Check deployment succeeded
         run: curl "${{ steps.deploy.outputs.url }}"
         working-directory: ./client
+
+    Deploy-Server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Database Secret
+         run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
+
+      - name: yarn install
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: --cwd ./server install
+
+      - name: yarn build
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: --cwd ./server build
+
+      - id: deploy
+        name: Deploy to Google app engine
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          credentials: ${{ secrets.GCP_SA_KEY }}
+          working_directory: ./server
