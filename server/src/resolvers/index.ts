@@ -1,30 +1,31 @@
+import User from "../models/user";
+
 const resolvers = {
   Query: {
-    users: () => [
-      {
-        id: 1,
-        username: "Gregg Eggington",
-      },
-      {
-        id: 2,
-        username: "John Vuuton",
-      },
-    ],
+    users: async () => {
+      const users = await User.find();
+      return users.map(({ username, _id }: any) => ({
+        username,
+        id: _id,
+      }));
+    },
   },
   Mutation: {
-    login: () => true,
-    register: (parent: any, { userInfo: { username } }: any, context: any) => ({
-      errors: [
-        {
-          field: "username",
-          message: "bad",
+    register: async (
+      parent: any,
+      { userInfo: { username } }: any,
+      context: any
+    ) => {
+      const newUser = new User({ username });
+      const { _id, username: newUsername } = await newUser.save();
+
+      return {
+        user: {
+          id: _id,
+          username: newUsername,
         },
-      ],
-      user: {
-        id: 1,
-        username,
-      },
-    }),
+      };
+    },
   },
   User: {
     firstLetterOfUsername: (parent: any) => parent.username[0],

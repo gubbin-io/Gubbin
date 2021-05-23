@@ -15,12 +15,7 @@ const schema = gql`
     username: String!
     firstLetterOfUsername: String!
   }
-  type Error {
-    field: String!
-    message: String!
-  }
   type RegisterResponse {
-    errors: [Error!]!
     user: User
   }
 

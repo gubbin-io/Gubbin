@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch Server",
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "tscbuild",
+      "cwd": "${workspaceFolder}/server",
+      "program": "${workspaceFolder}/server/build/index.js",
+      "outFiles": ["${workspaceFolder}/server/**/*.js"]
+    }
+  ]
+}
