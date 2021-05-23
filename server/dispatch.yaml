@@ -1,0 +1,3 @@
+dispatch:
+  - url: "api.gubbin.io/*"
+    service: api

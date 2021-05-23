@@ -9,7 +9,7 @@ const dev: Config = {
 };
 
 const prod: Config = {
-  SERVER_URL: "https://api-dot-gubbin.nw.r.appspot.com",
+  SERVER_URL: "https://api.gubbin.io",
 };
 
 const CONFIG: Config = process.env.NODE_ENV === "production" ? prod : dev;
