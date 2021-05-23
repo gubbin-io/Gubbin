@@ -1,9 +1,9 @@
 name: Deploy to GCP
 on: [push]
+env:
+  client-directory: ./client
+  server-directory: ./server
 jobs:
-  env:
-    client-directory: ./client
-    server-directory: ./server
   Deploy-Client:
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +15,7 @@ jobs:
         uses: google-github-actions/deploy-appengine@main
         with:
           credentials: ${{ secrets.gcp_credentials }}
-        working-directory: ${{ env.client-directory }}
+          working-directory: ${{ env.client-directory }}
 
       - id: test
         run: curl "${{ steps.deploy.outputs.url }}"
