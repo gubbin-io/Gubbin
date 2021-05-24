@@ -3,5 +3,7 @@
   // Default (format when you paste)
   "editor.formatOnPaste": true,
   // Default (format when you save)
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+
+  "typescript.tsdk": "client/node_modules/typescript/lib"
 }
