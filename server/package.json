@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node build",
     "mon": "nodemon ./src/index.ts",
-    "build": "tsc --project ./"
+    "build": "tsc --project ./",
+    "test": "jest"
   },
   "repository": "https://github.com/gubbin-io/Gubbin",
   "license": "MIT",
