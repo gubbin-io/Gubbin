@@ -51,6 +51,12 @@ jobs:
         with:
           cmd: --cwd ./server build
 
+      - id: test
+        name: yarn test
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: --cwd ./server test
+
       - id: deploy
         name: Deploy to Google app engine
         uses: google-github-actions/deploy-appengine@main
