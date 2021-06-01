@@ -9,11 +9,14 @@ jobs:
         with:
           node-version: "14"
 
-      - run: cd ./client && yarn install
+      - name: Install Dependencies
+        run: cd ./client && yarn install
 
-      - run: cd ./client && yarn build
+      - name: Run Tests
+        run: cd ./client && yarn test --watchAll=false
 
-      - run: cd ./client && yarn test --watchAll=false
+      - name: Run Build
+        run: cd ./client && yarn build
 
       - id: deploy
         name: Deploy to Google app engine
@@ -22,8 +25,7 @@ jobs:
           credentials: ${{ secrets.GCP_SA_KEY }}
           working_directory: ./client
 
-      - id: test
-        name: Check deployment succeeded
+      - name: Check deployment succeeded
         run: curl "${{ steps.deploy.outputs.url }}"
         working-directory: ./client
 
@@ -38,11 +40,14 @@ jobs:
       - name: Setup Database Secret
         run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
 
-      - run: cd ./server && yarn install
+      - name: Install Dependencies
+        run: cd ./server && yarn install
 
-      - run: cd ./server && yarn build
+      - name: Run Tests
+        run: cd ./server && yarn test
 
-      - run: cd ./server && yarn test
+      - name: Run Build
+        run: cd ./server && yarn build
 
       - id: deploy
         name: Deploy to Google app engine
@@ -50,3 +55,7 @@ jobs:
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
           working_directory: ./server
+
+      - name: Check deployment succeeded
+        run: curl "${{ steps.deploy.outputs.url }}"
+        working-directory: ./server
