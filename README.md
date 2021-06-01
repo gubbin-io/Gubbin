@@ -52,7 +52,7 @@ The Angular commit convention is specified [here](https://github.com/angular/ang
 Use [git cz](https://github.com/commitizen/cz-cli) to automate the enforcement of the commit convention. 
 To install `git cz` gloabally on your computer, run
 ```
-npm install -g cz-conventional-changelog && echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+yarn global add cz-conventional-changelog && echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
 ```
 After installing `git cz`, you can replace every use of `git commit` by `git cz` or `git-cz`.
 
