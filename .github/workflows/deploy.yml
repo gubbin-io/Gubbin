@@ -10,13 +10,16 @@ jobs:
           node-version: "14"
 
       - name: Install Dependencies
-        run: cd ./client && yarn install
+        run: yarn install
+        working-directory: ./client
 
       - name: Run Tests
-        run: cd ./client && yarn test --watchAll=false
+        run: yarn test --watchAll=false
+        working-directory: ./client
 
       - name: Run Build
-        run: cd ./client && yarn build
+        run: yarn build
+        working-directory: ./client
 
       - id: deploy
         name: Deploy to Google app engine
@@ -41,13 +44,16 @@ jobs:
         run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
 
       - name: Install Dependencies
-        run: cd ./server && yarn install
+        run: yarn install
+        working-directory: ./server
 
       - name: Run Tests
-        run: cd ./server && yarn test
+        run: yarn test
+        working-directory: ./server
 
       - name: Run Build
-        run: cd ./server && yarn build
+        run: yarn build
+        working-directory: ./server
 
       - id: deploy
         name: Deploy to Google app engine

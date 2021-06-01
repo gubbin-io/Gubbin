@@ -1,5 +1,5 @@
 {
-  "exclude": ["./src/test/*"],
+  "exclude": ["test/*"],
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
