@@ -5,21 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: yarn install
-        uses: borales/actions-yarn@v2.0.0
+      - uses: actions/setup-node@v2
         with:
-          cmd: --cwd ./client install
+          node-version: "14"
 
-      - name: yarn build
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: --cwd ./client build
+      - run: cd ./client && yarn install
 
-      - name: yarn test
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: --cwd ./client test --watchAll=false --passWithNoTests
+      - run: cd ./client && yarn build
+
+      - run: cd ./client && yarn test --watchAll=false
 
       - id: deploy
         name: Deploy to Google app engine
@@ -37,25 +31,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
 
       - name: Setup Database Secret
         run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
 
-      - name: yarn install
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: --cwd ./server install
+      - run: cd ./server && yarn install
 
-      - name: yarn build
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: --cwd ./server build
+      - run: cd ./server && yarn build
 
-      - id: test
-        name: yarn test
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: --cwd ./server test
+      - run: cd ./server && yarn test
 
       - id: deploy
         name: Deploy to Google app engine

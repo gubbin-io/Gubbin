@@ -10,6 +10,18 @@
       "cwd": "${workspaceFolder}/server",
       "program": "${workspaceFolder}/server/build/index.js",
       "outFiles": ["${workspaceFolder}/server/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Server",
+      "cwd": "${workspaceFolder}/server",
+      "program": "${workspaceFolder}/server/node_modules/.bin/jest",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/server/node_modules/jest/bin/jest"
+      }
     }
   ]
 }
