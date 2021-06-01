@@ -1,10 +1,7 @@
 name: Deploy to GCP
 on:
-  workflow_run:
-    workflows: ["Run Tests"]
+  push:
     branches: [main]
-    types:
-      - completed
 jobs:
   Deploy-Client:
     runs-on: ubuntu-latest
@@ -16,6 +13,10 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install
+        working-directory: ./client
+
+      - name: Run Tests
+        run: yarn test --watchAll=false
         working-directory: ./client
 
       - name: Run Build
@@ -46,6 +47,10 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install
+        working-directory: ./server
+
+      - name: Run Tests
+        run: yarn test
         working-directory: ./server
 
       - name: Run Build
