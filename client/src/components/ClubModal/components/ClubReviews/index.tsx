@@ -1,11 +1,11 @@
-import { gql, useQuery } from "@apollo/client";
-import React from "react";
+import { gql, useMutation } from "@apollo/client";
+import React, { useState } from "react";
 import { Button, Card, Form, FormControl, Row } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
 
 export interface ReviewsProp {
-  clubName: string;
+  clubid: string;
   reviews: Review[];
+  updateReviews: () => void;
 }
 
 interface Review {
@@ -13,7 +13,33 @@ interface Review {
   comment: string;
 }
 
-const ClubReviews: React.FC<ReviewsProp> = ({ clubName, reviews }) => {
+const ADD_REVIEW = gql`
+  mutation NewReview(
+    $clubid: ID!
+    $reviewer: String!
+    $rating: Int!
+    $comment: String
+  ) {
+    addReview(
+      review: {
+        clubid: $clubid
+        reviewer: $reviewer
+        rating: $rating
+        comment: $comment
+      }
+    )
+  }
+`;
+
+const ClubReviews: React.FC<ReviewsProp> = ({
+  clubid,
+  reviews,
+  updateReviews,
+}) => {
+  const [addReview] = useMutation(ADD_REVIEW);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+
   return (
     <>
       <h4>{`Ratings & Reviews`}</h4>
@@ -21,21 +47,36 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubName, reviews }) => {
         inline
         onSubmit={(e) => {
           e.preventDefault();
+          addReview({
+            variables: {
+              clubid,
+              reviewer: "Anonymous",
+              rating,
+              comment,
+            },
+          });
+          updateReviews();
+          setRating(5);
+          setComment("");
         }}
       >
         <FormControl
           type="number"
           placeholder="rating"
           className="mr-lg-1"
-          value={""}
-          onChange={() => {}}
+          value={rating.toString()}
+          onChange={(e) => {
+            setRating(parseInt(e.target.value));
+          }}
         />
         <FormControl
           type="text"
           placeholder="comment"
           className="mr-lg-2"
-          value={""}
-          onChange={() => {}}
+          value={comment}
+          onChange={(e) => {
+            setComment(e.target.value);
+          }}
         />
         <Button variant="outline-success" type="submit">
           Submit

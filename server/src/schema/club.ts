@@ -8,7 +8,7 @@ const clubSchema = gql`
 
   extend type Mutation {
     addClub(clubInfo: ClubInfo!): Club
-    addReview(review: newReview!): Int
+    addReview(review: NewReview!): Int
   }
 
   type Club {
@@ -30,7 +30,7 @@ const clubSchema = gql`
     description: String
   }
 
-  input newReview {
+  input NewReview {
     clubid: ID!
     reviewer: String!
     rating: Int!

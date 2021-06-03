@@ -16,6 +16,7 @@ const GET_CLUB_INFO = gql`
       id
       clubname
       rating
+      description
       reviews {
         rating
         comment
@@ -25,7 +26,7 @@ const GET_CLUB_INFO = gql`
 `;
 
 const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
-  const { loading, error, data } = useQuery(GET_CLUB_INFO, {
+  const { loading, error, data, refetch } = useQuery(GET_CLUB_INFO, {
     variables: { clubname: clubName },
   });
 
@@ -35,23 +36,20 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
   if (loading) body = <p>Loading...</p>;
   else if (error) body = <p>Error! {error.message}</p>;
   else {
-    const { rating, reviews } = data.club;
+    const { rating, description, reviews, id } = data.club;
 
     body = (
       <Container>
         <p>Ratings: {rating ? `${rating} / 5` : `No ratings yet`}</p>
         <h4>Description</h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a
-          mauris lorem. Ut pulvinar dictum eros, sit amet varius sem porttitor
-          eu. Phasellus vestibulum nibh quis posuere semper. Pellentesque at
-          libero purus. Aliquam faucibus felis a diam bibendum, eget elementum
-          massa porta. Praesent luctus, orci non congue consectetur, nisi ante
-          egestas felis, vitae semper tellus tellus id tortor. Donec metus nisi,
-          venenatis pharetra varius id, tincidunt sed neque. Phasellus faucibus
-          mi eget libero maximus egestas.
-        </p>
-        <ClubReviews clubName={clubName} reviews={reviews} />
+        <p>{description}</p>
+        <ClubReviews
+          clubid={id}
+          reviews={reviews}
+          updateReviews={() => {
+            refetch();
+          }}
+        />
       </Container>
     );
   }
