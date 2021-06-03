@@ -10,6 +10,7 @@ const clubSchema = new Schema({
     trim: true,
     minlength: 3,
   },
+  description: String,
   reviews: [{ rating: Number, comment: String }],
 });
 

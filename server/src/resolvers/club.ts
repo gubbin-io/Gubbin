@@ -5,9 +5,10 @@ const clubResolvers = {
   Query: {
     clubs: async () => {
       const clubs = await Club.find();
-      return clubs.map(({ clubname, reviews, _id }: any) => ({
+      return clubs.map(({ clubname, reviews, description, _id }: any) => ({
         clubname,
         id: _id,
+        description,
         reviews,
       }));
     },
@@ -18,6 +19,7 @@ const clubResolvers = {
       return {
         clubname: club.clubname,
         id: club._id,
+        description: club.description,
         reviews: club.reviews,
       };
     },
@@ -26,19 +28,34 @@ const clubResolvers = {
   Mutation: {
     addClub: async (
       parent: any,
-      { clubInfo: { clubname } }: any,
+      { clubInfo: { clubname, description } }: any,
       context: any
     ) => {
-      const newClub = new Club({ clubname });
+      const newClub = new Club({ clubname, description });
       const { _id, clubname: newClubname } = await newClub.save();
 
       return {
         club: {
           id: _id,
           clubname: newClubname,
+          description,
           reviews: [],
         },
       };
+    },
+
+    addReview: async (
+      parent: any,
+      { review: { clubid, reviewer, rating, comment } }: any,
+      context: any
+    ) => {
+      const updated = await Club.updateOne(
+        { _id: clubid },
+        { $push: { reviews: { reviewer, rating, comment } } }
+      );
+
+      //
+      return updated.ok;
     },
   },
 
@@ -50,8 +67,7 @@ const clubResolvers = {
       if (!parent.reviews || parent.reviews.length == 0) return undefined;
 
       const ratingss = parent.reviews.map((review: any) => review.rating);
-      const result = average(ratingss);
-      return result;
+      return average(ratingss);
     },
   },
 };
