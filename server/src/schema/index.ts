@@ -1,29 +1,14 @@
 import { gql } from "apollo-server";
+import userSchema from "./user";
+import clubSchema from "./club";
 
-const schema = gql`
+const linkSchema = gql`
   type Query {
-    users: [User]
+    _: Boolean
   }
-
   type Mutation {
-    register(userInfo: UserInfo!): RegisterResponse!
-    login(userInfo: UserInfo!): Boolean!
-  }
-
-  type User {
-    id: ID!
-    username: String!
-    firstLetterOfUsername: String!
-  }
-  type RegisterResponse {
-    user: User
-  }
-
-  input UserInfo {
-    username: String!
-    password: String!
-    age: Int
+    _: Boolean
   }
 `;
 
-export default schema;
+export default [linkSchema, userSchema, clubSchema];

@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import User from "./User";
-import MyButton from "./Button";
+import ClubCard from "./ClubCard";
 import useStyles from "./style";
 import { Container, Row } from "react-bootstrap";
+import ClubModal from "./ClubModal";
 
-const GET_USERS = gql`
+const GET_CLUBS = gql`
   query {
-    users {
+    clubs {
       id
-      username
-      firstLetterOfUsername
+      clubname
+      rating
     }
   }
 `;
@@ -18,24 +18,31 @@ const GET_USERS = gql`
 function App() {
   useStyles();
 
-  const { loading, error, data } = useQuery(GET_USERS);
+  const { loading, error, data } = useQuery(GET_CLUBS);
+  const [show, setShow] = useState(false);
+  const [modalClubName, setModalClubName] =
+    useState<string | undefined>(undefined);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
+  const showModalClub = (clubname: string) => {
+    setModalClubName(clubname);
+    setShow(true);
+  };
+
   return (
-    <Container>
+    <Container className="p-3">
+      <ClubModal show={show} setShow={setShow} clubName={modalClubName} />
       <Row>
-        {data.users.map(({ username, id, firstLetterOfUsername }: any) => (
-          <User
+        {data.clubs.map(({ clubname, rating, id }: any) => (
+          <ClubCard
             key={id}
-            firstLetter={firstLetterOfUsername}
-            username={username}
-            id={id}
+            clubname={clubname}
+            rating={rating}
+            onClick={() => showModalClub(clubname)}
           />
         ))}
-      </Row>
-      <Row>
-        <MyButton> JSS demo </MyButton>
       </Row>
     </Container>
   );
