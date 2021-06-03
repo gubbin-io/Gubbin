@@ -1,12 +1,14 @@
+import { assertValidExecutionArguments } from "graphql/execution/execute";
 import Club from "../models/club";
 
 const clubResolvers = {
   Query: {
     clubs: async () => {
       const clubs = await Club.find();
-      return clubs.map(({ clubname, _id }: any) => ({
+      return clubs.map(({ clubname, reviews, _id }: any) => ({
         clubname,
         id: _id,
+        reviews,
       }));
     },
 
@@ -37,6 +39,19 @@ const clubResolvers = {
           reviews: [],
         },
       };
+    },
+  },
+
+  Club: {
+    rating: (parent: any) => {
+      const average = (arr: any[]) =>
+        arr.reduce((p: any, c: any) => p + c, 0) / arr.length;
+
+      if (!parent.reviews || parent.reviews.length == 0) return undefined;
+
+      const ratingss = parent.reviews.map((review: any) => review.rating);
+      const result = average(ratingss);
+      return result;
     },
   },
 };

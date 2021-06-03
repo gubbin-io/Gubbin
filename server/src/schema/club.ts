@@ -14,6 +14,7 @@ const clubSchema = gql`
     id: ID!
     clubname: String!
     reviews: [Review]
+    rating: Float
   }
 
   type Review {
