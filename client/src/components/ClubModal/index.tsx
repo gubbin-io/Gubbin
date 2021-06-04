@@ -10,7 +10,7 @@ export interface ClubModalProp {
   setShow: (a: boolean) => void;
 }
 
-const GET_CLUB_INFO = gql`
+export const GET_CLUB_INFO = gql`
   query Club($clubname: String!) {
     club(clubname: $clubname) {
       id
@@ -26,7 +26,7 @@ const GET_CLUB_INFO = gql`
 `;
 
 const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
-  const { loading, error, data, refetch } = useQuery(GET_CLUB_INFO, {
+  const { loading, error, data } = useQuery(GET_CLUB_INFO, {
     variables: { clubname: clubName },
   });
 
@@ -43,13 +43,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
         <p>Ratings: {rating ? `${rating} / 5` : `No ratings yet`}</p>
         <h4>Description</h4>
         <p>{description}</p>
-        <ClubReviews
-          clubid={id}
-          reviews={reviews}
-          updateReviews={() => {
-            refetch();
-          }}
-        />
+        <ClubReviews clubid={id} clubName={clubName} reviews={reviews} />
       </Container>
     );
   }
