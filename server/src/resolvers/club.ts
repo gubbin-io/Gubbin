@@ -66,8 +66,11 @@ const clubResolvers = {
 
       if (!parent.reviews || parent.reviews.length == 0) return undefined;
 
-      const ratingss = parent.reviews.map((review: any) => review.rating);
-      return average(ratingss);
+      const ratings = parent.reviews.map((review: any) => review.rating);
+      const averageRating = average(ratings);
+      const rounded = (Math.round(averageRating * 10) / 10).toFixed(1);
+
+      return rounded;
     },
   },
 };
