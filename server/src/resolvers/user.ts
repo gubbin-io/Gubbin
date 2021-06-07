@@ -12,11 +12,7 @@ const userResolvers = {
   },
 
   Mutation: {
-    register: async (
-      parent: any,
-      { userInfo: { username } }: any,
-      context: any
-    ) => {
+    register: async (_: any, { userInfo: { username } }: any) => {
       const newUser = new User({ username });
       const { _id, username: newUsername } = await newUser.save();
 
