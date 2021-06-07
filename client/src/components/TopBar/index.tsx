@@ -12,12 +12,8 @@ const TopBar: React.FC<TopBarProp> = () => {
   return (
     <Navbar sticky="top" expand="lg" variant="light" className={classes.navbar}>
       <Container fluid className={classes.container}>
-        <Navbar.Brand href="#home" className={classes.brand}>
-          <img
-            src="./brand-icon.svg"
-            className={classes.brandIcon}
-            alt="Logo"
-          />
+        <Navbar.Brand href="/" className={classes.brand}>
+          <img src="./brand-icon.svg" className={classes.icon} alt="Logo" />
         </Navbar.Brand>
       </Container>
     </Navbar>

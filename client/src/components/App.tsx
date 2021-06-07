@@ -1,15 +1,24 @@
 import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import ExplorePage from "./ExplorePage";
+import SideBar from "./SideBar";
 import useStyles from "./style";
 import TopBar from "./TopBar";
 
 function App() {
-  useStyles();
+  const classes = useStyles();
 
   return (
     <>
       <TopBar />
-      <ExplorePage />
+      <Container fluid>
+        <Row className="flex-xl-nowrap">
+          <SideBar />
+          <Col md={9} xl={10} xs={12} as="main">
+            <ExplorePage />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
