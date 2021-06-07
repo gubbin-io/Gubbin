@@ -5,7 +5,7 @@ const useStyles = createUseStyles({
     body: {
       margin: "0",
       fontFamily:
-        '"Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",\n    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",\n    "Helvetica Neue", sans-serif',
+        'Inter, "Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",\n    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",\n    "Helvetica Neue", sans-serif',
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
     },

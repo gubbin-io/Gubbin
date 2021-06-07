@@ -2,12 +2,9 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ExplorePage from "./ExplorePage";
 import SideBar from "./SideBar";
-import useStyles from "./style";
 import TopBar from "./TopBar";
 
 function App() {
-  const classes = useStyles();
-
   return (
     <>
       <TopBar />
