@@ -18,7 +18,7 @@ const useStyles = createUseStyles((theme: any) => ({
   outerContainer: {
     display: `grid`,
     height: `calc(100vh - 53px)`,
-    gridTemplateColumns: `256px auto`,
+    gridTemplateColumns: `240px auto`,
   },
 }));
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "react-jss";
 import useStyles from "./style";
-import { Col, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { EyeFill, GridFill, PeopleFill } from "react-bootstrap-icons";
 
 export interface SideBarProp {}
