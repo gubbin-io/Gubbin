@@ -1,50 +1,16 @@
-import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-import ClubCard from "./ClubCard";
+import React from "react";
+import ExplorePage from "./ExplorePage";
 import useStyles from "./style";
-import { Container, Row } from "react-bootstrap";
-import ClubModal from "./ClubModal";
-
-const GET_CLUBS = gql`
-  query {
-    clubs {
-      id
-      clubname
-      rating
-    }
-  }
-`;
+import TopBar from "./TopBar";
 
 function App() {
   useStyles();
 
-  const { loading, error, data } = useQuery(GET_CLUBS);
-  const [show, setShow] = useState(false);
-  const [modalClubName, setModalClubName] =
-    useState<string | undefined>(undefined);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error! {error.message}</p>;
-
-  const showModalClub = (clubname: string) => {
-    setModalClubName(clubname);
-    setShow(true);
-  };
-
   return (
-    <Container className="p-3">
-      <ClubModal show={show} setShow={setShow} clubName={modalClubName} />
-      <Row>
-        {data.clubs.map(({ clubname, rating, id }: any) => (
-          <ClubCard
-            key={id}
-            clubname={clubname}
-            rating={rating}
-            onClick={() => showModalClub(clubname)}
-          />
-        ))}
-      </Row>
-    </Container>
+    <>
+      <TopBar />
+      <ExplorePage />
+    </>
   );
 }
 
