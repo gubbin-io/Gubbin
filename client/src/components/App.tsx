@@ -1,23 +1,23 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import ExplorePage from "./ExplorePage";
+import DiscoverPage from "./DiscoverPage";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
+import { useTheme } from "react-jss";
+import useStyles from "./style";
 
-function App() {
+const App: React.FC<any> = () => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
+
   return (
     <>
       <TopBar />
-      <Container fluid>
-        <Row className="flex-xl-nowrap">
-          <SideBar />
-          <Col md={9} xl={10} xs={12} as="main">
-            <ExplorePage />
-          </Col>
-        </Row>
-      </Container>
+      <div className={classes.outerContainer}>
+        <SideBar />
+        <DiscoverPage />
+      </div>
     </>
   );
-}
+};
 
 export default App;
