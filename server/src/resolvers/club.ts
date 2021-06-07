@@ -1,5 +1,6 @@
 import { UserInputError } from "apollo-server-errors";
 import Club from "../models/club";
+import avgRating from "./utils";
 
 const clubResolvers = {
   Query: {
@@ -62,14 +63,7 @@ const clubResolvers = {
 
   Club: {
     rating: (parent: any) => {
-      if (!parent.reviews || parent.reviews.length == 0) return undefined;
-
-      const ratings = parent.reviews.map((review: any) => review.rating);
-      const averageRating =
-        ratings.reduce((p: number, c: number) => p + c, 0) / ratings.length;
-      const rounded = (Math.round(averageRating * 10) / 10).toFixed(1);
-
-      return rounded;
+      return avgRating(parent.reviews);
     },
   },
 };
