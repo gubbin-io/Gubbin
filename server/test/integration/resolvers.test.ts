@@ -16,6 +16,10 @@ const server = new ApolloServer({
   resolvers,
 });
 
+afterAll(() => {
+  db.close();
+});
+
 describe("can add and query clubs correctly", function () {
   beforeEach(async () => {
     await db.collection("clubs").deleteMany({});
