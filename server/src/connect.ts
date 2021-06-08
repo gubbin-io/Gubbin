@@ -11,6 +11,8 @@ function connectDB(uri: any) {
   db.once("open", function () {
     console.log("mongoDB connected");
   });
+
+  return db;
 }
 
 export default connectDB;
