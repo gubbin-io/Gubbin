@@ -33,20 +33,23 @@ const ClubHeader: React.FC<ClubHeaderProp> = ({
           className={classes.backgroundImage}
         />
       </div>
-
+      {/* Top right options pane for a modal */}
       <div className={classes.options}>
         <Button onClick={onHide} className={classes.closeButton}>
           <XCircleFill size={20} />
         </Button>
       </div>
+      {/* Club icon - wrapped in a hovering box */}
       <div className={classes.iconBox}>
         <img src={iconUrl} alt="club_icon" className={classes.icon} />
       </div>
+      {/* Club name and tag line */}
       <div className={classes.details}>
         <span className={classes.clubName}>{clubName}</span>
         <br />
         <span className={classes.tagline}>{tagline}</span>
       </div>
+      {/* Join club button */}
       <div className={classes.join}>
         <Button className={classes.joinButton}>Join</Button>
       </div>

@@ -8,7 +8,6 @@ const theme = {
   activeHover: "#343A40",
   separator: "#CED4DA",
   radius: "8px",
-  colorPrimary: "green",
 };
 
 export default theme;
