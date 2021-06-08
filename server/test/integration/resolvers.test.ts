@@ -109,6 +109,19 @@ describe("can add and query clubs correctly", function () {
     expect(first.errors).toBeUndefined();
     expect(second.errors).toEqual(expect.any(Array));
   });
+
+  it("cannot add club with description more than 30 characters", async () => {
+    const addClub = await server.executeOperation({
+      query: ADD_CLUB,
+      variables: {
+        clubname: "Skiing",
+        description: "this is too longgggggggggggggggggggggggggg",
+        about: "this is short",
+      },
+    });
+
+    expect(addClub.errors).toEqual(expect.any(Array));
+  });
 });
 
 describe("can add and query reviews correctly", function () {
