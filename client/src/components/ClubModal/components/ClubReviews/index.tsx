@@ -1,36 +1,14 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Button, Card, Form, FormControl, Row } from "react-bootstrap";
-import { GET_CLUB_INFO } from "../..";
+import { GET_CLUB_INFO, ADD_REVIEW } from "../../../../constants/queries";
+import { Review } from "../../../../constants/types";
 
 export interface ReviewsProp {
   clubid: string;
   clubName: string;
   reviews: Review[];
 }
-
-interface Review {
-  rating: number;
-  comment: string;
-}
-
-const ADD_REVIEW = gql`
-  mutation NewReview(
-    $clubid: ID!
-    $reviewer: String!
-    $rating: Int!
-    $comment: String
-  ) {
-    addReview(
-      review: {
-        clubid: $clubid
-        reviewer: $reviewer
-        rating: $rating
-        comment: $comment
-      }
-    )
-  }
-`;
 
 const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
   const [addReview] = useMutation(ADD_REVIEW, {
@@ -82,10 +60,14 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
           Submit
         </Button>
       </Form>
-
       {reviews.map(({ rating, comment }) => (
         <Row>
-          <Card style={{ marginTop: "1rem", width: "100%" }}>
+          <Card
+            style={{
+              marginTop: "1rem",
+              width: "100%",
+            }}
+          >
             <Card.Body>
               <Card.Title>Anonymous</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">

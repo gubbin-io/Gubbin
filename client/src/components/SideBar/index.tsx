@@ -1,5 +1,4 @@
 import React from "react";
-import { useTheme } from "react-jss";
 import useStyles from "./style";
 import { Form, Button } from "react-bootstrap";
 import { EyeFill, GridFill, PeopleFill } from "react-bootstrap-icons";
@@ -7,8 +6,7 @@ import { EyeFill, GridFill, PeopleFill } from "react-bootstrap-icons";
 export interface SideBarProp {}
 
 const SideBar: React.FC<SideBarProp> = () => {
-  const theme = useTheme();
-  const classes = useStyles({ theme });
+  const classes = useStyles();
 
   return (
     <div className={classes.sidebar}>

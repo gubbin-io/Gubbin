@@ -1,13 +1,11 @@
 import React from "react";
 import useStyles from "./style";
 import { Container, Navbar } from "react-bootstrap";
-import { useTheme } from "react-jss";
 
 export interface TopBarProp {}
 
 const TopBar: React.FC<TopBarProp> = () => {
-  const theme = useTheme();
-  const classes = useStyles({ theme });
+  const classes = useStyles();
 
   return (
     <Navbar sticky="top" expand="lg" variant="light" className={classes.navbar}>
