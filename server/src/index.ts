@@ -6,7 +6,7 @@ import resolvers from "./resolvers";
 import connectDB from "./connect";
 
 dotenv.config();
-connectDB(process.env.DEV_DB_URI);
+connectDB(process.env.DB_URI);
 
 const server = new ApolloServer({
   typeDefs: schema,
