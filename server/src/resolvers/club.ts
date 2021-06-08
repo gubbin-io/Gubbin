@@ -8,11 +8,21 @@ const clubResolvers = {
       const clubs = await Club.find();
 
       return clubs.map(
-        ({ clubname, reviews, description, about, _id }: any) => ({
+        ({
+          clubname,
+          reviews,
+          description,
+          about,
+          logo_uri,
+          background_uri,
+          _id,
+        }: any) => ({
           clubname,
           id: _id,
           description,
           about,
+          logo_uri,
+          background_uri,
           reviews,
         })
       );
@@ -29,6 +39,8 @@ const clubResolvers = {
         description: club.description,
         about: club.about,
         reviews: club.reviews,
+        logo_uri: club.logo_uri,
+        background_uri: club.background_uri,
       };
     },
   },

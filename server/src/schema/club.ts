@@ -16,6 +16,8 @@ const clubSchema = gql`
     description: String!
     about: String
     clubname: String!
+    logo_uri: String
+    background_uri: String
     reviews: [Review]
     rating: Float
   }
