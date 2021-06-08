@@ -7,16 +7,19 @@ const clubResolvers = {
     clubs: async () => {
       const clubs = await Club.find();
 
-      return clubs.map(({ clubname, reviews, description, _id }: any) => ({
-        clubname,
-        id: _id,
-        description,
-        reviews,
-      }));
+      return clubs.map(
+        ({ clubname, reviews, description, about, _id }: any) => ({
+          clubname,
+          id: _id,
+          description,
+          about,
+          reviews,
+        })
+      );
     },
 
-    club: async (_: any, { clubname }: any) => {
-      const club = await Club.findOne({ clubname });
+    club: async (_: any, { clubid }: any) => {
+      const club = await Club.findOne({ _id: clubid });
 
       if (!club) return undefined;
 
@@ -24,24 +27,29 @@ const clubResolvers = {
         clubname: club.clubname,
         id: club._id,
         description: club.description,
+        about: club.about,
         reviews: club.reviews,
       };
     },
   },
 
   Mutation: {
-    addClub: async (_: any, { clubInfo: { clubname, description } }: any) => {
+    addClub: async (
+      _: any,
+      { clubInfo: { clubname, description, about } }: any
+    ) => {
       const club = await Club.findOne({ clubname });
       if (club)
         throw new UserInputError(`Duplicated club name \"${clubname}\".`);
 
-      const newClub = new Club({ clubname, description, reviews: [] });
+      const newClub = new Club({ clubname, description, about, reviews: [] });
       const { _id, clubname: newClubname } = await newClub.save();
 
       return {
         id: _id,
         clubname: newClubname,
         description,
+        about,
         reviews: [],
       };
     },

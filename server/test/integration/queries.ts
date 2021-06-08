@@ -1,20 +1,29 @@
 import { gql } from "apollo-server";
 
 const ADD_CLUB = gql`
-  mutation addClub($clubname: String!, $description: String!) {
-    addClub(clubInfo: { clubname: $clubname, description: $description }) {
+  mutation addClub($clubname: String!, $description: String!, $about: String) {
+    addClub(
+      clubInfo: {
+        clubname: $clubname
+        description: $description
+        about: $about
+      }
+    ) {
       id
       clubname
+      description
+      about
     }
   }
 `;
 
 const GET_CLUB = gql`
-  query club($clubname: String!) {
-    club(clubname: $clubname) {
+  query club($clubid: ID!) {
+    club(clubid: $clubid) {
       id
       clubname
       description
+      about
       reviews {
         rating
         comment

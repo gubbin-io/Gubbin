@@ -51,18 +51,29 @@ describe("can add and query clubs correctly", function () {
   it("can add and query one club", async () => {
     const addClub = await server.executeOperation({
       query: ADD_CLUB,
-      variables: { clubname: "Skiing", description: "A place to ski" },
+      variables: {
+        clubname: "Skiing",
+        description: "A place to ski",
+        about: "A very long description\n for skiing",
+      },
     });
 
     expect(addClub.errors).toBeUndefined();
+    const clubid = addClub.data?.addClub.id;
+
+    console.log(JSON.stringify(addClub.data));
 
     const club = await server.executeOperation({
       query: GET_CLUB,
-      variables: { clubname: "Skiing" },
+      variables: { clubid: clubid },
     });
 
+    console.log(JSON.stringify(club.data));
+
     expect(club.errors).toBeUndefined();
+    expect(club.data?.club.clubname).toBe("Skiing");
     expect(club.data?.club.description).toBe("A place to ski");
+    expect(club.data?.club.about).toBe("A very long description\n for skiing");
   });
 
   it("can query multiple clubs", async () => {
@@ -78,12 +89,14 @@ describe("can add and query clubs correctly", function () {
 
     const clubs = await server.executeOperation({
       query: GET_CLUBS,
-      variables: { clubname: "Skiing" },
     });
 
     expect(clubs.errors).toBeUndefined();
     expect(clubs.data?.clubs.length).toBe(2);
+    expect(clubs.data?.clubs[0].clubname).toBe("Skiing");
     expect(clubs.data?.clubs[0].description).toBe("A place to ski");
+    expect(clubs.data?.clubs[1].clubname).toBe("Hiking");
+    expect(clubs.data?.clubs[1].description).toBe("A place to hike");
   });
 
   it("cannot add the same slub repetitively", async () => {
@@ -146,7 +159,7 @@ describe("can add and query reviews correctly", function () {
 
     const reviews = await server.executeOperation({
       query: GET_CLUB,
-      variables: { clubname: "Skiing" },
+      variables: { clubid: skiid },
     });
 
     expect(reviews.errors).toBeUndefined();
