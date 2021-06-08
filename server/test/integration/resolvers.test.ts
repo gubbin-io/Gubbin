@@ -16,13 +16,36 @@ const server = new ApolloServer({
   resolvers,
 });
 
-afterAll(() => {
+async function removeAllCollections() {
+  for (const [_, document] of Object.entries(db.collections)) {
+    await document.deleteMany({});
+  }
+}
+
+async function dropAllCollections() {
+  for (const [_, document] of Object.entries(db.collections)) {
+    try {
+      await document.drop();
+    } catch (error) {
+      // Sometimes this error happens, but you can safely ignore it
+      if (error.message === "ns not found") return;
+      // This error occurs when you use it.todo. You can
+      // safely ignore this error too
+      if (error.message.includes("a background operation is currently running"))
+        return;
+      console.log(error.message);
+    }
+  }
+}
+
+afterAll(async () => {
+  await dropAllCollections();
   db.close();
 });
 
 describe("can add and query clubs correctly", function () {
   beforeEach(async () => {
-    await db.collection("clubs").deleteMany({});
+    await removeAllCollections();
   });
 
   it("can add and query one club", async () => {
