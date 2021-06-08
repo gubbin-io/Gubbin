@@ -42,6 +42,11 @@ const clubResolvers = {
       if (club)
         throw new UserInputError(`Duplicated club name \"${clubname}\".`);
 
+      if (description.length > 30)
+        throw new UserInputError(
+          "Shot description exceeds 30 characters limit"
+        );
+
       const newClub = new Club({ clubname, description, about, reviews: [] });
       const { _id, clubname: newClubname } = await newClub.save();
 

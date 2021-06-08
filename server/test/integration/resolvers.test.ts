@@ -61,14 +61,10 @@ describe("can add and query clubs correctly", function () {
     expect(addClub.errors).toBeUndefined();
     const clubid = addClub.data?.addClub.id;
 
-    console.log(JSON.stringify(addClub.data));
-
     const club = await server.executeOperation({
       query: GET_CLUB,
       variables: { clubid: clubid },
     });
-
-    console.log(JSON.stringify(club.data));
 
     expect(club.errors).toBeUndefined();
     expect(club.data?.club.clubname).toBe("Skiing");
