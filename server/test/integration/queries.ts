@@ -26,6 +26,7 @@ const GET_CLUB = gql`
       about
       reviews {
         rating
+        title
         comment
         commentTime
       }
@@ -49,6 +50,7 @@ const ADD_REVIEW = gql`
     $clubId: ID!
     $reviewer: String!
     $rating: Int!
+    $title: String!
     $comment: String
     $commentTime: Date
   ) {
@@ -57,6 +59,7 @@ const ADD_REVIEW = gql`
         clubId: $clubId
         reviewer: $reviewer
         rating: $rating
+        title: $title
         comment: $comment
         commentTime: $commentTime
       }

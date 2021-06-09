@@ -46,12 +46,12 @@ const clubResolvers = {
         description: club.description,
         about: club.about,
         reviews: club.reviews.map(
-          ({ _id, reviewer, rating, comment, commentTime }: any) => ({
+          ({ _id, reviewer, rating, title, comment, commentTime }: any) => ({
             id: _id,
             reviewer,
             rating,
+            title,
             comment,
-            // commentTime: new Date(commentTime),
             commentTime,
           })
         ),
@@ -105,7 +105,7 @@ const clubResolvers = {
 
     addReview: async (
       _: any,
-      { review: { clubId, reviewer, rating, comment, commentTime } }: any
+      { review: { clubId, reviewer, rating, title, comment, commentTime } }: any
     ) => {
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
 
@@ -116,8 +116,8 @@ const clubResolvers = {
             reviews: {
               reviewer,
               rating,
+              title,
               comment,
-              // commentTime: commentTime.getTime(),
               commentTime,
             },
           },
