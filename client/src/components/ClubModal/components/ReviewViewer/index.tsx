@@ -13,23 +13,27 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
 
   return (
     <>
-      {reviews.map(({ rating, comment, id }) => (
-        <Card className={classes.reviewCard} key={id}>
-          <Card.Body className={classes.reviewBody}>
-            <div className={classes.bodyHeader}>
-              <div className={classes.headerLeft}>
-                <span className={classes.largeText}>Interesting Title</span>
-                <StarBox score={rating} />
+      {reviews
+        .filter(({ title }) => title)
+        .map(({ id, rating, title, comment, commentTime }) => (
+          <Card className={classes.reviewCard} key={id}>
+            <Card.Body className={classes.reviewBody}>
+              <div className={classes.bodyHeader}>
+                <div className={classes.headerLeft}>
+                  <span className={classes.largeText}>{title}</span>
+                  <StarBox score={rating} />
+                </div>
+                <div className={classes.headerRight}>
+                  <span className={classes.smallText}>
+                    {new Date(commentTime).toLocaleString()}
+                  </span>
+                  <span className={classes.mediumText}>Anonymous</span>
+                </div>
               </div>
-              <div className={classes.headerRight}>
-                <span className={classes.smallText}>Date</span>
-                <span className={classes.mediumText}>Anonymous</span>
-              </div>
-            </div>
-            <Card.Text>{comment}</Card.Text>
-          </Card.Body>
-        </Card>
-      ))}
+              <Card.Text>{comment}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
     </>
   );
 };

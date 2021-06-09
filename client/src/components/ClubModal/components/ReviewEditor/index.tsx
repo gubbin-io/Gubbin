@@ -35,6 +35,7 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
               clubId,
               reviewer: "Anonymous",
               rating,
+              title,
               comment,
             },
           });

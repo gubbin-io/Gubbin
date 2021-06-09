@@ -105,7 +105,7 @@ const clubResolvers = {
 
     addReview: async (
       _: any,
-      { review: { clubId, reviewer, rating, title, comment, commentTime } }: any
+      { review: { clubId, reviewer, rating, title, comment } }: any
     ) => {
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
 
@@ -118,7 +118,7 @@ const clubResolvers = {
               rating,
               title,
               comment,
-              commentTime,
+              commentTime: new Date(),
             },
           },
         }

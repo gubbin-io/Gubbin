@@ -30,7 +30,7 @@ const clubSchema = gql`
     id: ID!
     reviewer: User!
     rating: Int!
-    title: String!
+    title: String
     comment: String
     commentTime: Date
   }
@@ -49,9 +49,8 @@ const clubSchema = gql`
     clubId: ID!
     reviewer: String!
     rating: Int!
-    title: String!
+    title: String
     comment: String
-    commentTime: Date
   }
 `;
 
