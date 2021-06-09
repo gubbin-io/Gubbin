@@ -1,20 +1,29 @@
 import { gql } from "apollo-server";
 
 const ADD_CLUB = gql`
-  mutation addClub($clubname: String!, $description: String!) {
-    addClub(clubInfo: { clubname: $clubname, description: $description }) {
+  mutation addClub($clubName: String!, $description: String!, $about: String) {
+    addClub(
+      clubInfo: {
+        clubName: $clubName
+        description: $description
+        about: $about
+      }
+    ) {
       id
-      clubname
+      clubName
+      description
+      about
     }
   }
 `;
 
 const GET_CLUB = gql`
-  query club($clubname: String!) {
-    club(clubname: $clubname) {
+  query club($clubId: ID!) {
+    club(clubId: $clubId) {
       id
-      clubname
+      clubName
       description
+      about
       reviews {
         rating
         comment
@@ -28,7 +37,7 @@ const GET_CLUBS = gql`
   query clubs {
     clubs {
       id
-      clubname
+      clubName
       description
     }
   }
@@ -36,14 +45,14 @@ const GET_CLUBS = gql`
 
 const ADD_REVIEW = gql`
   mutation addReview(
-    $clubid: ID!
+    $clubId: ID!
     $reviewer: String!
     $rating: Int!
     $comment: String
   ) {
     addReview(
       review: {
-        clubid: $clubid
+        clubId: $clubId
         reviewer: $reviewer
         rating: $rating
         comment: $comment

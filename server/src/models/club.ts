@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const clubSchema = new Schema({
-  clubname: {
+  clubName: {
     type: String,
     require: true,
     unique: true,
@@ -11,6 +11,11 @@ const clubSchema = new Schema({
     minlength: 3,
   },
   description: String,
+  numMembers: Number,
+  themeColor: String,
+  about: String,
+  logoUri: String,
+  backgroundUri: String,
   reviews: [{ rating: Number, comment: String }],
 });
 

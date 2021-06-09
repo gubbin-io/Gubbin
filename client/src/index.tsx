@@ -6,7 +6,7 @@ import { ApolloProvider } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "react-jss";
 import { client } from "./constants/routes";
-import theme from "./theme";
+import theme from "./constants/theme";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
