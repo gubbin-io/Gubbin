@@ -37,7 +37,7 @@ const ClubBody: React.FC<ClubBodyProp> = ({
         />
         {/* Main Content of Tab */}
         <Col className={classes.contentColumn}>
-          <Tab.Content className={classes.contentTab}>
+          <Tab.Content>
             <Tab.Pane eventKey="first">
               <h4>About</h4>
               <hr />

@@ -58,7 +58,13 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubid, reviews }) => {
         </Button>
       </Form>
       {reviews.map(({ rating, comment, id }) => (
-        <Row key={id}>
+        <Row
+          key={id}
+          style={{
+            marginLeft: 0,
+            marginRight: 0,
+          }}
+        >
           <Card
             style={{
               marginTop: "1rem",

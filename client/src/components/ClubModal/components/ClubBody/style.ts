@@ -6,6 +6,7 @@ const useStyles = createUseStyles((theme: any) => ({
     overflowY: `scroll`,
     height: "100%",
     marginRight: "4px",
+    paddingRight: "7px",
     scrollbarWidth: "thin",
     scrollbarColor: `${theme.background} ${theme.background}`,
     "&::-webkit-scrollbar": {
@@ -24,10 +25,6 @@ const useStyles = createUseStyles((theme: any) => ({
     "&:hover::-webkit-scrollbar-thumb": {
       backgroundColor: `${theme.separator}`,
     },
-  },
-  contentTab: {
-    marginRight: "8px",
-    marginLeft: "8px",
   },
 }));
 
