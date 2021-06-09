@@ -16,30 +16,60 @@ const server = new ApolloServer({
   resolvers,
 });
 
-afterAll(() => {
+async function removeAllCollections() {
+  for (const [_, document] of Object.entries(db.collections)) {
+    await document.deleteMany({});
+  }
+}
+
+async function dropAllCollections() {
+  for (const [_, document] of Object.entries(db.collections)) {
+    try {
+      await document.drop();
+    } catch (error) {
+      // Sometimes this error happens, but you can safely ignore it
+      if (error.message === "ns not found") return;
+      // This error occurs when you use it.todo. You can
+      // safely ignore this error too
+      if (error.message.includes("a background operation is currently running"))
+        return;
+      console.log(error.message);
+    }
+  }
+}
+
+afterAll(async () => {
+  await dropAllCollections();
   db.close();
 });
 
 describe("can add and query clubs correctly", function () {
   beforeEach(async () => {
-    await db.collection("clubs").deleteMany({});
+    await removeAllCollections();
   });
 
   it("can add and query one club", async () => {
     const addClub = await server.executeOperation({
       query: ADD_CLUB,
-      variables: { clubname: "Skiing", description: "A place to ski" },
+      variables: {
+        clubname: "Skiing",
+        description: "A place to ski",
+        about: "A very long description\n for skiing",
+      },
     });
 
     expect(addClub.errors).toBeUndefined();
+    const clubid = addClub.data?.addClub.id;
 
     const club = await server.executeOperation({
       query: GET_CLUB,
-      variables: { clubname: "Skiing" },
+      variables: { clubid: clubid },
     });
 
     expect(club.errors).toBeUndefined();
+    expect(club.data?.club.clubname).toBe("Skiing");
     expect(club.data?.club.description).toBe("A place to ski");
+    expect(club.data?.club.about).toBe("A very long description\n for skiing");
   });
 
   it("can query multiple clubs", async () => {
@@ -55,12 +85,14 @@ describe("can add and query clubs correctly", function () {
 
     const clubs = await server.executeOperation({
       query: GET_CLUBS,
-      variables: { clubname: "Skiing" },
     });
 
     expect(clubs.errors).toBeUndefined();
     expect(clubs.data?.clubs.length).toBe(2);
+    expect(clubs.data?.clubs[0].clubname).toBe("Skiing");
     expect(clubs.data?.clubs[0].description).toBe("A place to ski");
+    expect(clubs.data?.clubs[1].clubname).toBe("Hiking");
+    expect(clubs.data?.clubs[1].description).toBe("A place to hike");
   });
 
   it("cannot add the same slub repetitively", async () => {
@@ -76,6 +108,19 @@ describe("can add and query clubs correctly", function () {
 
     expect(first.errors).toBeUndefined();
     expect(second.errors).toEqual(expect.any(Array));
+  });
+
+  it("cannot add club with description more than 30 characters", async () => {
+    const addClub = await server.executeOperation({
+      query: ADD_CLUB,
+      variables: {
+        clubname: "Skiing",
+        description: "this is too longgggggggggggggggggggggggggg",
+        about: "this is short",
+      },
+    });
+
+    expect(addClub.errors).toEqual(expect.any(Array));
   });
 });
 
@@ -123,7 +168,7 @@ describe("can add and query reviews correctly", function () {
 
     const reviews = await server.executeOperation({
       query: GET_CLUB,
-      variables: { clubname: "Skiing" },
+      variables: { clubid: skiid },
     });
 
     expect(reviews.errors).toBeUndefined();

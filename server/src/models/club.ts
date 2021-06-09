@@ -11,6 +11,9 @@ const clubSchema = new Schema({
     minlength: 3,
   },
   description: String,
+  about: String,
+  logo_uri: String,
+  background_uri: String,
   reviews: [{ rating: Number, comment: String }],
 });
 

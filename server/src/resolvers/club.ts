@@ -7,16 +7,29 @@ const clubResolvers = {
     clubs: async () => {
       const clubs = await Club.find();
 
-      return clubs.map(({ clubname, reviews, description, _id }: any) => ({
-        clubname,
-        id: _id,
-        description,
-        reviews,
-      }));
+      return clubs.map(
+        ({
+          clubname,
+          reviews,
+          description,
+          about,
+          logo_uri,
+          background_uri,
+          _id,
+        }: any) => ({
+          clubname,
+          id: _id,
+          description,
+          about,
+          logo_uri,
+          background_uri,
+          reviews,
+        })
+      );
     },
 
-    club: async (_: any, { clubname }: any) => {
-      const club = await Club.findOne({ clubname });
+    club: async (_: any, { clubid }: any) => {
+      const club = await Club.findOne({ _id: clubid });
 
       if (!club) return undefined;
 
@@ -24,24 +37,36 @@ const clubResolvers = {
         clubname: club.clubname,
         id: club._id,
         description: club.description,
+        about: club.about,
         reviews: club.reviews,
+        logo_uri: club.logo_uri,
+        background_uri: club.background_uri,
       };
     },
   },
 
   Mutation: {
-    addClub: async (_: any, { clubInfo: { clubname, description } }: any) => {
+    addClub: async (
+      _: any,
+      { clubInfo: { clubname, description, about } }: any
+    ) => {
       const club = await Club.findOne({ clubname });
       if (club)
         throw new UserInputError(`Duplicated club name \"${clubname}\".`);
 
-      const newClub = new Club({ clubname, description, reviews: [] });
+      if (description.length > 30)
+        throw new UserInputError(
+          "Shot description exceeds 30 characters limit"
+        );
+
+      const newClub = new Club({ clubname, description, about, reviews: [] });
       const { _id, clubname: newClubname } = await newClub.save();
 
       return {
         id: _id,
         clubname: newClubname,
         description,
+        about,
         reviews: [],
       };
     },
