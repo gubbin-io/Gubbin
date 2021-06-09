@@ -28,7 +28,6 @@ const GET_CLUB = gql`
         rating
         title
         comment
-        commentTime
       }
       rating
     }
@@ -52,7 +51,6 @@ const ADD_REVIEW = gql`
     $rating: Int!
     $title: String!
     $comment: String
-    $commentTime: Date
   ) {
     addReview(
       review: {
@@ -61,7 +59,6 @@ const ADD_REVIEW = gql`
         rating: $rating
         title: $title
         comment: $comment
-        commentTime: $commentTime
       }
     )
   }

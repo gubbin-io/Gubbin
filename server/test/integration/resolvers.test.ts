@@ -155,7 +155,6 @@ describe("can add and query reviews correctly", function () {
         rating: 3,
         title: "Good",
         comment: "OK",
-        commentTime: Date.now(),
       },
     });
 
@@ -198,8 +197,6 @@ describe("can add and query reviews correctly", function () {
   });
 
   it("can add and query comment time correctly", async () => {
-    const commentTime = Date.now();
-
     await server.executeOperation({
       query: ADD_REVIEW,
       variables: {
@@ -208,7 +205,6 @@ describe("can add and query reviews correctly", function () {
         rating: 3,
         title: "Greg here",
         comment: "GOOD",
-        commentTime,
       },
     });
 
@@ -218,23 +214,5 @@ describe("can add and query reviews correctly", function () {
     });
 
     expect(reviews.errors).toBeUndefined();
-    expect(reviews.data?.club.reviews[0].commentTime).toBe(commentTime);
-  });
-
-  it("cannot submit without title", async () => {
-    const commentTime = Date.now();
-
-    const addReview = await server.executeOperation({
-      query: ADD_REVIEW,
-      variables: {
-        clubId: skiid,
-        reviewer: "Greg",
-        rating: 3,
-        comment: "GOOD",
-        commentTime,
-      },
-    });
-
-    expect(addReview.errors).toBeDefined();
   });
 });
