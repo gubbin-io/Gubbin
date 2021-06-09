@@ -15,7 +15,9 @@ export const GET_CLUB_INFO = gql`
       reviews {
         id
         rating
+        title
         comment
+        commentTime
       }
     }
   }
@@ -26,6 +28,7 @@ export const ADD_REVIEW = gql`
     $clubId: ID!
     $reviewer: String!
     $rating: Int!
+    $title: String
     $comment: String
   ) {
     addReview(
@@ -33,6 +36,7 @@ export const ADD_REVIEW = gql`
         clubId: $clubId
         reviewer: $reviewer
         rating: $rating
+        title: $title
         comment: $comment
       }
     )

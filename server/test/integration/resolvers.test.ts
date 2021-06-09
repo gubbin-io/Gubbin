@@ -128,8 +128,8 @@ describe("can add and query reviews correctly", function () {
   let skiid: any;
   let hikeid: any;
 
-  beforeAll(async () => {
-    await db.collection("clubs").deleteMany({});
+  beforeEach(async () => {
+    await removeAllCollections();
 
     skiid = (
       await server.executeOperation({
@@ -149,7 +149,14 @@ describe("can add and query reviews correctly", function () {
   it("can add one review", async () => {
     const addReview = await server.executeOperation({
       query: ADD_REVIEW,
-      variables: { clubId: skiid, reviewer: "Greg", rating: 3, comment: "OK" },
+      variables: {
+        clubId: skiid,
+        reviewer: "Greg",
+        rating: 3,
+        title: "Good",
+        comment: "OK",
+        commentTime: Date.now(),
+      },
     });
 
     expect(addReview.errors).toBeUndefined();
@@ -160,8 +167,20 @@ describe("can add and query reviews correctly", function () {
       query: ADD_REVIEW,
       variables: {
         clubId: skiid,
+        reviewer: "Greg",
+        rating: 3,
+        title: "So so",
+        comment: "OK",
+      },
+    });
+
+    await server.executeOperation({
+      query: ADD_REVIEW,
+      variables: {
+        clubId: skiid,
         reviewer: "Vuuuton",
         rating: 4,
+        title: "I am Vuuuton",
         comment: "GOOD",
       },
     });
@@ -174,6 +193,48 @@ describe("can add and query reviews correctly", function () {
     expect(reviews.errors).toBeUndefined();
     expect(reviews.data?.club.reviews.length).toBe(2);
     expect(reviews.data?.club.reviews[1].rating).toBe(4);
+    expect(reviews.data?.club.reviews[0].title).toBe("So so");
     expect(reviews.data?.club.rating).toBe(3.5);
+  });
+
+  it("can add and query comment time correctly", async () => {
+    const commentTime = Date.now();
+
+    await server.executeOperation({
+      query: ADD_REVIEW,
+      variables: {
+        clubId: skiid,
+        reviewer: "Greg",
+        rating: 3,
+        title: "Greg here",
+        comment: "GOOD",
+        commentTime,
+      },
+    });
+
+    const reviews = await server.executeOperation({
+      query: GET_CLUB,
+      variables: { clubId: skiid },
+    });
+
+    expect(reviews.errors).toBeUndefined();
+    expect(reviews.data?.club.reviews[0].commentTime).toBe(commentTime);
+  });
+
+  it("cannot submit without title", async () => {
+    const commentTime = Date.now();
+
+    const addReview = await server.executeOperation({
+      query: ADD_REVIEW,
+      variables: {
+        clubId: skiid,
+        reviewer: "Greg",
+        rating: 3,
+        comment: "GOOD",
+        commentTime,
+      },
+    });
+
+    expect(addReview.errors).toBeDefined();
   });
 });

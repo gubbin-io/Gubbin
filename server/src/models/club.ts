@@ -16,7 +16,9 @@ const clubSchema = new Schema({
   about: String,
   logoUri: String,
   backgroundUri: String,
-  reviews: [{ rating: Number, comment: String }],
+  reviews: [
+    { rating: Number, title: String, comment: String, commentTime: Date },
+  ],
 });
 
 export default mongoose.model("Club", clubSchema);

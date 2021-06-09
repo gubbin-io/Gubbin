@@ -1,5 +1,8 @@
 export interface Review {
-  rating: number;
-  comment: string;
   id: string;
+  reviewer: string;
+  rating: number;
+  title?: string;
+  comment?: string;
+  commentTime: Date;
 }

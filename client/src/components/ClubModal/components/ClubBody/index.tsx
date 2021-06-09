@@ -39,12 +39,16 @@ const ClubBody: React.FC<ClubBodyProp> = ({
         <Col className={classes.contentColumn}>
           <Tab.Content>
             <Tab.Pane eventKey="first">
-              <h4>About</h4>
-              <hr />
+              <span className={classes.sectionHeading}>{`About`}</span>
+              <hr className={classes.divider} />
               <p>{about}</p>
             </Tab.Pane>
             <Tab.Pane eventKey="second">
-              <ClubReviews clubId={clubId} reviews={reviews} />
+              <ClubReviews
+                clubId={clubId}
+                reviews={reviews}
+                clubColor={clubColor}
+              />
             </Tab.Pane>
           </Tab.Content>
         </Col>

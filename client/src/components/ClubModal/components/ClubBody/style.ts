@@ -26,6 +26,16 @@ const useStyles = createUseStyles((theme: any) => ({
       backgroundColor: `${theme.separator}`,
     },
   },
+  sectionHeading: {
+    fontWeight: 600,
+    fontSize: "24px",
+    lineHeight: "29px",
+    letterSpacing: "-1.25px",
+  },
+  divider: {
+    marginTop: "8px",
+    marginBottom: "12px",
+  },
 }));
 
 export default useStyles;
