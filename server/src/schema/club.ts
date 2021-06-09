@@ -1,6 +1,8 @@
 import { gql } from "apollo-server";
 
 const clubSchema = gql`
+  scalar Date
+
   extend type Query {
     clubs: [Club]
     club(clubId: ID): Club
@@ -29,6 +31,7 @@ const clubSchema = gql`
     reviewer: User!
     rating: Int!
     comment: String
+    commentTime: Date
   }
 
   input ClubInfo {
@@ -46,6 +49,7 @@ const clubSchema = gql`
     reviewer: String!
     rating: Int!
     comment: String
+    commentTime: Date
   }
 `;
 

@@ -1,8 +1,11 @@
 import { UserInputError } from "apollo-server-errors";
 import Club from "../models/club";
 import avgRating from "./utils";
+import dateScalar from "./datatypes";
 
 const clubResolvers = {
+  Date: dateScalar,
+
   Query: {
     clubs: async () => {
       const clubs = await Club.find();
@@ -43,11 +46,13 @@ const clubResolvers = {
         description: club.description,
         about: club.about,
         reviews: club.reviews.map(
-          ({ _id, reviewer, rating, comment }: any) => ({
+          ({ _id, reviewer, rating, comment, commentTime }: any) => ({
             id: _id,
             reviewer,
             rating,
             comment,
+            // commentTime: new Date(commentTime),
+            commentTime,
           })
         ),
         numMembers: club.numMembers,
@@ -100,13 +105,23 @@ const clubResolvers = {
 
     addReview: async (
       _: any,
-      { review: { clubId, reviewer, rating, comment } }: any
+      { review: { clubId, reviewer, rating, comment, commentTime } }: any
     ) => {
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
 
       const updated = await Club.updateOne(
         { _id: clubId },
-        { $push: { reviews: { reviewer, rating, comment } } }
+        {
+          $push: {
+            reviews: {
+              reviewer,
+              rating,
+              comment,
+              // commentTime: commentTime.getTime(),
+              commentTime,
+            },
+          },
+        }
       );
 
       return updated.ok;
