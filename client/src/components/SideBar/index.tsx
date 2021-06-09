@@ -11,7 +11,11 @@ const SideBar: React.FC<SideBarProp> = () => {
   return (
     <div className={classes.sidebar}>
       <Form.Group controlId="formSearchBar">
-        <Form.Control type="text" placeholder="Search..." />
+        <Form.Control
+          className={classes.searchBar}
+          type="text"
+          placeholder="Search..."
+        />
       </Form.Group>
       <hr />
       <Button className={classes.button}>

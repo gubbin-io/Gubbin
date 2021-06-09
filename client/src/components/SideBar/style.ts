@@ -50,6 +50,13 @@ const useStyles = createUseStyles((theme: any) => ({
     WebkitTransition: `0.2s background`,
     MozTransition: `0.2s background`,
   },
+  searchBar: {
+    borderRadius: theme.radius,
+    "&::placeholder": {
+      color: "#ADB5BD",
+      opacity: 1,
+    },
+  },
 }));
 
 export default useStyles;
