@@ -52,22 +52,22 @@ describe("can add and query clubs correctly", function () {
     const addClub = await server.executeOperation({
       query: ADD_CLUB,
       variables: {
-        clubname: "Skiing",
+        clubName: "Skiing",
         description: "A place to ski",
         about: "A very long description\n for skiing",
       },
     });
 
     expect(addClub.errors).toBeUndefined();
-    const clubid = addClub.data?.addClub.id;
+    const clubId = addClub.data?.addClub.id;
 
     const club = await server.executeOperation({
       query: GET_CLUB,
-      variables: { clubid: clubid },
+      variables: { clubId: clubId },
     });
 
     expect(club.errors).toBeUndefined();
-    expect(club.data?.club.clubname).toBe("Skiing");
+    expect(club.data?.club.clubName).toBe("Skiing");
     expect(club.data?.club.description).toBe("A place to ski");
     expect(club.data?.club.about).toBe("A very long description\n for skiing");
   });
@@ -75,12 +75,12 @@ describe("can add and query clubs correctly", function () {
   it("can query multiple clubs", async () => {
     await server.executeOperation({
       query: ADD_CLUB,
-      variables: { clubname: "Skiing", description: "A place to ski" },
+      variables: { clubName: "Skiing", description: "A place to ski" },
     });
 
     await server.executeOperation({
       query: ADD_CLUB,
-      variables: { clubname: "Hiking", description: "A place to hike" },
+      variables: { clubName: "Hiking", description: "A place to hike" },
     });
 
     const clubs = await server.executeOperation({
@@ -89,21 +89,21 @@ describe("can add and query clubs correctly", function () {
 
     expect(clubs.errors).toBeUndefined();
     expect(clubs.data?.clubs.length).toBe(2);
-    expect(clubs.data?.clubs[0].clubname).toBe("Skiing");
+    expect(clubs.data?.clubs[0].clubName).toBe("Skiing");
     expect(clubs.data?.clubs[0].description).toBe("A place to ski");
-    expect(clubs.data?.clubs[1].clubname).toBe("Hiking");
+    expect(clubs.data?.clubs[1].clubName).toBe("Hiking");
     expect(clubs.data?.clubs[1].description).toBe("A place to hike");
   });
 
   it("cannot add the same slub repetitively", async () => {
     const first = await server.executeOperation({
       query: ADD_CLUB,
-      variables: { clubname: "Skiing", description: "A place to ski" },
+      variables: { clubName: "Skiing", description: "A place to ski" },
     });
 
     const second = await server.executeOperation({
       query: ADD_CLUB,
-      variables: { clubname: "Skiing", description: "Another place to ski" },
+      variables: { clubName: "Skiing", description: "Another place to ski" },
     });
 
     expect(first.errors).toBeUndefined();
@@ -114,7 +114,7 @@ describe("can add and query clubs correctly", function () {
     const addClub = await server.executeOperation({
       query: ADD_CLUB,
       variables: {
-        clubname: "Skiing",
+        clubName: "Skiing",
         description: "this is too longgggggggggggggggggggggggggg",
         about: "this is short",
       },
@@ -134,14 +134,14 @@ describe("can add and query reviews correctly", function () {
     skiid = (
       await server.executeOperation({
         query: ADD_CLUB,
-        variables: { clubname: "Skiing", description: "A place to ski" },
+        variables: { clubName: "Skiing", description: "A place to ski" },
       })
     ).data?.addClub.id;
 
     hikeid = (
       await server.executeOperation({
         query: ADD_CLUB,
-        variables: { clubname: "Hiking", description: "A place to hike" },
+        variables: { clubName: "Hiking", description: "A place to hike" },
       })
     ).data?.addClub.id;
   });
@@ -149,7 +149,7 @@ describe("can add and query reviews correctly", function () {
   it("can add one review", async () => {
     const addReview = await server.executeOperation({
       query: ADD_REVIEW,
-      variables: { clubid: skiid, reviewer: "Greg", rating: 3, comment: "OK" },
+      variables: { clubId: skiid, reviewer: "Greg", rating: 3, comment: "OK" },
     });
 
     expect(addReview.errors).toBeUndefined();
@@ -159,7 +159,7 @@ describe("can add and query reviews correctly", function () {
     await server.executeOperation({
       query: ADD_REVIEW,
       variables: {
-        clubid: skiid,
+        clubId: skiid,
         reviewer: "Vuuuton",
         rating: 4,
         comment: "GOOD",
@@ -168,7 +168,7 @@ describe("can add and query reviews correctly", function () {
 
     const reviews = await server.executeOperation({
       query: GET_CLUB,
-      variables: { clubid: skiid },
+      variables: { clubId: skiid },
     });
 
     expect(reviews.errors).toBeUndefined();

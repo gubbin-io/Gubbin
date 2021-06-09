@@ -3,7 +3,7 @@ import { gql } from "apollo-server";
 const clubSchema = gql`
   extend type Query {
     clubs: [Club]
-    club(clubid: ID): Club
+    club(clubId: ID): Club
   }
 
   extend type Mutation {
@@ -15,9 +15,9 @@ const clubSchema = gql`
     id: ID!
     description: String!
     about: String
-    clubname: String!
-    logo_uri: String
-    background_uri: String
+    clubName: String!
+    logoUri: String
+    backgroundUri: String
     reviews: [Review]
     rating: Float
   }
@@ -30,13 +30,13 @@ const clubSchema = gql`
   }
 
   input ClubInfo {
-    clubname: String!
+    clubName: String!
     description: String!
     about: String
   }
 
   input NewReview {
-    clubid: ID!
+    clubId: ID!
     reviewer: String!
     rating: Int!
     comment: String

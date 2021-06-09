@@ -9,32 +9,32 @@ const clubResolvers = {
 
       return clubs.map(
         ({
-          clubname,
+          clubName,
           reviews,
           description,
           about,
-          logo_uri,
-          background_uri,
+          logoUri,
+          backgroundUri,
           _id,
         }: any) => ({
-          clubname,
+          clubName,
           id: _id,
           description,
           about,
-          logo_uri,
-          background_uri,
+          logoUri,
+          backgroundUri,
           reviews,
         })
       );
     },
 
-    club: async (_: any, { clubid }: any) => {
-      const club = await Club.findOne({ _id: clubid });
+    club: async (_: any, { clubId }: any) => {
+      const club = await Club.findOne({ _id: clubId });
 
       if (!club) return undefined;
 
       return {
-        clubname: club.clubname,
+        clubName: club.clubName,
         id: club._id,
         description: club.description,
         about: club.about,
@@ -46,8 +46,8 @@ const clubResolvers = {
             comment,
           })
         ),
-        logo_uri: club.logo_uri,
-        background_uri: club.background_uri,
+        logoUri: club.logoUri,
+        backgroundUri: club.backgroundUri,
       };
     },
   },
@@ -55,23 +55,23 @@ const clubResolvers = {
   Mutation: {
     addClub: async (
       _: any,
-      { clubInfo: { clubname, description, about } }: any
+      { clubInfo: { clubName, description, about } }: any
     ) => {
-      const club = await Club.findOne({ clubname });
+      const club = await Club.findOne({ clubName });
       if (club)
-        throw new UserInputError(`Duplicated club name \"${clubname}\".`);
+        throw new UserInputError(`Duplicated club name \"${clubName}\".`);
 
       if (description.length > 30)
         throw new UserInputError(
           "Shot description exceeds 30 characters limit"
         );
 
-      const newClub = new Club({ clubname, description, about, reviews: [] });
-      const { _id, clubname: newClubname } = await newClub.save();
+      const newClub = new Club({ clubName, description, about, reviews: [] });
+      const { _id, clubName: newClubname } = await newClub.save();
 
       return {
         id: _id,
-        clubname: newClubname,
+        clubName: newClubname,
         description,
         about,
         reviews: [],
@@ -80,12 +80,12 @@ const clubResolvers = {
 
     addReview: async (
       _: any,
-      { review: { clubid, reviewer, rating, comment } }: any
+      { review: { clubId, reviewer, rating, comment } }: any
     ) => {
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
 
       const updated = await Club.updateOne(
-        { _id: clubid },
+        { _id: clubId },
         { $push: { reviews: { reviewer, rating, comment } } }
       );
 

@@ -26,12 +26,12 @@ const DiscoverPage: React.FC<DiscoverPageProp> = () => {
   return (
     <div className={classes.mainContainer}>
       <Container className="p-3">
-        <ClubModal show={show} setShow={setShow} clubid={modalClubId} />
+        <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
         <Row>
-          {data.clubs.map(({ clubname, rating, id }: any) => (
+          {data.clubs.map(({ clubName, rating, id }: any) => (
             <ClubCard
               key={id}
-              clubname={clubname}
+              clubName={clubName}
               rating={rating}
               onClick={() => showModalClub(id)}
             />

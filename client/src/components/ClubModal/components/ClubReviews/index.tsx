@@ -5,13 +5,13 @@ import { GET_CLUB_INFO, ADD_REVIEW } from "../../../../constants/queries";
 import { Review } from "../../../../constants/types";
 
 export interface ReviewsProp {
-  clubid: string;
+  clubId: string;
   reviews: Review[];
 }
 
-const ClubReviews: React.FC<ReviewsProp> = ({ clubid, reviews }) => {
+const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews }) => {
   const [addReview] = useMutation(ADD_REVIEW, {
-    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubid } }],
+    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
   });
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -25,7 +25,7 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubid, reviews }) => {
           e.preventDefault();
           addReview({
             variables: {
-              clubid,
+              clubId,
               reviewer: "Anonymous",
               rating,
               comment,

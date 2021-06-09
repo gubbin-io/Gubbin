@@ -6,7 +6,7 @@ import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
 
 export interface ClubBodyProp {
-  clubid: string;
+  clubId: string;
   clubName: string;
   about: string;
   clubColor: string;
@@ -16,7 +16,7 @@ export interface ClubBodyProp {
 }
 
 const ClubBody: React.FC<ClubBodyProp> = ({
-  clubid,
+  clubId,
   clubName,
   about,
   clubColor,
@@ -44,7 +44,7 @@ const ClubBody: React.FC<ClubBodyProp> = ({
               <p>{about}</p>
             </Tab.Pane>
             <Tab.Pane eventKey="second">
-              <ClubReviews clubid={clubid} reviews={reviews} />
+              <ClubReviews clubId={clubId} reviews={reviews} />
             </Tab.Pane>
           </Tab.Content>
         </Col>

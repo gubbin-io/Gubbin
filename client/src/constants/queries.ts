@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
 
 export const GET_CLUB_INFO = gql`
-  query Club($clubid: ID!) {
-    club(clubid: $clubid) {
+  query Club($clubId: ID!) {
+    club(clubId: $clubId) {
       id
-      clubname
+      clubName
       rating
       description
       about
@@ -19,14 +19,14 @@ export const GET_CLUB_INFO = gql`
 
 export const ADD_REVIEW = gql`
   mutation NewReview(
-    $clubid: ID!
+    $clubId: ID!
     $reviewer: String!
     $rating: Int!
     $comment: String
   ) {
     addReview(
       review: {
-        clubid: $clubid
+        clubId: $clubId
         reviewer: $reviewer
         rating: $rating
         comment: $comment
@@ -39,7 +39,7 @@ export const GET_CLUBS = gql`
   query {
     clubs {
       id
-      clubname
+      clubName
       rating
     }
   }

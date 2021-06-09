@@ -8,18 +8,18 @@ import useStyles from "./style";
 
 export interface ClubModalProp {
   show: boolean;
-  clubid?: string;
+  clubId?: string;
   setShow: (a: boolean) => void;
 }
 
-const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubid }) => {
+const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
   const { loading, error, data } = useQuery(GET_CLUB_INFO, {
-    variables: { clubid },
+    variables: { clubId },
   });
 
   const classes = useStyles();
 
-  if (!clubid) return <></>;
+  if (!clubId) return <></>;
 
   let body = <></>;
   let header = <></>;
@@ -27,7 +27,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubid }) => {
   if (loading) body = <p>Loading...</p>;
   else if (error) body = <p>Error! {error.message}</p>;
   else {
-    const { id, clubname, rating, description, reviews, about } = data.club;
+    const { id, clubName, rating, description, reviews, about } = data.club;
     const bgUrl =
       "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1483&q=80";
     const iconUrl =
@@ -37,7 +37,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubid }) => {
 
     header = (
       <ClubHeader
-        clubName={clubname}
+        clubName={clubName}
         bgUrl={bgUrl}
         iconUrl={iconUrl}
         clubColor={clubColor}
@@ -48,8 +48,8 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubid }) => {
 
     body = (
       <ClubBody
-        clubid={id}
-        clubName={clubname}
+        clubId={id}
+        clubName={clubName}
         about={about}
         numMembers={numMembers}
         clubColor={clubColor}
