@@ -25,7 +25,7 @@ const useStyles = createUseStyles((theme: any) => ({
     },
   },
   modalBody: {
-    padding: `48px 16px 16px 16px`,
+    padding: `36px 16px 16px 16px`,
     height: "65%", //Note: change this based on height of header
   },
   "@media screen and (max-width: 1024px)": {

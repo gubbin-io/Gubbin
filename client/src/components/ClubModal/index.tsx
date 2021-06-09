@@ -33,6 +33,8 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
     const iconUrl =
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
     const clubColor = "#2F9E44";
+    const tagLine = "Become an Airborne Ranger!";
+    const numMembers = 190;
 
     header = (
       <ClubHeader
@@ -40,7 +42,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
         bgUrl={bgUrl}
         iconUrl={iconUrl}
         clubColor={clubColor}
-        tagline="Become an Airborne Ranger!"
+        tagline={tagLine}
         onHide={() => setShow(false)}
       />
     );
@@ -50,7 +52,8 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubName }) => {
         clubid={id}
         clubName={clubName}
         about={description}
-        numMembers={190}
+        numMembers={numMembers}
+        clubColor={clubColor}
         rating={rating}
         reviews={reviews}
       />

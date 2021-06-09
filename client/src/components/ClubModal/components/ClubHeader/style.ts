@@ -99,7 +99,7 @@ const useStyles = createUseStyles((theme: any) => ({
       fontWeight: 600,
     },
     "&:hover": {
-      backgroundColor: clubColor,
+      backgroundColor: "#343A40",
       color: "#FFFFFF",
     },
     "&:focus": {

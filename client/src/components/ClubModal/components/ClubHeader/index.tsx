@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import useStyles from "./style";
 import { Button } from "react-bootstrap";
 import { XCircleFill } from "react-bootstrap-icons";
-import { useTheme } from "react-jss";
 
 export interface ClubHeaderProp {
   clubName?: string;
@@ -21,8 +20,7 @@ const ClubHeader: React.FC<ClubHeaderProp> = ({
   clubColor,
   onHide,
 }) => {
-  const theme = useTheme();
-  const classes = useStyles({ clubColor, theme });
+  const classes = useStyles({ clubColor });
 
   return (
     <div className={classes.header}>
