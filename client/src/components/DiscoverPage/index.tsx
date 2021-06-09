@@ -1,51 +1,39 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import ClubCard from "../ClubCard";
 import { Container, Row } from "react-bootstrap";
 import ClubModal from "../ClubModal";
-import { useTheme } from "react-jss";
 import useStyles from "./style";
+import { GET_CLUBS } from "../../constants/queries";
 
 export interface DiscoverPageProp {}
 
-const GET_CLUBS = gql`
-  query {
-    clubs {
-      id
-      clubname
-      rating
-    }
-  }
-`;
-
 const DiscoverPage: React.FC<DiscoverPageProp> = () => {
-  const theme = useTheme();
-  const classes = useStyles({ theme });
+  const classes = useStyles();
 
   const { loading, error, data } = useQuery(GET_CLUBS);
   const [show, setShow] = useState(false);
-  const [modalClubName, setModalClubName] =
-    useState<string | undefined>(undefined);
+  const [modalClubId, setModalClubId] = useState<string | undefined>(undefined);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
-  const showModalClub = (clubname: string) => {
-    setModalClubName(clubname);
+  const showModalClub = (modalClubId: string) => {
+    setModalClubId(modalClubId);
     setShow(true);
   };
 
   return (
     <div className={classes.mainContainer}>
       <Container className="p-3">
-        <ClubModal show={show} setShow={setShow} clubName={modalClubName} />
+        <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
         <Row>
-          {data.clubs.map(({ clubname, rating, id }: any) => (
+          {data.clubs.map(({ clubName, rating, id }: any) => (
             <ClubCard
               key={id}
-              clubname={clubname}
+              clubName={clubName}
               rating={rating}
-              onClick={() => showModalClub(clubname)}
+              onClick={() => showModalClub(id)}
             />
           ))}
         </Row>

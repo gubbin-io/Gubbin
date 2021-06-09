@@ -7,53 +7,105 @@ const clubResolvers = {
     clubs: async () => {
       const clubs = await Club.find();
 
-      return clubs.map(({ clubname, reviews, description, _id }: any) => ({
-        clubname,
-        id: _id,
-        description,
-        reviews,
-      }));
+      return clubs.map(
+        ({
+          clubName,
+          reviews,
+          description,
+          numMembers,
+          themeColor,
+          about,
+          logoUri,
+          backgroundUri,
+          _id,
+        }: any) => ({
+          clubName,
+          id: _id,
+          description,
+          numMembers,
+          themeColor,
+          about,
+          logoUri,
+          backgroundUri,
+          reviews,
+        })
+      );
     },
 
-    club: async (_: any, { clubname }: any) => {
-      const club = await Club.findOne({ clubname });
+    club: async (_: any, { clubId }: any) => {
+      const club = await Club.findOne({ _id: clubId });
 
       if (!club) return undefined;
 
       return {
-        clubname: club.clubname,
+        clubName: club.clubName,
         id: club._id,
         description: club.description,
-        reviews: club.reviews,
+        about: club.about,
+        reviews: club.reviews.map(
+          ({ _id, reviewer, rating, comment }: any) => ({
+            id: _id,
+            reviewer,
+            rating,
+            comment,
+          })
+        ),
+        numMembers: club.numMembers,
+        themeColor: club.themeColor,
+        logoUri: club.logoUri,
+        backgroundUri: club.backgroundUri,
       };
     },
   },
 
   Mutation: {
-    addClub: async (_: any, { clubInfo: { clubname, description } }: any) => {
-      const club = await Club.findOne({ clubname });
-      if (club)
-        throw new UserInputError(`Duplicated club name \"${clubname}\".`);
-
-      const newClub = new Club({ clubname, description, reviews: [] });
-      const { _id, clubname: newClubname } = await newClub.save();
-
-      return {
-        id: _id,
-        clubname: newClubname,
+    addClub: async (_: any, data: any) => {
+      // TODO: accept files as inputs instead of URIs
+      const {
         description,
+        clubName,
+        numMembers,
+        themeColor,
+        about,
+        logoUri,
+        backgroundUri,
+      } = data.clubInfo;
+
+      // TODO: Throw checking and saving logic below into a separate components and add tests
+      const club = await Club.findOne({ clubName });
+      if (club)
+        throw new UserInputError(`Duplicated club name \"${clubName}\".`);
+
+      if (description.length > 30)
+        throw new UserInputError(
+          "Shot description exceeds 30 characters limit"
+        );
+
+      const newClub = new Club({
+        description,
+        clubName,
+        numMembers: numMembers || 0,
+        themeColor: themeColor || "#1971C2",
+        about: about || "",
+        logoUri,
+        backgroundUri,
         reviews: [],
-      };
+      });
+
+      const savedClub = await newClub.save();
+      savedClub.id = savedClub._id;
+      delete savedClub._id;
+      return savedClub;
     },
 
     addReview: async (
       _: any,
-      { review: { clubid, reviewer, rating, comment } }: any
+      { review: { clubId, reviewer, rating, comment } }: any
     ) => {
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
 
       const updated = await Club.updateOne(
-        { _id: clubid },
+        { _id: clubId },
         { $push: { reviews: { reviewer, rating, comment } } }
       );
 

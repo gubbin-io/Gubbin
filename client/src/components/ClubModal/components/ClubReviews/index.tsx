@@ -1,42 +1,17 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Button, Card, Form, FormControl, Row } from "react-bootstrap";
-import { GET_CLUB_INFO } from "../..";
+import { GET_CLUB_INFO, ADD_REVIEW } from "../../../../constants/queries";
+import { Review } from "../../../../constants/types";
 
 export interface ReviewsProp {
-  clubid: string;
-  clubName: string;
+  clubId: string;
   reviews: Review[];
 }
 
-interface Review {
-  rating: number;
-  comment: string;
-}
-
-const ADD_REVIEW = gql`
-  mutation NewReview(
-    $clubid: ID!
-    $reviewer: String!
-    $rating: Int!
-    $comment: String
-  ) {
-    addReview(
-      review: {
-        clubid: $clubid
-        reviewer: $reviewer
-        rating: $rating
-        comment: $comment
-      }
-    )
-  }
-`;
-
-const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
+const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews }) => {
   const [addReview] = useMutation(ADD_REVIEW, {
-    refetchQueries: [
-      { query: GET_CLUB_INFO, variables: { clubname: clubName } },
-    ],
+    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
   });
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -50,7 +25,7 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
           e.preventDefault();
           addReview({
             variables: {
-              clubid,
+              clubId,
               reviewer: "Anonymous",
               rating,
               comment,
@@ -82,10 +57,20 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
           Submit
         </Button>
       </Form>
-
-      {reviews.map(({ rating, comment }) => (
-        <Row>
-          <Card style={{ marginTop: "1rem", width: "100%" }}>
+      {reviews.map(({ rating, comment, id }) => (
+        <Row
+          key={id}
+          style={{
+            marginLeft: 0,
+            marginRight: 0,
+          }}
+        >
+          <Card
+            style={{
+              marginTop: "1rem",
+              width: "100%",
+            }}
+          >
             <Card.Body>
               <Card.Title>Anonymous</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">

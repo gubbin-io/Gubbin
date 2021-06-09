@@ -7,7 +7,7 @@ const theme = {
   active: "#000000",
   activeHover: "#343A40",
   separator: "#CED4DA",
-  radius: "6px",
+  radius: "8px",
 };
 
 export default theme;
