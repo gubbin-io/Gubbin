@@ -1,6 +1,6 @@
 # Gubbin
 
-Projects, Simplified.
+The best place to discover and join clubs and societies available to you.
 
 ## Conventions
 

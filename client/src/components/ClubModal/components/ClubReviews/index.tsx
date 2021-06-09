@@ -1,86 +1,51 @@
-import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { Button, Card, Form, FormControl, Row } from "react-bootstrap";
-import { GET_CLUB_INFO, ADD_REVIEW } from "../../../../constants/queries";
+import { Button } from "react-bootstrap";
 import { Review } from "../../../../constants/types";
+import ReviewEditor from "../ReviewEditor";
+import ReviewViewer from "../ReviewViewer";
+import useStyles from "./style";
+import { PenFill, CardText } from "react-bootstrap-icons";
 
 export interface ReviewsProp {
   clubId: string;
   reviews: Review[];
+  clubColor: string;
 }
 
-const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews }) => {
-  const [addReview] = useMutation(ADD_REVIEW, {
-    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
-  });
-  const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState("");
-
+const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews, clubColor }) => {
+  const classes = useStyles({ clubColor });
+  const [showViewer, setShowViewer] = useState(true);
   return (
     <>
-      <h4>{`Ratings & Reviews`}</h4>
-      <Form
-        inline
-        onSubmit={(e) => {
-          e.preventDefault();
-          addReview({
-            variables: {
-              clubId,
-              reviewer: "Anonymous",
-              rating,
-              comment,
-            },
-          });
-          setRating(5);
-          setComment("");
-        }}
-      >
-        <FormControl
-          type="number"
-          placeholder="rating"
-          className="mr-lg-1"
-          value={rating.toString()}
-          onChange={(e) => {
-            setRating(parseInt(e.target.value));
-          }}
-        />
-        <FormControl
-          type="text"
-          placeholder="comment"
-          className="mr-lg-2"
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-        />
-        <Button variant="outline-success" type="submit">
-          Submit
-        </Button>
-      </Form>
-      {reviews.map(({ rating, comment, id }) => (
-        <Row
-          key={id}
-          style={{
-            marginLeft: 0,
-            marginRight: 0,
+      <span className={classes.sectionHeading}>{`Ratings & Reviews`}</span>
+      <hr className={classes.divider} />
+      <div className={classes.something}>
+        <Button
+          className={classes.longButton}
+          onClick={() => {
+            setShowViewer(!showViewer);
           }}
         >
-          <Card
-            style={{
-              marginTop: "1rem",
-              width: "100%",
-            }}
-          >
-            <Card.Body>
-              <Card.Title>Anonymous</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {rating} / 5
-              </Card.Subtitle>
-              <Card.Text>{comment}</Card.Text>
-            </Card.Body>
-          </Card>
-        </Row>
-      ))}
+          {showViewer ? (
+            <PenFill className={classes.icon} size={20} />
+          ) : (
+            <CardText className={classes.icon} size={20} />
+          )}
+          {showViewer ? `Post Review` : `View Reviews`}
+        </Button>
+      </div>
+
+      {showViewer ? (
+        <ReviewViewer reviews={reviews} />
+      ) : (
+        <ReviewEditor
+          clubId={clubId}
+          clubColor={clubColor}
+          showReviews={() => {
+            setShowViewer(true);
+          }}
+        />
+      )}
     </>
   );
 };
