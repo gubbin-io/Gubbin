@@ -22,6 +22,10 @@ const useStyles = createUseStyles((theme: any) => ({
       borderColor: `${clubColor}7F`,
       boxShadow: `0 0 0 0.2rem ${clubColor}7F !important`,
     },
+    "&::placeholder": {
+      color: "#ADB5BD",
+      opacity: 1,
+    },
   }),
   reviewField: ({ clubColor }: any) => ({
     width: "100%",
@@ -30,6 +34,10 @@ const useStyles = createUseStyles((theme: any) => ({
     "&:focus": {
       borderColor: `${clubColor}7F`,
       boxShadow: `0 0 0 0.2rem ${clubColor}7F !important`,
+    },
+    "&::placeholder": {
+      color: "#ADB5BD",
+      opacity: 1,
     },
   }),
   submitButton: ({ clubColor }: any) => ({
