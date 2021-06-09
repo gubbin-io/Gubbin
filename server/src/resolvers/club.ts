@@ -38,7 +38,14 @@ const clubResolvers = {
         id: club._id,
         description: club.description,
         about: club.about,
-        reviews: club.reviews,
+        reviews: club.reviews.map(
+          ({ _id, reviewer, rating, comment }: any) => ({
+            id: _id,
+            reviewer,
+            rating,
+            comment,
+          })
+        ),
         logo_uri: club.logo_uri,
         background_uri: club.background_uri,
       };

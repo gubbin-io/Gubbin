@@ -6,15 +6,12 @@ import { Review } from "../../../../constants/types";
 
 export interface ReviewsProp {
   clubid: string;
-  clubName: string;
   reviews: Review[];
 }
 
-const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
+const ClubReviews: React.FC<ReviewsProp> = ({ clubid, reviews }) => {
   const [addReview] = useMutation(ADD_REVIEW, {
-    refetchQueries: [
-      { query: GET_CLUB_INFO, variables: { clubname: clubName } },
-    ],
+    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubid } }],
   });
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
@@ -60,8 +57,8 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubid, clubName, reviews }) => {
           Submit
         </Button>
       </Form>
-      {reviews.map(({ rating, comment }) => (
-        <Row>
+      {reviews.map(({ rating, comment, id }) => (
+        <Row key={id}>
           <Card
             style={{
               marginTop: "1rem",

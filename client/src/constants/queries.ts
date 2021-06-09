@@ -1,13 +1,15 @@
 import { gql } from "@apollo/client";
 
 export const GET_CLUB_INFO = gql`
-  query Club($clubname: String!) {
-    club(clubname: $clubname) {
+  query Club($clubid: ID!) {
+    club(clubid: $clubid) {
       id
       clubname
       rating
       description
+      about
       reviews {
+        id
         rating
         comment
       }

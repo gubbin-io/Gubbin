@@ -44,11 +44,7 @@ const ClubBody: React.FC<ClubBodyProp> = ({
               <p>{about}</p>
             </Tab.Pane>
             <Tab.Pane eventKey="second">
-              <ClubReviews
-                clubid={clubid}
-                clubName={clubName}
-                reviews={reviews}
-              />
+              <ClubReviews clubid={clubid} reviews={reviews} />
             </Tab.Pane>
           </Tab.Content>
         </Col>

@@ -23,6 +23,7 @@ const clubSchema = gql`
   }
 
   type Review {
+    id: ID!
     reviewer: User!
     rating: Int!
     comment: String

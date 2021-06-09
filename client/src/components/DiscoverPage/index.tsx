@@ -13,28 +13,27 @@ const DiscoverPage: React.FC<DiscoverPageProp> = () => {
 
   const { loading, error, data } = useQuery(GET_CLUBS);
   const [show, setShow] = useState(false);
-  const [modalClubName, setModalClubName] =
-    useState<string | undefined>(undefined);
+  const [modalClubId, setModalClubId] = useState<string | undefined>(undefined);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
-  const showModalClub = (clubname: string) => {
-    setModalClubName(clubname);
+  const showModalClub = (modalClubId: string) => {
+    setModalClubId(modalClubId);
     setShow(true);
   };
 
   return (
     <div className={classes.mainContainer}>
       <Container className="p-3">
-        <ClubModal show={show} setShow={setShow} clubName={modalClubName} />
+        <ClubModal show={show} setShow={setShow} clubid={modalClubId} />
         <Row>
           {data.clubs.map(({ clubname, rating, id }: any) => (
             <ClubCard
               key={id}
               clubname={clubname}
               rating={rating}
-              onClick={() => showModalClub(clubname)}
+              onClick={() => showModalClub(id)}
             />
           ))}
         </Row>
