@@ -7,7 +7,11 @@ export const GET_CLUB_INFO = gql`
       clubName
       rating
       description
+      numMembers
+      themeColor
       about
+      logoUri
+      backgroundUri
       reviews {
         id
         rating

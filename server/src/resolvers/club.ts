@@ -12,6 +12,8 @@ const clubResolvers = {
           clubName,
           reviews,
           description,
+          numMembers,
+          themeColor,
           about,
           logoUri,
           backgroundUri,
@@ -20,6 +22,8 @@ const clubResolvers = {
           clubName,
           id: _id,
           description,
+          numMembers,
+          themeColor,
           about,
           logoUri,
           backgroundUri,
@@ -46,6 +50,8 @@ const clubResolvers = {
             comment,
           })
         ),
+        numMembers: club.numMembers,
+        themeColor: club.themeColor,
         logoUri: club.logoUri,
         backgroundUri: club.backgroundUri,
       };
@@ -53,10 +59,19 @@ const clubResolvers = {
   },
 
   Mutation: {
-    addClub: async (
-      _: any,
-      { clubInfo: { clubName, description, about } }: any
-    ) => {
+    addClub: async (_: any, data: any) => {
+      // TODO: accept files as inputs instead of URIs
+      const {
+        description,
+        clubName,
+        numMembers,
+        themeColor,
+        about,
+        logoUri,
+        backgroundUri,
+      } = data.clubInfo;
+
+      // TODO: Throw checking and saving logic below into a separate components and add tests
       const club = await Club.findOne({ clubName });
       if (club)
         throw new UserInputError(`Duplicated club name \"${clubName}\".`);
@@ -66,16 +81,21 @@ const clubResolvers = {
           "Shot description exceeds 30 characters limit"
         );
 
-      const newClub = new Club({ clubName, description, about, reviews: [] });
-      const { _id, clubName: newClubname } = await newClub.save();
-
-      return {
-        id: _id,
-        clubName: newClubname,
+      const newClub = new Club({
         description,
-        about,
+        clubName,
+        numMembers: numMembers || 0,
+        themeColor: themeColor || "#1971C2",
+        about: about || "",
+        logoUri,
+        backgroundUri,
         reviews: [],
-      };
+      });
+
+      const savedClub = await newClub.save();
+      savedClub.id = savedClub._id;
+      delete savedClub._id;
+      return savedClub;
     },
 
     addReview: async (

@@ -14,6 +14,8 @@ const clubSchema = gql`
   type Club {
     id: ID!
     description: String!
+    numMembers: Int!
+    themeColor: String!
     about: String
     clubName: String!
     logoUri: String
@@ -30,9 +32,13 @@ const clubSchema = gql`
   }
 
   input ClubInfo {
-    clubName: String!
     description: String!
+    clubName: String!
+    numMembers: Int
+    themeColor: String
     about: String
+    logoUri: String
+    backgroundUri: String
   }
 
   input NewReview {
