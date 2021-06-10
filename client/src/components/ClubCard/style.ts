@@ -2,7 +2,7 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
   card: {
-    flex: "1 0 26%",
+    flex: "1 0 21%",
     borderRadius: theme.radius,
     backgroundColor: theme.inactive,
     width: "100%",
@@ -33,8 +33,10 @@ const useStyles = createUseStyles((theme: any) => ({
     flexDirection: "column",
     alignContent: "center",
     justifyContent: "left",
+    marginRight: "8px",
   },
   joinButton: {
+    flexShrink: 0,
     marginLeft: "auto",
     height: "28px",
     width: "70px",

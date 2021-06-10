@@ -1,33 +1,33 @@
-import { KnownTypeNamesRule } from "graphql";
 import React from "react";
-import { Button, Row } from "react-bootstrap";
-import { CaretRightFill } from "react-bootstrap-icons";
+import { Button } from "react-bootstrap";
+import { ArrowLeftShort } from "react-bootstrap-icons";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
 
-export interface CollectionsModuleProp {
+export interface CollectionsPageProp {
   collectionTitle: String;
-  showDivider?: boolean;
 }
 
-const CollectionsModule: React.FC<CollectionsModuleProp> = ({
+const CollectionsPage: React.FC<CollectionsPageProp> = ({
   collectionTitle,
-  showDivider = true,
 }) => {
-  const classes = useStyles({ showDivider });
+  const classes = useStyles();
   const iconURL =
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
   return (
     <>
-      <div className={classes.container}>
+      <div className={classes.mainContainer}>
         <div className={classes.header}>
-          <span className={classes.headerText}>{collectionTitle}</span>
-          <Button className={classes.expandButton}>
-            See All
-            <CaretRightFill className={classes.icon} size={16} />
+          <Button className={classes.backButton}>
+            <ArrowLeftShort className={classes.icon} size={36} />
           </Button>
+          <div className={classes.heading}>
+            <span className={classes.titleText}>{collectionTitle}</span>
+            <hr className={classes.divider} />
+          </div>
         </div>
+
         <div className={classes.body}>
           <ClubCard
             clubName="Football"
@@ -65,6 +65,12 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
             clubIconURL={iconURL}
             onClick={() => {}}
           />
+          <ClubCard
+            clubName="Beach Volleyball"
+            description="Over the net & to the ground!"
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
           <CardFiller />
           <CardFiller />
           <CardFiller />
@@ -74,4 +80,4 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
   );
 };
 
-export default CollectionsModule;
+export default CollectionsPage;

@@ -1,10 +1,10 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
-  container: {
+  container: ({ showDivider }: any) => ({
     marginTop: "20px",
-    borderBottom: `1px solid ${theme.separator}`,
-  },
+    borderBottom: showDivider ? `1px solid ${theme.separator}` : 0,
+  }),
   header: {
     display: "flex",
     alignItems: "center",
@@ -59,20 +59,26 @@ const useStyles = createUseStyles((theme: any) => ({
     marginTop: "12px",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "stretch",
     flexWrap: "wrap",
     marginBottom: "20px",
     gap: "16px",
-    "@media ( max-width: 1440px)": {
+    "@media ( max-width: 1680px)": {
+      // Three items per row
+      "& > div": {
+        flexBasis: "26%",
+      },
+    },
+    "@media ( max-width: 1280px)": {
       // Two items per row
       "& > div": {
         flexBasis: "33.3%",
       },
     },
-    "@media ( max-width: 1120px)": {
+    "@media ( max-width: 880px)": {
       // One item per row
       "& > div": {
-        flexBasis: "66.6%",
+        flexBasis: "100%",
       },
     },
   },

@@ -22,7 +22,7 @@ const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
   return (
     <div className={classes.mainContainer}>
       <CollectionsModule collectionTitle="Summer's Calling!" />
-      <CollectionsModule collectionTitle="Summer's Calling!" />
+      <CollectionsModule collectionTitle="Beat the heat." showDivider={false} />
       {/* <Row>
           {data.clubs.map(({ clubName, rating, id }: any) => (
             <ClubCard
