@@ -6,6 +6,14 @@ import TopBar from "./TopBar";
 import useStyles from "./style";
 import ClubModal from "./ClubModal";
 import CollectionsPage from "./CollectionsPage";
+import CategoriesPage from "./CategoriesPage";
+import MyClubsPage from "./MyClubsPage";
+import {
+  Switch,
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
@@ -17,23 +25,36 @@ const App: React.FC<any> = () => {
     setShow(true);
   };
 
-  const showCollectionsPage = false;
-
   return (
     <>
       <TopBar />
       <div className={classes.outerContainer}>
         <SideBar />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
-        {showCollectionsPage ? (
-          <CollectionsPage collectionTitle={"Summer Calling!"} />
-        ) : (
-          <DiscoverPage
-            showModalClub={(id) => {
-              showModalClub(id);
-            }}
-          />
-        )}
+
+        <Switch>
+          <Route path="/discover">
+            <DiscoverPage
+              showModalClub={(id) => {
+                showModalClub(id);
+              }}
+            />
+          </Route>
+          <Route path="/categories">
+            <CategoriesPage
+              showModalClub={(id) => {
+                showModalClub(id);
+              }}
+            />
+          </Route>
+          <Route path="/myclubs">
+            <MyClubsPage />
+          </Route>
+
+          <Route exact path="/">
+            <Redirect to="/discover" />;
+          </Route>
+        </Switch>
       </div>
     </>
   );

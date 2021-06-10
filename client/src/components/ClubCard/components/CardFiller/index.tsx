@@ -1,12 +1,12 @@
 import React from "react";
 import useStyles from "./style";
 
-export interface ComponentProp {}
+export interface CardFillerProp {}
 
-const Component: React.FC<ComponentProp> = ({}) => {
+const CardFiller: React.FC<CardFillerProp> = () => {
   const classes = useStyles();
 
-  return <div className={classes.emptyFiller} />;
+  return <div className={classes.emptyFiller}></div>;
 };
 
-export default Component;
+export default CardFiller;

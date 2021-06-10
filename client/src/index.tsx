@@ -7,11 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "react-jss";
 import { client } from "./constants/routes";
 import theme from "./constants/theme";
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ThemeProvider>
   </ApolloProvider>,
   document.getElementById("root")

@@ -1,6 +1,5 @@
-import { KnownTypeNamesRule } from "graphql";
 import React from "react";
-import { Button, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { CaretRightFill } from "react-bootstrap-icons";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";

@@ -1,8 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
-import ClubCard from "../ClubCard";
-import { Container, Row } from "react-bootstrap";
-import ClubModal from "../ClubModal";
 import useStyles from "./style";
 import { GET_CLUBS } from "../../constants/queries";
 import CollectionsModule from "../CollectionsModule";
