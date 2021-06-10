@@ -6,27 +6,21 @@ import ClubModal from "../ClubModal";
 import useStyles from "./style";
 import { GET_CLUBS } from "../../constants/queries";
 
-export interface DiscoverPageProp {}
+export interface DiscoverPageProp {
+  showModalClub: (id: string) => void;
+}
 
-const DiscoverPage: React.FC<DiscoverPageProp> = () => {
+const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
   const classes = useStyles();
 
   const { loading, error, data } = useQuery(GET_CLUBS);
-  const [show, setShow] = useState(false);
-  const [modalClubId, setModalClubId] = useState<string | undefined>(undefined);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
-  const showModalClub = (modalClubId: string) => {
-    setModalClubId(modalClubId);
-    setShow(true);
-  };
-
   return (
     <div className={classes.mainContainer}>
       <Container className="p-3">
-        <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
         <Row>
           {data.clubs.map(({ clubName, rating, id }: any) => (
             <ClubCard
