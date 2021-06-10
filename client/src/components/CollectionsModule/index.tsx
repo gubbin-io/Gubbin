@@ -1,0 +1,70 @@
+import React from "react";
+import { Button, Row } from "react-bootstrap";
+import { CaretRightFill } from "react-bootstrap-icons";
+import ClubCard from "../ClubCard";
+import useStyles from "./style";
+
+export interface CollectionsModuleProp {
+  collectionTitle: String;
+}
+
+const CollectionsModule: React.FC<CollectionsModuleProp> = ({
+  collectionTitle,
+}) => {
+  const classes = useStyles();
+  const iconURL =
+    "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
+  return (
+    <>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <span className={classes.headerText}>{collectionTitle}</span>
+          <Button className={classes.expandButton}>
+            See All
+            <CaretRightFill className={classes.icon} size={16} />
+          </Button>
+        </div>
+        <div className={classes.body}>
+          <ClubCard
+            clubName="Football"
+            description="Become an Airborne Ranger!"
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
+          <ClubCard
+            clubName="Hockey"
+            description="Prepping for freshers tour"
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
+          <ClubCard
+            clubName="Cricket"
+            description="Now offering free net sessions!"
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
+          <ClubCard
+            clubName="Fly Fishing"
+            description="Your weekend adventure awaits!"
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
+          <ClubCard
+            clubName="Ultimate Frisbee"
+            description="Throw. Run. Jump. Catch. Score."
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
+          <ClubCard
+            clubName="Lawn Tennis"
+            description="Courts opening soon!"
+            clubIconURL={iconURL}
+            onClick={() => {}}
+          />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CollectionsModule;

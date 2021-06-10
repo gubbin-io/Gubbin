@@ -1,22 +1,34 @@
 import React from "react";
-import { Card, Col } from "react-bootstrap";
+import { Button, Card, Col } from "react-bootstrap";
+import useStyles from "./style";
 
 export interface UserProp {
   clubName: String;
-  rating?: Number;
+  description: String;
+  clubIconURL: String;
   onClick: () => void;
 }
 
-const User: React.FC<UserProp> = ({ clubName, rating, onClick }) => {
+const User: React.FC<UserProp> = ({
+  clubName,
+  description,
+  clubIconURL,
+  onClick,
+}) => {
+  const classes = useStyles();
   return (
-    <Col md={3}>
-      <Card onClick={onClick} style={{ marginTop: "1rem", width: "100%" }}>
-        <Card.Title>{clubName}</Card.Title>
-        <Card.Body>
-          {rating ? `rating: ${rating.toString()} / 5` : "No Reviews"}
-        </Card.Body>
-      </Card>
-    </Col>
+    <Card className={classes.card} onClick={onClick}>
+      <img
+        className={classes.clubIcon}
+        src={clubIconURL.toString()}
+        alt="Club Icon"
+      ></img>
+      <div className={classes.clubDetails}>
+        <span className={classes.title}>{clubName}</span>
+        <span className={classes.tagline}>{description}</span>
+      </div>
+      <Button className={classes.joinButton}>Join</Button>
+    </Card>
   );
 };
 

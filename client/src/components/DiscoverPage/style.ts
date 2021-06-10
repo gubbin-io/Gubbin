@@ -3,6 +3,10 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles((theme: any) => ({
   mainContainer: {
     overflowY: "scroll",
+    maxWidth: "1280px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    padding: "32px 16px 32px 32px",
     "&::-webkit-scrollbar": {
       width: `16px`,
     },

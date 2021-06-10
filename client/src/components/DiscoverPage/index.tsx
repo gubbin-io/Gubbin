@@ -5,6 +5,7 @@ import { Container, Row } from "react-bootstrap";
 import ClubModal from "../ClubModal";
 import useStyles from "./style";
 import { GET_CLUBS } from "../../constants/queries";
+import CollectionsModule from "../CollectionsModule";
 
 export interface DiscoverPageProp {
   showModalClub: (id: string) => void;
@@ -20,8 +21,9 @@ const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
 
   return (
     <div className={classes.mainContainer}>
-      <Container className="p-3">
-        <Row>
+      <CollectionsModule collectionTitle="Summer's Calling!" />
+      <CollectionsModule collectionTitle="Summer's Calling!" />
+      {/* <Row>
           {data.clubs.map(({ clubName, rating, id }: any) => (
             <ClubCard
               key={id}
@@ -30,8 +32,7 @@ const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
               onClick={() => showModalClub(id)}
             />
           ))}
-        </Row>
-      </Container>
+        </Row> */}
     </div>
   );
 };
