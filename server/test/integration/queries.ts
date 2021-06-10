@@ -64,4 +64,12 @@ const ADD_REVIEW = gql`
   }
 `;
 
-export { ADD_CLUB, GET_CLUB, GET_CLUBS, ADD_REVIEW };
+const UPLOAD_LOGO = gql`
+  mutation addLogo($clubId: ID!, $content: String!) {
+    addLogo(logo: { clubId: $clubId, content: $content }) {
+      filename
+    }
+  }
+`;
+
+export { ADD_CLUB, GET_CLUB, GET_CLUBS, ADD_REVIEW, UPLOAD_LOGO };

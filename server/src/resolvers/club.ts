@@ -1,4 +1,5 @@
 import { UserInputError } from "apollo-server-errors";
+import ImageKit from "imagekit";
 import Club from "../models/club";
 import avgRating from "./utils";
 import dateScalar from "./datatypes";
@@ -125,6 +126,42 @@ const clubResolvers = {
       );
 
       return updated.ok;
+    },
+
+    addLogo: async (_: any, { logo: { clubId, content } }: any) => {
+      // console.log(logo);
+      // const { filename, mimetype, createReadStream } = await logo;
+      // console.log(filename);
+      // const stream = createReadStream();
+      // const chunks: any[] = [];
+      // const content: string = await new Promise((resolve, reject) => {
+      //   stream.on("data", (chunk: any) => chunks.push(Buffer.from(chunk)));
+      //   stream.on("error", (err: any) => reject(err));
+      //   stream.on("end", () =>
+      //     resolve(Buffer.concat(chunks).toString("base64"))
+      //   );
+      // });
+
+      // console.log(content);
+      let imagekit = new ImageKit({
+        publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
+        privateKey:
+          process.env.IMAGEKIT_PRIVATE_KEY || "PRIVATE KEY UNDEFINED IN .env",
+        urlEndpoint: "https://ik.imagekit.io/gubbin/",
+      });
+
+      imagekit.upload(
+        {
+          file: content,
+          fileName: "newfile.png",
+        },
+        function (error, result) {
+          if (error) console.log(error);
+          else console.log(result);
+        }
+      );
+      console.log("here");
+      return { filename: "newfile.png" };
     },
   },
 
