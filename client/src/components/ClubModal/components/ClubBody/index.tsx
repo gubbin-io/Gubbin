@@ -4,7 +4,6 @@ import { Review } from "../../../../constants/types";
 import ClubReviews from "../ClubReviews";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
-import { useQuery, useMutation, gql } from "@apollo/client";
 
 export interface ClubBodyProp {
   clubId: string;
@@ -14,34 +13,6 @@ export interface ClubBodyProp {
   numMembers: number;
   rating?: number;
   reviews: Review[];
-}
-
-const UPLOAD_LOGO = gql`
-  mutation addLogo($clubId: ID!, $logo: Upload!) {
-    addLogo(logoInput: { clubId: $clubId, logo: $logo }) {
-      filename
-    }
-  }
-`;
-
-function UploadLogo({ clubId }: any) {
-  const [uploadLogo] = useMutation(UPLOAD_LOGO, {
-    onCompleted: (data) => console.log(data),
-  });
-
-  console.log("here");
-
-  const handleFileChange = (e: any) => {
-    if (!e.target.files[0]) return;
-    uploadLogo({ variables: { clubId: clubId, logo: e.target.files[0] } });
-  };
-
-  return (
-    <div>
-      <h2>Upload Logo</h2>
-      <input type="file" onChange={handleFileChange} />
-    </div>
-  );
 }
 
 const ClubBody: React.FC<ClubBodyProp> = ({
@@ -71,7 +42,6 @@ const ClubBody: React.FC<ClubBodyProp> = ({
               <span className={classes.sectionHeading}>{`About`}</span>
               <hr className={classes.divider} />
               <p>{about}</p>
-              <UploadLogo clubId={clubId} />
             </Tab.Pane>
             <Tab.Pane eventKey="second">
               <ClubReviews
