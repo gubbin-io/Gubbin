@@ -1,27 +1,39 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { ArrowLeftShort } from "react-bootstrap-icons";
+import { useHistory } from "react-router-dom";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
 
 export interface CollectionsPageProp {
   collectionTitle: String;
+  showBackButton?: boolean;
 }
 
 const CollectionsPage: React.FC<CollectionsPageProp> = ({
   collectionTitle,
+  showBackButton = true,
 }) => {
   const classes = useStyles();
   const iconURL =
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
+  const history = useHistory();
+
   return (
     <>
       <div className={classes.mainContainer}>
         <div className={classes.header}>
-          <Button className={classes.backButton}>
-            <ArrowLeftShort className={classes.icon} size={36} />
-          </Button>
+          {showBackButton && (
+            <Button
+              className={classes.backButton}
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              <ArrowLeftShort className={classes.icon} size={36} />
+            </Button>
+          )}
           <div className={classes.heading}>
             <span className={classes.titleText}>{collectionTitle}</span>
             <hr className={classes.divider} />

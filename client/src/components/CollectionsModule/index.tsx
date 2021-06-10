@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { CaretRightFill } from "react-bootstrap-icons";
+import { useHistory } from "react-router";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
@@ -15,6 +16,7 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
   showDivider = true,
 }) => {
   const classes = useStyles({ showDivider });
+  const history = useHistory();
   const iconURL =
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
   return (
@@ -22,7 +24,12 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
       <div className={classes.container}>
         <div className={classes.header}>
           <span className={classes.headerText}>{collectionTitle}</span>
-          <Button className={classes.expandButton}>
+          <Button
+            className={classes.expandButton}
+            onClick={() => {
+              history.push(`/collection/${collectionTitle}`);
+            }}
+          >
             See All
             <CaretRightFill className={classes.icon} size={16} />
           </Button>

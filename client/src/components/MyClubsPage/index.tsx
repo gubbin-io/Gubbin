@@ -9,7 +9,7 @@ const MyClubsPage: React.FC<MyClubsPageProp> = ({}) => {
 
   return (
     <>
-      <CollectionsPage collectionTitle={"My Clubs"} />
+      <CollectionsPage collectionTitle={"My Clubs"} showBackButton={false} />
     </>
   );
 };
