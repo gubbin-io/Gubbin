@@ -1,21 +1,21 @@
 import React from "react";
 import CollectionsModule from "../CollectionsModule";
 
-export interface DiscoverPageProp {
+export interface CategoriesPageProp {
   showModalClub: (id: string) => void;
 }
 
-const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
+const CategoriesPage: React.FC<CategoriesPageProp> = ({ showModalClub }) => {
   return (
     <>
-      {/* Summer is calling! */}
+      {/* Sports */}
       <CollectionsModule
-        collectionID="60c24477bc2a8247244184a5"
+        collectionID="60c2a51cfc9fae915373f2b9"
         showModalClub={showModalClub}
       />
-      {/* Beat the heat! */}
+      {/* Academic */}
       <CollectionsModule
-        collectionID="60c24ba2cdbf3552fd23f897"
+        collectionID="60c2a56afc9fae915373f2ba"
         showModalClub={showModalClub}
         showDivider={false}
       />
@@ -23,4 +23,4 @@ const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
   );
 };
 
-export default DiscoverPage;
+export default CategoriesPage;

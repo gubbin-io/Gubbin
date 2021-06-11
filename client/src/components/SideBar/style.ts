@@ -33,6 +33,11 @@ const useStyles = createUseStyles((theme: any) => ({
       color: theme.invertText,
       fontWeight: `500`,
     },
+    "&.active": {
+      backgroundColor: `${theme.active} !important`,
+      color: theme.invertText,
+      fontWeight: `500  !important`,
+    },
     "&:hover": {
       backgroundColor: theme.inactiveHover,
       color: theme.text,
