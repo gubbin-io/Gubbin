@@ -9,6 +9,7 @@ import CategoriesPage from "./CategoriesPage";
 import MyClubsPage from "./MyClubsPage";
 import { Switch, Route, Redirect } from "react-router-dom";
 import CollectionsPage from "./CollectionsPage";
+import { Container } from "react-bootstrap";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
@@ -27,7 +28,7 @@ const App: React.FC<any> = () => {
         <SideBar />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
 
-        <div className={classes.mainContainer}>
+        <Container className={classes.mainContainer}>
           <Switch>
             <Route path="/discover">
               <DiscoverPage
@@ -67,7 +68,7 @@ const App: React.FC<any> = () => {
               <Redirect to="/discover" />;
             </Route>
           </Switch>
-        </div>
+        </Container>
       </div>
     </>
   );

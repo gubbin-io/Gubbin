@@ -1,7 +1,4 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-import useStyles from "./style";
-import { GET_CLUBS } from "../../constants/queries";
 import CollectionsModule from "../CollectionsModule";
 
 export interface CategoriesPageProp {
@@ -9,8 +6,6 @@ export interface CategoriesPageProp {
 }
 
 const CategoriesPage: React.FC<CategoriesPageProp> = ({ showModalClub }) => {
-  const classes = useStyles();
-
   return (
     <>
       {/* Sports */}

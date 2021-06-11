@@ -21,10 +21,10 @@ const useStyles = createUseStyles((theme: any) => ({
     gridTemplateColumns: `240px auto`,
   },
   mainContainer: {
+    display: "flex",
+    flexDirection: "column",
     overflowY: "scroll",
     maxWidth: "1440px",
-    marginLeft: "auto",
-    marginRight: "auto",
     padding: "32px 16px 32px 32px",
     "&::-webkit-scrollbar": {
       width: `16px`,

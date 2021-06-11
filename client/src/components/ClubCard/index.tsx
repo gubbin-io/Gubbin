@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import { useQuery } from "@apollo/client";
 import React from "react";
 import { Button, Card } from "react-bootstrap";

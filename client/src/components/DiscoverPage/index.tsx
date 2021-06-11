@@ -1,7 +1,4 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-import useStyles from "./style";
-import { GET_CLUBS } from "../../constants/queries";
 import CollectionsModule from "../CollectionsModule";
 
 export interface DiscoverPageProp {
@@ -9,8 +6,6 @@ export interface DiscoverPageProp {
 }
 
 const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
-  const classes = useStyles();
-
   return (
     <>
       {/* Summer is calling! */}

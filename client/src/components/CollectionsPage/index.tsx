@@ -20,8 +20,6 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
   showModalClub,
 }) => {
   const classes = useStyles();
-  const iconURL =
-    "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
   const history = useHistory();
 
   const { loading, error, data } = useQuery(GET_CLUB_COLLECTION, {
