@@ -3,6 +3,7 @@ import ImageKit from "imagekit";
 import Club from "../models/club";
 import avgRating from "./utils";
 import dateScalar from "./datatypes";
+import club from "../models/club";
 
 const clubResolvers = {
   Date: dateScalar,
@@ -20,7 +21,9 @@ const clubResolvers = {
           themeColor,
           about,
           logoUri,
+          logoUriThumbnail,
           backgroundUri,
+          backgroundUriThumbnail,
           _id,
         }: any) => ({
           clubName,
@@ -30,7 +33,9 @@ const clubResolvers = {
           themeColor,
           about,
           logoUri,
+          logoUriThumbnail,
           backgroundUri,
+          backgroundUriThumbnail,
           reviews,
         })
       );
@@ -128,40 +133,37 @@ const clubResolvers = {
       return updated.ok;
     },
 
-    addLogo: async (_: any, { logo: { clubId, content } }: any) => {
-      // console.log(logo);
-      // const { filename, mimetype, createReadStream } = await logo;
-      // console.log(filename);
-      // const stream = createReadStream();
-      // const chunks: any[] = [];
-      // const content: string = await new Promise((resolve, reject) => {
-      //   stream.on("data", (chunk: any) => chunks.push(Buffer.from(chunk)));
-      //   stream.on("error", (err: any) => reject(err));
-      //   stream.on("end", () =>
-      //     resolve(Buffer.concat(chunks).toString("base64"))
-      //   );
-      // });
-
-      // console.log(content);
-      let imagekit = new ImageKit({
+    updateLogo: async (_: any, { logo: { clubId, content } }: any) => {
+      const imagekit = new ImageKit({
         publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
         privateKey:
           process.env.IMAGEKIT_PRIVATE_KEY || "PRIVATE KEY UNDEFINED IN .env",
         urlEndpoint: "https://ik.imagekit.io/gubbin/",
       });
 
+      const filename: string = Date.now().toString();
       imagekit.upload(
         {
           file: content,
-          fileName: "newfile.png",
+          fileName: filename,
+          folder: "club_logo",
+          tags: clubId.toString(),
         },
-        function (error, result) {
-          if (error) console.log(error);
-          else console.log(result);
+        async (error, result) => {
+          if (error) throw error;
+          else {
+            const updated = await Club.updateOne(
+              { _id: clubId },
+              {
+                logoUri: result?.url,
+                logoUriThumbnail: result?.thumbnailUrl,
+                logoFileId: result?.fileId,
+              }
+            );
+          }
+          return { uri: result?.url, thumbnailUri: result?.thumbnailUrl };
         }
       );
-      console.log("here");
-      return { filename: "newfile.png" };
     },
   },
 

@@ -2,7 +2,6 @@ import { gql } from "apollo-server";
 
 const clubSchema = gql`
   scalar Date
-  # scalar Upload
 
   extend type Query {
     clubs: [Club]
@@ -12,7 +11,7 @@ const clubSchema = gql`
   extend type Mutation {
     addClub(clubInfo: ClubInfo!): Club
     addReview(review: NewReview!): Int
-    addLogo(logo: LogoInput!): File
+    updateLogo(logo: LogoInput!): ReturnImage
   }
 
   type Club {
@@ -37,8 +36,9 @@ const clubSchema = gql`
     commentTime: Date
   }
 
-  type File {
-    filename: String!
+  type ReturnImage {
+    uri: String!
+    thumbnailUri: String!
   }
 
   input ClubInfo {

@@ -10,7 +10,7 @@ import {
   GET_CLUB,
   GET_CLUBS,
   ADD_REVIEW,
-  UPLOAD_LOGO,
+  UPDATE_LOGO,
 } from "./queries";
 
 dotenv.config();
@@ -221,45 +221,5 @@ describe("can add and query reviews correctly", function () {
     });
 
     expect(reviews.errors).toBeUndefined();
-  });
-});
-
-describe("can add and query reviews correctly", function () {
-  let skiid: any;
-  let hikeid: any;
-
-  beforeEach(async () => {
-    await removeAllCollections();
-
-    skiid = (
-      await server.executeOperation({
-        query: ADD_CLUB,
-        variables: { clubName: "Skiing", description: "A place to ski" },
-      })
-    ).data?.addClub.id;
-
-    hikeid = (
-      await server.executeOperation({
-        query: ADD_CLUB,
-        variables: { clubName: "Hiking", description: "A place to hike" },
-      })
-    ).data?.addClub.id;
-  });
-
-  it("can add one logo", async () => {
-    await fs.readFile(
-      "/Users/haopengluo/drp/Gubbin/server/test/integration/image.png",
-      "base64",
-      async (err, data) => {
-        if (err) throw err; // Fail if the file can't be read.
-        await server.executeOperation({
-          query: UPLOAD_LOGO,
-          variables: {
-            clubId: skiid,
-            content: data,
-          },
-        });
-      }
-    );
   });
 });
