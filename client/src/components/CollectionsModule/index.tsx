@@ -1,33 +1,44 @@
+import { useQuery } from "@apollo/client";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { CaretRightFill } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
+import { GET_CLUB_COLLECTION } from "../../constants/queries";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
 
 export interface CollectionsModuleProp {
-  collectionTitle: String;
+  collectionID: String;
   showDivider?: boolean;
 }
 
 const CollectionsModule: React.FC<CollectionsModuleProp> = ({
-  collectionTitle,
+  collectionID,
   showDivider = true,
 }) => {
   const classes = useStyles({ showDivider });
   const history = useHistory();
+  const { loading, error, data } = useQuery(GET_CLUB_COLLECTION, {
+    variables: { collectionId: collectionID },
+  });
+
+  if (loading) return <></>;
+  if (error) return <p>`Error! ${error}`</p>;
+
   const iconURL =
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/soccer-ball_26bd.png";
   return (
     <>
       <div className={classes.container}>
         <div className={classes.header}>
-          <span className={classes.headerText}>{collectionTitle}</span>
+          <span className={classes.headerText}>
+            {data.clubCollection.collectionName}
+          </span>
           <Button
             className={classes.expandButton}
             onClick={() => {
-              history.push(`/collection/${collectionTitle}`);
+              history.push(`/collection/${collectionID}`);
             }}
           >
             See All

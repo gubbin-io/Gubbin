@@ -11,25 +11,15 @@ export interface DiscoverPageProp {
 const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(GET_CLUBS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error! {error.message}</p>;
-
   return (
     <div className={classes.mainContainer}>
-      <CollectionsModule collectionTitle="Summer's Calling!" />
-      <CollectionsModule collectionTitle="Beat the heat." showDivider={false} />
-      {/* <Row>
-          {data.clubs.map(({ clubName, rating, id }: any) => (
-            <ClubCard
-              key={id}
-              clubName={clubName}
-              rating={rating}
-              onClick={() => showModalClub(id)}
-            />
-          ))}
-        </Row> */}
+      {/* Summer is calling! */}
+      <CollectionsModule collectionID="60c24477bc2a8247244184a5" />
+      {/* Beat the heat! */}
+      <CollectionsModule
+        collectionID="60c24ba2cdbf3552fd23f897"
+        showDivider={false}
+      />
     </div>
   );
 };

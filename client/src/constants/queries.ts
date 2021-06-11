@@ -52,3 +52,13 @@ export const GET_CLUBS = gql`
     }
   }
 `;
+
+export const GET_CLUB_COLLECTION = gql`
+  query ($collectionId: ID!) {
+    clubCollection(collectionId: $collectionId) {
+      collectionId
+      collectionName
+      clubs
+    }
+  }
+`;

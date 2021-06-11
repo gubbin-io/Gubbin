@@ -49,11 +49,9 @@ const App: React.FC<any> = () => {
           <Route
             path="/collection/:id"
             render={({ match }) => {
-              return <CollectionsPage collectionTitle={match.params.id} />;
+              return <CollectionsPage collectionID={match.params.id} />;
             }}
           />
-
-          <Route></Route>
 
           <Route exact path="/">
             <Redirect to="/discover" />;

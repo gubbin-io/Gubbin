@@ -8,7 +8,8 @@ const clubCollectionResolvers = {
       return collections.map(({ _id, collectionName, clubs }: any) => ({
         collectionId: _id,
         collectionName,
-        clubs,
+        // TODO: return full clubs here, refactor code so that its possible?
+        clubs: clubs.map(({ clubId }: any) => clubId),
       }));
     },
 
@@ -20,7 +21,8 @@ const clubCollectionResolvers = {
       return {
         collectionId: collection._id,
         collectionName: collection.collectionName,
-        clubs: collection.clubs,
+        // TODO: return full clubs here, refactor code so that its possible?
+        clubs: collection.clubs.map(({ clubId }: any) => clubId),
       };
     },
   },

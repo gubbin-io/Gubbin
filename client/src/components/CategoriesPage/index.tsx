@@ -18,8 +18,13 @@ const CategoriesPage: React.FC<CategoriesPageProp> = ({ showModalClub }) => {
 
   return (
     <div className={classes.mainContainer}>
-      <CollectionsModule collectionTitle="Sports" />
-      <CollectionsModule collectionTitle="Acedemic" showDivider={false} />
+      {/* Sports */}
+      <CollectionsModule collectionID="60c2a51cfc9fae915373f2b9" />
+      {/* Academic */}
+      <CollectionsModule
+        collectionID="60c2a56afc9fae915373f2ba"
+        showDivider={false}
+      />
     </div>
   );
 };
