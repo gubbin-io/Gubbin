@@ -1,24 +1,6 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
-  mainContainer: {
-    overflowY: "scroll",
-    maxWidth: "1440px",
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: "32px 16px 32px 32px",
-    "&::-webkit-scrollbar": {
-      width: `16px`,
-    },
-    "&::-webkit-scrollbar-track": {
-      background: `${theme.background}`,
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: `${theme.separator}`,
-      borderRadius: "8px",
-      border: `4px solid ${theme.background}`,
-    },
-  },
   titleText: {
     fontWeight: 500,
     fontSize: "24px",
@@ -30,6 +12,7 @@ const useStyles = createUseStyles((theme: any) => ({
     gap: "16px",
     alignItems: "flex-start",
     justifyContent: "flex-start",
+    width: "100%",
   },
   heading: {
     display: "flex",
@@ -39,7 +22,7 @@ const useStyles = createUseStyles((theme: any) => ({
   body: {
     marginTop: "12px",
     display: "flex",
-    justifyContent: "left",
+    justifyContent: "space-between",
     alignItems: "stretch",
     flexWrap: "wrap",
     marginBottom: "20px",
@@ -62,10 +45,6 @@ const useStyles = createUseStyles((theme: any) => ({
         flexBasis: "100%",
       },
     },
-  },
-  emptyFiller: {
-    flex: "1 0 21%",
-    height: 0,
   },
   divider: { marginTop: "8px", marginBottom: "8px", width: "100%" },
   backButton: {

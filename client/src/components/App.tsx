@@ -27,36 +27,47 @@ const App: React.FC<any> = () => {
         <SideBar />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
 
-        <Switch>
-          <Route path="/discover">
-            <DiscoverPage
-              showModalClub={(id) => {
-                showModalClub(id);
+        <div className={classes.mainContainer}>
+          <Switch>
+            <Route path="/discover">
+              <DiscoverPage
+                showModalClub={(id) => {
+                  showModalClub(id);
+                }}
+              />
+            </Route>
+            <Route path="/categories">
+              <CategoriesPage
+                showModalClub={(id) => {
+                  showModalClub(id);
+                }}
+              />
+            </Route>
+            <Route path="/myclubs">
+              <MyClubsPage
+                showModalClub={(id) => {
+                  showModalClub(id);
+                }}
+              />
+            </Route>
+
+            <Route
+              path="/collection/:id"
+              render={({ match }) => {
+                return (
+                  <CollectionsPage
+                    collectionID={match.params.id}
+                    showModalClub={showModalClub}
+                  />
+                );
               }}
             />
-          </Route>
-          <Route path="/categories">
-            <CategoriesPage
-              showModalClub={(id) => {
-                showModalClub(id);
-              }}
-            />
-          </Route>
-          <Route path="/myclubs">
-            <MyClubsPage />
-          </Route>
 
-          <Route
-            path="/collection/:id"
-            render={({ match }) => {
-              return <CollectionsPage collectionID={match.params.id} />;
-            }}
-          />
-
-          <Route exact path="/">
-            <Redirect to="/discover" />;
-          </Route>
-        </Switch>
+            <Route exact path="/">
+              <Redirect to="/discover" />;
+            </Route>
+          </Switch>
+        </div>
       </div>
     </>
   );

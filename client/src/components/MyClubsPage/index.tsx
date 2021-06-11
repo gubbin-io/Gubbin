@@ -2,19 +2,19 @@ import React from "react";
 import CollectionsPage from "../CollectionsPage";
 import useStyles from "./style";
 
-export interface MyClubsPageProp {}
+export interface MyClubsPageProp {
+  showModalClub: (id: string) => void;
+}
 
-const MyClubsPage: React.FC<MyClubsPageProp> = ({}) => {
+const MyClubsPage: React.FC<MyClubsPageProp> = ({ showModalClub }) => {
   const classes = useStyles();
 
   return (
-    <>
-      {/* My Clubs */}
-      <CollectionsPage
-        collectionID="60c2a579fc9fae915373f2bb"
-        showBackButton={false}
-      />
-    </>
+    <CollectionsPage
+      collectionID="60c2a579fc9fae915373f2bb"
+      showBackButton={false}
+      showModalClub={showModalClub}
+    />
   );
 };
 

@@ -11,11 +11,13 @@ import useStyles from "./style";
 export interface CollectionsPageProp {
   collectionID: String;
   showBackButton?: boolean;
+  showModalClub: (id: string) => void;
 }
 
 const CollectionsPage: React.FC<CollectionsPageProp> = ({
   collectionID,
   showBackButton = true,
+  showModalClub,
 }) => {
   const classes = useStyles();
   const iconURL =
@@ -31,73 +33,38 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
 
   return (
     <>
-      <div className={classes.mainContainer}>
-        <div className={classes.header}>
-          {showBackButton && (
-            <Button
-              className={classes.backButton}
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              <ArrowLeftShort className={classes.icon} size={36} />
-            </Button>
-          )}
-          <div className={classes.heading}>
-            <span className={classes.titleText}>
-              {data.clubCollection.collectionName}
-            </span>
-            <hr className={classes.divider} />
-          </div>
+      <div className={classes.header}>
+        {showBackButton && (
+          <Button
+            className={classes.backButton}
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <ArrowLeftShort className={classes.icon} size={36} />
+          </Button>
+        )}
+        <div className={classes.heading}>
+          <span className={classes.titleText}>
+            {data.clubCollection.collectionName}
+          </span>
+          <hr className={classes.divider} />
         </div>
+      </div>
 
-        <div className={classes.body}>
+      <div className={classes.body}>
+        {data.clubCollection.clubs.map((club: string) => (
           <ClubCard
-            clubName="Football"
-            description="Become an Airborne Ranger!"
-            clubIconURL={iconURL}
-            onClick={() => {}}
+            clubID={club}
+            key={club}
+            onClick={() => showModalClub(club)}
           />
-          <ClubCard
-            clubName="Hockey"
-            description="Prepping for freshers tour"
-            clubIconURL={iconURL}
-            onClick={() => {}}
-          />
-          <ClubCard
-            clubName="Cricket"
-            description="Now offering free net sessions!"
-            clubIconURL={iconURL}
-            onClick={() => {}}
-          />
-          <ClubCard
-            clubName="Fly Fishing"
-            description="Your weekend adventure awaits!"
-            clubIconURL={iconURL}
-            onClick={() => {}}
-          />
-          <ClubCard
-            clubName="Ultimate Frisbee"
-            description="Throw. Run. Jump. Catch. Score."
-            clubIconURL={iconURL}
-            onClick={() => {}}
-          />
-          <ClubCard
-            clubName="Lawn Tennis"
-            description="Courts opening soon!"
-            clubIconURL={iconURL}
-            onClick={() => {}}
-          />
-          <ClubCard
-            clubName="Beach Volleyball"
-            description="Over the net & to the ground!"
-            clubIconURL={iconURL}
-            onClick={() => {}}
-          />
-          <CardFiller />
-          <CardFiller />
-          <CardFiller />
-        </div>
+        ))}
+        <CardFiller />
+        <CardFiller />
+        <CardFiller />
+        <CardFiller />
+        <CardFiller />
       </div>
     </>
   );

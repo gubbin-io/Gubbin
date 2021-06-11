@@ -23,6 +23,18 @@ export const GET_CLUB_INFO = gql`
   }
 `;
 
+export const GET_CLUB_CARD = gql`
+  query Club($clubId: ID!) {
+    club(clubId: $clubId) {
+      id
+      clubName
+      description
+      themeColor
+      logoUri
+    }
+  }
+`;
+
 export const ADD_REVIEW = gql`
   mutation NewReview(
     $clubId: ID!

@@ -2,7 +2,7 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
   container: ({ showDivider }: any) => ({
-    marginTop: "20px",
+    marginBottom: "20px",
     borderBottom: showDivider ? `1px solid ${theme.separator}` : 0,
   }),
   header: {

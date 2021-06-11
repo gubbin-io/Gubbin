@@ -11,21 +11,20 @@ export interface CategoriesPageProp {
 const CategoriesPage: React.FC<CategoriesPageProp> = ({ showModalClub }) => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(GET_CLUBS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error! {error.message}</p>;
-
   return (
-    <div className={classes.mainContainer}>
+    <>
       {/* Sports */}
-      <CollectionsModule collectionID="60c2a51cfc9fae915373f2b9" />
+      <CollectionsModule
+        collectionID="60c2a51cfc9fae915373f2b9"
+        showModalClub={showModalClub}
+      />
       {/* Academic */}
       <CollectionsModule
         collectionID="60c2a56afc9fae915373f2ba"
+        showModalClub={showModalClub}
         showDivider={false}
       />
-    </div>
+    </>
   );
 };
 

@@ -35,7 +35,7 @@ const useStyles = createUseStyles((theme: any) => ({
     justifyContent: "left",
     marginRight: "8px",
   },
-  joinButton: {
+  joinButton: ({ clubColor }: any) => ({
     flexShrink: 0,
     marginLeft: "auto",
     height: "28px",
@@ -59,7 +59,7 @@ const useStyles = createUseStyles((theme: any) => ({
     textTransform: "uppercase",
 
     "&:active": {
-      backgroundColor: `#FF0000 !important`,
+      backgroundColor: `${clubColor} !important`,
       color: "#FFFFFF",
       fontWeight: 600,
     },
@@ -70,13 +70,13 @@ const useStyles = createUseStyles((theme: any) => ({
     "&:focus": {
       backgroundColor: "#000000",
       color: "#FFFFFF",
-      boxShadow: `0 0 0 0.2rem #FF00007F !important`,
+      boxShadow: `0 0 0 0.2rem ${clubColor}7F !important`,
     },
 
     transition: `0.2s background`,
     WebkitTransition: `0.2s background`,
     MozTransition: `0.2s background`,
-  },
+  }),
 }));
 
 export default useStyles;
