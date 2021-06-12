@@ -46,6 +46,9 @@ jobs:
       - name: Setup Database Secret
         run: echo "DB_URI=${{ secrets.DB_URI }}" > server/.env
 
+      - name: Setup ImageKit Private Key
+        run: echo "IMAGEKIT_PRIVATE_KEY=${{ secrets.IMAGEKIT_PRIVATE_KEY }}" >> server/.env
+
       - name: Install Dependencies
         run: yarn install
         working-directory: ./server

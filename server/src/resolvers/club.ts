@@ -1,9 +1,9 @@
 import { UserInputError } from "apollo-server-errors";
 import ImageKit from "imagekit";
 import Club from "../models/club";
-import avgRating from "./utils";
+import utils from "./utils";
+
 import dateScalar from "./datatypes";
-import club from "../models/club";
 
 const clubResolvers = {
   Date: dateScalar,
@@ -12,33 +12,7 @@ const clubResolvers = {
     clubs: async () => {
       const clubs = await Club.find();
 
-      return clubs.map(
-        ({
-          clubName,
-          reviews,
-          description,
-          numMembers,
-          themeColor,
-          about,
-          logoUri,
-          logoUriThumbnail,
-          backgroundUri,
-          backgroundUriThumbnail,
-          _id,
-        }: any) => ({
-          clubName,
-          id: _id,
-          description,
-          numMembers,
-          themeColor,
-          about,
-          logoUri,
-          logoUriThumbnail,
-          backgroundUri,
-          backgroundUriThumbnail,
-          reviews,
-        })
-      );
+      return clubs.map(utils.clubFromSchema);
     },
 
     club: async (_: any, { clubId }: any) => {
@@ -46,26 +20,7 @@ const clubResolvers = {
 
       if (!club) return undefined;
 
-      return {
-        clubName: club.clubName,
-        id: club._id,
-        description: club.description,
-        about: club.about,
-        reviews: club.reviews.map(
-          ({ _id, reviewer, rating, title, comment, commentTime }: any) => ({
-            id: _id,
-            reviewer,
-            rating,
-            title,
-            comment,
-            commentTime,
-          })
-        ),
-        numMembers: club.numMembers,
-        themeColor: club.themeColor,
-        logoUri: club.logoUri,
-        backgroundUri: club.backgroundUri,
-      };
+      return utils.clubFromSchema(club);
     },
   },
 
@@ -169,7 +124,7 @@ const clubResolvers = {
 
   Club: {
     rating: (parent: any) => {
-      return avgRating(parent.reviews);
+      return utils.avgRating(parent.reviews);
     },
   },
 };
