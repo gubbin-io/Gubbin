@@ -73,3 +73,12 @@ export const GET_CLUB_COLLECTION = gql`
     }
   }
 `;
+
+export const FIND_CLUBS = gql`
+  query ($searchString: String!) {
+    findClubs(searchString: $searchString) {
+      id
+      clubName
+    }
+  }
+`;

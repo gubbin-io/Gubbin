@@ -22,6 +22,13 @@ const clubResolvers = {
 
       return utils.clubFromSchema(club);
     },
+
+    findClubs: async (_: any, { searchString }: any) => {
+      const regex = new RegExp(`.*${searchString}.*`, "i");
+      const clubs = await Club.find({ clubName: regex });
+
+      return clubs.map(utils.clubFromSchema);
+    },
   },
 
   Mutation: {

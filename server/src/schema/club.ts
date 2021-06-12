@@ -6,6 +6,7 @@ const clubSchema = gql`
   extend type Query {
     clubs: [Club]
     club(clubId: ID): Club
+    findClubs(searchString: String): [Club]
   }
 
   extend type Mutation {
