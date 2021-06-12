@@ -8,6 +8,7 @@ import { GET_CLUB_COLLECTION } from "../../constants/queries";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
+import LoadingScreen from "../LoadingScreen";
 
 export interface CollectionsModuleProp {
   collectionID: String;
@@ -27,7 +28,7 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
   });
   const { width } = useWindowDimensions();
   const limit = width > 1680 ? 8 : 6;
-  if (loading) return <></>;
+  if (loading) return <LoadingScreen />;
   if (error) return <p>`Error! ${error}`</p>;
 
   const handleShowAll = () => {

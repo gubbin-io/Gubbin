@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { GET_CLUB_COLLECTION } from "../../constants/queries";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
+import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
 export interface CollectionsPageProp {
@@ -26,7 +27,7 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
     variables: { collectionId: collectionID },
   });
 
-  if (loading) return <></>;
+  if (loading) return <LoadingScreen />;
   if (error) return <p>`Error! ${error}`</p>;
 
   return (

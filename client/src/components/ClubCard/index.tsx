@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { GET_CLUB_CARD } from "../../constants/queries";
+import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
 export interface UserProp {
@@ -20,7 +21,7 @@ const User: React.FC<UserProp> = ({ clubID, onClick }) => {
 
   let body = <></>;
 
-  if (loading) body = <p>Loading...</p>;
+  if (loading) body = <></>;
   else if (error) body = <p>Error! {error.message}</p>;
   else {
     body = (
