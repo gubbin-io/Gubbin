@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+// import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,12 +8,14 @@ import { ThemeProvider } from "react-jss";
 import { client } from "./constants/routes";
 import theme from "./constants/theme";
 import { BrowserRouter as Router } from "react-router-dom";
+import LoginScreen from "./components/LoginScreen";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>
       <Router>
-        <App />
+        {/* <App /> */}
+        <LoginScreen />
       </Router>
     </ThemeProvider>
   </ApolloProvider>,
