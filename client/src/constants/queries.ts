@@ -60,7 +60,6 @@ export const GET_CLUBS = gql`
     clubs {
       id
       clubName
-      rating
     }
   }
 `;

@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { GET_CLUB_INFO } from "../../constants/queries";
+import { Club } from "../../constants/types";
 import ClubBody from "./components/ClubBody";
 import ClubHeader from "./components/ClubHeader";
 import useStyles from "./style";
@@ -38,7 +39,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
       backgroundUri,
       reviews,
       rating,
-    } = data.club;
+    }: Club = data.club;
 
     header = (
       <ClubHeader

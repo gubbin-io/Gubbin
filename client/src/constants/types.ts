@@ -6,3 +6,16 @@ export interface Review {
   comment?: string;
   commentTime: Date;
 }
+
+export interface Club {
+  id: string;
+  clubName: string;
+  rating: number;
+  description: string;
+  numMembers: number;
+  themeColor: string;
+  about: string;
+  logoUri: string;
+  backgroundUri: string;
+  reviews: Review[];
+}
