@@ -3,7 +3,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 export interface LoadingScreenProps {}
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({}) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = () => {
   return (
     <div
       style={{
