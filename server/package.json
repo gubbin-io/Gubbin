@@ -15,11 +15,14 @@
   "private": true,
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/express-jwt": "^6.0.1",
     "@types/imagekit": "^3.1.1",
+    "@types/jsonwebtoken": "^8.5.1",
     "apollo-server": "^2.25.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "express-jwt": "^6.0.0",
     "graphql": "^15.5.0",
     "imagekit": "^3.1.2",
     "mongoose": "^5.12.10",
@@ -30,7 +33,7 @@
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.5",
     "@types/cors": "^2.8.10",
-    "@types/express": "^4.17.11",
+    "@types/express": "^4.17.12",
     "@types/graphql-upload": "^8.0.5",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.6.0",

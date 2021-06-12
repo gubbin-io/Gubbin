@@ -1,5 +1,6 @@
 import User from "../models/user";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { UserInputError } from "apollo-server-errors";
 
 const userResolvers = {
@@ -12,28 +13,13 @@ const userResolvers = {
       }));
     },
 
-    user: async (_: any, { userId }: any) => {
-      const user = await User.findOne({ _id: userId });
-
+    currentUser: async (parent: any, _: any, { user }: any) => {
       if (!user) return undefined;
+      const curUser = await User.findOne({ _id: user.userId });
+      if (!curUser) return undefined;
 
       return {
-        userName: user.userName,
-        userId: user._id,
-      };
-    },
-
-    login: async (_: any, { userInfo: { userName, password } }: any) => {
-      const user = await User.findOne({ userName });
-      if (!user) throw new UserInputError("Invalid username");
-
-      const valid = await bcrypt.compare(password, user.password);
-
-      if (!valid) return new UserInputError("Invalid Credentials");
-
-      return {
-        userId: user._id,
-        userName: user.userName,
+        userId: curUser._id,
       };
     },
   },
@@ -57,6 +43,21 @@ const userResolvers = {
       return {
         userId: _id,
         userName: newUserName,
+      };
+    },
+
+    login: async (_: any, { userInfo: { userName, password } }: any) => {
+      const user = await User.findOne({ userName });
+      if (!user) throw new UserInputError("Invalid username");
+
+      const valid = await bcrypt.compare(password, user.password);
+      if (!valid) return new UserInputError("Invalid Credentials");
+
+      return {
+        token: jwt.sign({ userId: user._id }, "SECRET", {
+          algorithm: "HS256",
+          expiresIn: "1d",
+        }),
       };
     },
 

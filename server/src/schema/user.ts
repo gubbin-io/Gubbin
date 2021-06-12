@@ -3,13 +3,13 @@ import { gql } from "apollo-server";
 const userSchema = gql`
   extend type Query {
     users: [User]
-    user(userId: ID!): UserResponse!
-    login(userInfo: UserInfo!): UserResponse!
+    currentUser: UserResponse!
     userClubs(userId: ID!): ClubsResponse!
   }
 
   extend type Mutation {
-    register(userInfo: UserInfo!): UserResponse!
+    register(userInfo: UserInfo!): AuthResponse!
+    login(userInfo: UserInfo!): AuthResponse!
     addMemberClub(userClub: UserClub!): AddUserClubResponse!
     addOrganizerClub(userClub: UserClub!): AddUserClubResponse!
   }
@@ -22,9 +22,12 @@ const userSchema = gql`
     firstLetterOfUsername: String!
   }
 
+  type AuthResponse {
+    token: String!
+  }
+
   type UserResponse {
     userId: ID!
-    userName: String!
   }
 
   type ClubsResponse {
