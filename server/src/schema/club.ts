@@ -22,7 +22,9 @@ const clubSchema = gql`
     about: String
     clubName: String!
     logoUri: String
+    logoUriThumbnail: String
     backgroundUri: String
+    backgroundUriThumbnail: String
     reviews: [Review]
     rating: Float
   }

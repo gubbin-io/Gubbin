@@ -9,4 +9,27 @@ function avgRating(reviews: any) {
   return rounded;
 }
 
-export default avgRating;
+function clubFromSchema(clubSchema: any) {
+  return {
+    clubName: clubSchema.clubName,
+    id: clubSchema._id,
+    description: clubSchema.description,
+    about: clubSchema.about,
+    reviews: clubSchema.reviews.map(
+      ({ _id, reviewer, rating, title, comment, commentTime }: any) => ({
+        id: _id,
+        reviewer,
+        rating,
+        title,
+        comment,
+        commentTime,
+      })
+    ),
+    numMembers: clubSchema.numMembers,
+    themeColor: clubSchema.themeColor,
+    logoUri: clubSchema.logoUri,
+    backgroundUri: clubSchema.backgroundUri,
+  };
+}
+
+export default { avgRating, clubFromSchema };
