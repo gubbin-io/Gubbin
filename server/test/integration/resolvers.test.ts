@@ -1,11 +1,17 @@
 import { ApolloServer } from "apollo-server";
-
+import fs from "fs";
 import dotenv from "dotenv";
 
 import schema from "../../src/schema";
 import resolvers from "../../src/resolvers";
 import connectDB from "../../src/connect";
-import { ADD_CLUB, GET_CLUB, GET_CLUBS, ADD_REVIEW } from "./queries";
+import {
+  ADD_CLUB,
+  GET_CLUB,
+  GET_CLUBS,
+  ADD_REVIEW,
+  UPDATE_LOGO,
+} from "./queries";
 
 dotenv.config();
 // In-memory MongoDB using jest-mongodb
@@ -14,6 +20,7 @@ const db = connectDB(process.env.MONGO_URL);
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  uploads: false,
 });
 
 async function removeAllCollections() {

@@ -30,17 +30,26 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
   if (loading) return <></>;
   if (error) return <p>`Error! ${error}`</p>;
 
+  const handleShowAll = () => {
+    history.push(`/collection/${collectionID}`);
+  };
   return (
     <>
       <div className={classes.container}>
         <div className={classes.header}>
-          <span className={classes.headerText}>
+          <span
+            className={classes.headerText}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              handleShowAll();
+            }}
+          >
             {data.clubCollection.collectionName}
           </span>
           <Button
             className={classes.expandButton}
             onClick={() => {
-              history.push(`/collection/${collectionID}`);
+              handleShowAll();
             }}
           >
             See All

@@ -10,11 +10,13 @@ import MyClubsPage from "./MyClubsPage";
 import { Switch, Route, Redirect } from "react-router-dom";
 import CollectionsPage from "./CollectionsPage";
 import { Container } from "react-bootstrap";
+import SearchPage from "./SearchPage";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
   const [show, setShow] = useState(false);
   const [modalClubId, setModalClubId] = useState<string | undefined>(undefined);
+  const [searchString, setSearchString] = useState("");
 
   const showModalClub = (modalClubId: string) => {
     setModalClubId(modalClubId);
@@ -25,49 +27,59 @@ const App: React.FC<any> = () => {
     <>
       <TopBar />
       <div className={classes.outerContainer}>
-        <SideBar />
+        <SideBar
+          searchString={searchString}
+          setSearchString={setSearchString}
+        />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
 
         <Container className={classes.mainContainer}>
-          <Switch>
-            <Route path="/discover">
-              <DiscoverPage
-                showModalClub={(id) => {
-                  showModalClub(id);
-                }}
-              />
-            </Route>
-            <Route path="/categories">
-              <CategoriesPage
-                showModalClub={(id) => {
-                  showModalClub(id);
-                }}
-              />
-            </Route>
-            <Route path="/myclubs">
-              <MyClubsPage
-                showModalClub={(id) => {
-                  showModalClub(id);
-                }}
-              />
-            </Route>
+          {searchString === "" ? (
+            <Switch>
+              <Route path="/discover">
+                <DiscoverPage
+                  showModalClub={(id) => {
+                    showModalClub(id);
+                  }}
+                />
+              </Route>
+              <Route path="/categories">
+                <CategoriesPage
+                  showModalClub={(id) => {
+                    showModalClub(id);
+                  }}
+                />
+              </Route>
+              <Route path="/myclubs">
+                <MyClubsPage
+                  showModalClub={(id) => {
+                    showModalClub(id);
+                  }}
+                />
+              </Route>
 
-            <Route
-              path="/collection/:id"
-              render={({ match }) => {
-                return (
-                  <CollectionsPage
-                    collectionID={match.params.id}
-                    showModalClub={showModalClub}
-                  />
-                );
-              }}
+              <Route
+                path="/collection/:id"
+                render={({ match }) => {
+                  return (
+                    <CollectionsPage
+                      collectionID={match.params.id}
+                      showModalClub={showModalClub}
+                    />
+                  );
+                }}
+              />
+
+              <Route exact path="/">
+                <Redirect to="/discover" />;
+              </Route>
+            </Switch>
+          ) : (
+            <SearchPage
+              searchString={searchString}
+              showModalClub={showModalClub}
             />
-
-            <Route exact path="/">
-              <Redirect to="/discover" />;
-            </Route>
-          </Switch>
+          )}
         </Container>
       </div>
     </>

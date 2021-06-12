@@ -4,9 +4,12 @@ import { Form, Button } from "react-bootstrap";
 import { EyeFill, GridFill, PeopleFill } from "react-bootstrap-icons";
 import { useHistory, useLocation } from "react-router-dom";
 
-export interface SideBarProp {}
+export interface SideBarProp {
+  searchString: string;
+  setSearchString: (search: string) => void;
+}
 
-const SideBar: React.FC<SideBarProp> = () => {
+const SideBar: React.FC<SideBarProp> = ({ searchString, setSearchString }) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -18,6 +21,10 @@ const SideBar: React.FC<SideBarProp> = () => {
           className={classes.searchBar}
           type="text"
           placeholder="Search..."
+          value={searchString}
+          onChange={(e) => {
+            setSearchString(e.target.value);
+          }}
         />
       </Form.Group>
       <hr />

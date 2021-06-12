@@ -1,7 +1,9 @@
 import { UserInputError } from "apollo-server-errors";
+import ImageKit from "imagekit";
 import Club from "../models/club";
 import avgRating from "./utils";
 import dateScalar from "./datatypes";
+import club from "../models/club";
 
 const clubResolvers = {
   Date: dateScalar,
@@ -19,7 +21,9 @@ const clubResolvers = {
           themeColor,
           about,
           logoUri,
+          logoUriThumbnail,
           backgroundUri,
+          backgroundUriThumbnail,
           _id,
         }: any) => ({
           clubName,
@@ -29,7 +33,9 @@ const clubResolvers = {
           themeColor,
           about,
           logoUri,
+          logoUriThumbnail,
           backgroundUri,
+          backgroundUriThumbnail,
           reviews,
         })
       );
@@ -125,6 +131,39 @@ const clubResolvers = {
       );
 
       return updated.ok;
+    },
+
+    updateLogo: async (_: any, { logo: { clubId, content } }: any) => {
+      const imagekit = new ImageKit({
+        publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
+        privateKey:
+          process.env.IMAGEKIT_PRIVATE_KEY || "PRIVATE KEY UNDEFINED IN .env",
+        urlEndpoint: "https://ik.imagekit.io/gubbin/",
+      });
+
+      const filename: string = Date.now().toString();
+      imagekit.upload(
+        {
+          file: content,
+          fileName: filename,
+          folder: "club_logo",
+          tags: clubId.toString(),
+        },
+        async (error, result) => {
+          if (error) throw error;
+          else {
+            const updated = await Club.updateOne(
+              { _id: clubId },
+              {
+                logoUri: result?.url,
+                logoUriThumbnail: result?.thumbnailUrl,
+                logoFileId: result?.fileId,
+              }
+            );
+          }
+          return { uri: result?.url, thumbnailUri: result?.thumbnailUrl };
+        }
+      );
     },
   },
 
