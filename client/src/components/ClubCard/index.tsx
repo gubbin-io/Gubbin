@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { GET_CLUB_CARD } from "../../constants/queries";
-import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
 export interface UserProp {
