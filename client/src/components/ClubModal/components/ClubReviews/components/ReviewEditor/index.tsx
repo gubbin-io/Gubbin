@@ -8,13 +8,13 @@ import useStyles from "./style";
 export interface ReviewEditorProp {
   clubId: String;
   clubColor: String;
-  showReviews: () => void;
+  showViewer: () => void;
 }
 
 const ReviewEditor: React.FC<ReviewEditorProp> = ({
   clubId,
   clubColor,
-  showReviews,
+  showViewer,
 }) => {
   const classes = useStyles({ clubColor });
   const [addReview] = useMutation(ADD_REVIEW, {
@@ -42,7 +42,7 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
           setRating(3);
           setComment("");
           setTitle("");
-          showReviews();
+          showViewer();
         }}
       >
         <div className={classes.fields}>

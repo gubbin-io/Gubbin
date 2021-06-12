@@ -41,7 +41,7 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews, clubColor }) => {
         <ReviewEditor
           clubId={clubId}
           clubColor={clubColor}
-          showReviews={() => {
+          showViewer={() => {
             setShowViewer(true);
           }}
         />

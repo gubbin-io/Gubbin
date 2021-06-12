@@ -37,6 +37,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
       clubName,
       logoUri,
       backgroundUri,
+      questions,
       reviews,
       rating,
     }: Club = data.club;
@@ -58,6 +59,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
         clubName={clubName}
         about={about}
         numMembers={numMembers}
+        questions={questions}
         clubColor={themeColor}
         rating={rating}
         reviews={reviews}

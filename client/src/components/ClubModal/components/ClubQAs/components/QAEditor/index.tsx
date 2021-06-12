@@ -1,26 +1,28 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
-import { ADD_REVIEW, GET_CLUB_INFO } from "../../../../../../constants/queries";
+import {
+  POST_QUESTION,
+  GET_CLUB_INFO,
+} from "../../../../../../constants/queries";
 import useStyles from "./style";
 
 export interface QAEditorProp {
   clubId: String;
   clubColor: String;
-  showReviews: () => void;
+  showViewer: () => void;
 }
 
 const QAEditor: React.FC<QAEditorProp> = ({
   clubId,
   clubColor,
-  showReviews,
+  showViewer,
 }) => {
   const classes = useStyles({ clubColor });
-  const [addReview] = useMutation(ADD_REVIEW, {
+  const [postQuestion] = useMutation(POST_QUESTION, {
     refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
   });
-  const [rating, setRating] = useState(3);
-  const [comment, setComment] = useState("");
+  const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
 
   return (
@@ -29,19 +31,16 @@ const QAEditor: React.FC<QAEditorProp> = ({
         inline
         onSubmit={(e) => {
           e.preventDefault();
-          addReview({
+          postQuestion({
             variables: {
               clubId,
-              reviewer: "Anonymous",
-              rating,
               title,
-              comment,
+              body: content,
             },
           });
-          setRating(3);
-          setComment("");
+          setContent("");
           setTitle("");
-          showReviews();
+          showViewer();
         }}
       >
         <div className={classes.fields}>
@@ -60,9 +59,9 @@ const QAEditor: React.FC<QAEditorProp> = ({
             rows={4}
             placeholder="Enter Question"
             className={classes.reviewField}
-            value={comment}
+            value={content}
             onChange={(e) => {
-              setComment(e.target.value);
+              setContent(e.target.value);
             }}
           />
           <Button className={classes.submitButton} type="submit">

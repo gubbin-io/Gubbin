@@ -18,4 +18,14 @@ export interface Club {
   logoUri: string;
   backgroundUri: string;
   reviews: Review[];
+  questions: Question[];
+}
+
+export interface Question {
+  questionId: string;
+  title: string;
+  body: string;
+  questionTime: Date;
+  answer?: string;
+  answerTime?: Date;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { Review } from "../../../../constants/types";
+import { Question } from "../../../../constants/types";
 import QAEditor from "./components/QAEditor";
 import QAViewer from "./components/QAViewer";
 import useStyles from "./style";
@@ -8,11 +8,11 @@ import { PenFill, CardText } from "react-bootstrap-icons";
 
 export interface ClubQAsProp {
   clubId: string;
-  reviews: Review[];
+  questions: Question[];
   clubColor: string;
 }
 
-const ClubQAs: React.FC<ClubQAsProp> = ({ clubId, reviews, clubColor }) => {
+const ClubQAs: React.FC<ClubQAsProp> = ({ clubId, questions, clubColor }) => {
   const classes = useStyles({ clubColor });
   const [showViewer, setShowViewer] = useState(true);
   return (
@@ -36,12 +36,12 @@ const ClubQAs: React.FC<ClubQAsProp> = ({ clubId, reviews, clubColor }) => {
       </div>
 
       {showViewer ? (
-        <QAViewer reviews={reviews} />
+        <QAViewer questions={questions} />
       ) : (
         <QAEditor
           clubId={clubId}
           clubColor={clubColor}
-          showReviews={() => {
+          showViewer={() => {
             setShowViewer(true);
           }}
         />
