@@ -1,20 +1,20 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
+import { ADD_REVIEW, GET_CLUB_INFO } from "../../../../../../constants/queries";
+import StarSelect from "../../../../../StarSelect";
 import useStyles from "./style";
-import { GET_CLUB_INFO, ADD_REVIEW } from "../../../../constants/queries";
-import StarSelect from "../../../StarSelect";
 
 export interface ReviewEditorProp {
   clubId: String;
   clubColor: String;
-  showReviews: () => void;
+  showViewer: () => void;
 }
 
 const ReviewEditor: React.FC<ReviewEditorProp> = ({
   clubId,
   clubColor,
-  showReviews,
+  showViewer,
 }) => {
   const classes = useStyles({ clubColor });
   const [addReview] = useMutation(ADD_REVIEW, {
@@ -42,7 +42,7 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
           setRating(3);
           setComment("");
           setTitle("");
-          showReviews();
+          showViewer();
         }}
       >
         <div className={classes.fields}>

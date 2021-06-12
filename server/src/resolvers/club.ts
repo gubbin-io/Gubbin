@@ -133,6 +133,13 @@ const clubResolvers = {
     rating: (parent: any) => {
       return utils.avgRating(parent.reviews);
     },
+
+    questions: async (parent: any) => {
+      const result = await Club.findOne({ _id: parent.id })
+        .populate("questions")
+        .exec();
+      return result.questions.map(utils.questionFromSchema);
+    },
   },
 };
 

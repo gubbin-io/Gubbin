@@ -32,4 +32,15 @@ function clubFromSchema(clubSchema: any) {
   };
 }
 
-export default { avgRating, clubFromSchema };
+function questionFromSchema(questionSchema: any) {
+  return {
+    questionId: questionSchema._id,
+    title: questionSchema.title,
+    body: questionSchema.body,
+    questionTime: questionSchema.questionTime,
+    answer: questionSchema.answer,
+    answerTime: questionSchema.answerTime,
+  };
+}
+
+export default { avgRating, clubFromSchema, questionFromSchema };

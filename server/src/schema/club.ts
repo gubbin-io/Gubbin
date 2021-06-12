@@ -27,6 +27,7 @@ const clubSchema = gql`
     backgroundUri: String
     backgroundUriThumbnail: String
     reviews: [Review]
+    questions: [Question]
     rating: Float
   }
 
@@ -37,6 +38,15 @@ const clubSchema = gql`
     title: String
     comment: String
     commentTime: Date
+  }
+
+  type Question {
+    questionId: ID!
+    title: String
+    body: String
+    questionTime: Date
+    answer: String
+    answerTime: Date
   }
 
   type ReturnImage {
