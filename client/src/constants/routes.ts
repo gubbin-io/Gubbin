@@ -5,11 +5,11 @@ interface Config {
 }
 
 const dev: Config = {
-  SERVER_URL: `http://${window.location.hostname}:5000`,
+  SERVER_URL: `http://${window.location.hostname}:5000/graphql`,
 };
 
 const prod: Config = {
-  SERVER_URL: "https://api.gubbin.io",
+  SERVER_URL: "https://api.gubbin.io/graphql",
 };
 
 const CONFIG: Config = process.env.NODE_ENV === "production" ? prod : dev;

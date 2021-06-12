@@ -5,14 +5,6 @@ import { UserInputError } from "apollo-server-errors";
 
 const userResolvers = {
   Query: {
-    users: async () => {
-      const users = await User.find();
-      return users.map(({ userName, _id }: any) => ({
-        userName,
-        userId: _id,
-      }));
-    },
-
     currentUser: async (parent: any, _: any, { user }: any) => {
       if (!user) return undefined;
       const curUser = await User.findOne({ _id: user.userId });
@@ -20,6 +12,7 @@ const userResolvers = {
 
       return {
         userId: curUser._id,
+        userName: curUser.userName,
       };
     },
   },
@@ -38,11 +31,10 @@ const userResolvers = {
         memberClubs: [],
         organizerClubs: [],
       });
-      const { _id, userName: newUserName } = await newUser.save();
+      const { _id } = await newUser.save();
 
       return {
         userId: _id,
-        userName: newUserName,
       };
     },
 
@@ -97,7 +89,14 @@ const userResolvers = {
   },
 
   User: {
-    firstLetterOfUsername: (parent: any) => parent.username[0],
+    memberClubs: async (parent: any) => {
+      const user = await User.findOne({ _id: parent.userId });
+      return user.memberClubs;
+    },
+    organizerClubs: async (parent: any) => {
+      const user = await User.findOne({ _id: parent.userId });
+      return user.organizerClubs;
+    },
   },
 };
 
