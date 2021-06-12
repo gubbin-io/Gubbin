@@ -8,12 +8,14 @@ import { ThemeProvider } from "react-jss";
 import { client } from "./constants/routes";
 import theme from "./constants/theme";
 import { BrowserRouter as Router } from "react-router-dom";
+// import LoginScreen from "./components/LoginScreen";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>
       <Router>
         <App />
+        {/* <LoginScreen /> */}
       </Router>
     </ThemeProvider>
   </ApolloProvider>,

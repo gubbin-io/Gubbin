@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { GET_CLUBS } from "../../constants/queries";
+import { FIND_CLUBS } from "../../constants/queries";
 import { Club } from "../../constants/types";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
@@ -17,7 +17,11 @@ const SearchPage: React.FC<SearchPageProp> = ({
 }) => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(GET_CLUBS);
+  const { loading, error, data } = useQuery(FIND_CLUBS, {
+    variables: {
+      searchString,
+    },
+  });
 
   if (loading) return <></>;
   if (error) return <p>`Error! ${error}`</p>;
@@ -32,14 +36,9 @@ const SearchPage: React.FC<SearchPageProp> = ({
       </div>
 
       <div className={classes.body}>
-        {data.clubs
-          .filter(
-            ({ clubName }: Club) =>
-              clubName.toUpperCase().indexOf(searchString.toUpperCase()) >= 0
-          )
-          .map(({ id }: Club) => (
-            <ClubCard clubID={id} key={id} onClick={() => showModalClub(id)} />
-          ))}
+        {data.findClubs.map(({ id }: Club) => (
+          <ClubCard clubID={id} key={id} onClick={() => showModalClub(id)} />
+        ))}
         <CardFiller />
         <CardFiller />
         <CardFiller />

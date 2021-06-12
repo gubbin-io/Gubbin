@@ -3,6 +3,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { GET_CLUB_INFO } from "../../constants/queries";
 import { Club } from "../../constants/types";
+import LoadingScreen from "../LoadingScreen";
 import ClubBody from "./components/ClubBody";
 import ClubHeader from "./components/ClubHeader";
 import useStyles from "./style";
@@ -25,7 +26,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
   let body = <></>;
   let header = <></>;
 
-  if (loading) body = <p>Loading...</p>;
+  if (loading) body = <LoadingScreen />;
   else if (error) body = <p>Error! {error.message}</p>;
   else {
     const {
@@ -37,6 +38,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
       clubName,
       logoUri,
       backgroundUri,
+      questions,
       reviews,
       rating,
     }: Club = data.club;
@@ -58,6 +60,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
         clubName={clubName}
         about={about}
         numMembers={numMembers}
+        questions={questions}
         clubColor={themeColor}
         rating={rating}
         reviews={reviews}

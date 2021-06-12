@@ -22,6 +22,13 @@ const clubResolvers = {
 
       return utils.clubFromSchema(club);
     },
+
+    findClubs: async (_: any, { searchString }: any) => {
+      const regex = new RegExp(`.*${searchString}.*`, "i");
+      const clubs = await Club.find({ clubName: regex });
+
+      return clubs.map(utils.clubFromSchema);
+    },
   },
 
   Mutation: {
@@ -125,6 +132,13 @@ const clubResolvers = {
   Club: {
     rating: (parent: any) => {
       return utils.avgRating(parent.reviews);
+    },
+
+    questions: async (parent: any) => {
+      const result = await Club.findOne({ _id: parent.id })
+        .populate("questions")
+        .exec();
+      return result.questions.map(utils.questionFromSchema);
     },
   },
 };

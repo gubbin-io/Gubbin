@@ -1,7 +1,8 @@
 import React from "react";
 import { Tab, Row, Col } from "react-bootstrap";
-import { Review } from "../../../../constants/types";
+import { Question, Review } from "../../../../constants/types";
 import ClubReviews from "../ClubReviews";
+import ClubQAs from "../ClubQAs";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
 
@@ -13,6 +14,7 @@ export interface ClubBodyProp {
   numMembers: number;
   rating?: number;
   reviews: Review[];
+  questions: Question[];
 }
 
 const ClubBody: React.FC<ClubBodyProp> = ({
@@ -22,12 +24,13 @@ const ClubBody: React.FC<ClubBodyProp> = ({
   clubColor,
   numMembers,
   rating,
+  questions,
   reviews,
 }) => {
   const classes = useStyles();
 
   return (
-    <Tab.Container defaultActiveKey="first">
+    <Tab.Container defaultActiveKey="about">
       <Row style={{ height: "100%", marginBottom: "8px" }}>
         <ClubSideBar
           clubColor={clubColor}
@@ -38,15 +41,22 @@ const ClubBody: React.FC<ClubBodyProp> = ({
         {/* Main Content of Tab */}
         <Col className={classes.contentColumn}>
           <Tab.Content>
-            <Tab.Pane eventKey="first">
+            <Tab.Pane eventKey="about">
               <span className={classes.sectionHeading}>{`About`}</span>
               <hr className={classes.divider} />
               <p>{about}</p>
             </Tab.Pane>
-            <Tab.Pane eventKey="second">
+            <Tab.Pane eventKey="reviews">
               <ClubReviews
                 clubId={clubId}
                 reviews={reviews}
+                clubColor={clubColor}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="questions">
+              <ClubQAs
+                clubId={clubId}
+                questions={questions}
                 clubColor={clubColor}
               />
             </Tab.Pane>
