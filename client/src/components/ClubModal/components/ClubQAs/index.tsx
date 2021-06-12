@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Review } from "../../../../constants/types";
-import ReviewEditor from "./components/ReviewEditor";
-import ReviewViewer from "./components/ReviewViewer";
+import QAEditor from "./components/QAEditor";
+import QAViewer from "./components/QAViewer";
 import useStyles from "./style";
 import { PenFill, CardText } from "react-bootstrap-icons";
 
-export interface ReviewsProp {
+export interface ClubQAsProp {
   clubId: string;
   reviews: Review[];
   clubColor: string;
 }
 
-const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews, clubColor }) => {
+const ClubQAs: React.FC<ClubQAsProp> = ({ clubId, reviews, clubColor }) => {
   const classes = useStyles({ clubColor });
   const [showViewer, setShowViewer] = useState(true);
   return (
     <>
-      <span className={classes.sectionHeading}>{`Ratings & Reviews`}</span>
+      <span className={classes.sectionHeading}>{`Questions & Answers`}</span>
       <hr className={classes.divider} />
       <div className={classes.something}>
         <Button
@@ -31,14 +31,14 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews, clubColor }) => {
           ) : (
             <CardText className={classes.icon} size={20} />
           )}
-          {showViewer ? `Post Review` : `View Reviews`}
+          {showViewer ? `Post Question` : `View Q&As`}
         </Button>
       </div>
 
       {showViewer ? (
-        <ReviewViewer reviews={reviews} />
+        <QAViewer reviews={reviews} />
       ) : (
-        <ReviewEditor
+        <QAEditor
           clubId={clubId}
           clubColor={clubColor}
           showReviews={() => {
@@ -50,4 +50,4 @@ const ClubReviews: React.FC<ReviewsProp> = ({ clubId, reviews, clubColor }) => {
   );
 };
 
-export default ClubReviews;
+export default ClubQAs;

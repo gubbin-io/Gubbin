@@ -2,6 +2,7 @@ import React from "react";
 import { Tab, Row, Col } from "react-bootstrap";
 import { Review } from "../../../../constants/types";
 import ClubReviews from "../ClubReviews";
+import ClubQAs from "../ClubQAs";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
 
@@ -45,6 +46,13 @@ const ClubBody: React.FC<ClubBodyProp> = ({
             </Tab.Pane>
             <Tab.Pane eventKey="second">
               <ClubReviews
+                clubId={clubId}
+                reviews={reviews}
+                clubColor={clubColor}
+              />
+            </Tab.Pane>
+            <Tab.Pane eventKey="third">
+              <ClubQAs
                 clubId={clubId}
                 reviews={reviews}
                 clubColor={clubColor}

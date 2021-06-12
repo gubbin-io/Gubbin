@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles((theme: any) => ({
   reviewCard: {
     borderWidth: 0,
-    marginTop: "8px",
+    marginTop: "12px",
     width: "100%",
     marginLeft: 0,
     marginRight: 0,
@@ -16,7 +16,7 @@ const useStyles = createUseStyles((theme: any) => ({
   bodyHeader: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: 16,
+    marginBottom: "8px",
   },
   headerLeft: {
     display: "flex",
@@ -27,10 +27,13 @@ const useStyles = createUseStyles((theme: any) => ({
     flexDirection: "column",
     alignItems: "flex-end",
   },
-  starsBox: {},
+  bodyText: {
+    fontSize: "15px",
+  },
   largeText: {
     fontWeight: 500,
-    fontSize: "17px",
+    fontSize: "18px",
+    letterSpacing: "0.1px",
     lineHeight: "100%",
     marginBottom: "8px",
   },
@@ -38,6 +41,7 @@ const useStyles = createUseStyles((theme: any) => ({
     fontWeight: 500,
     fontSize: "14px",
     lineHeight: "14px",
+    color: "#ADB5BD",
   },
   smallText: {
     fontWeight: 500,

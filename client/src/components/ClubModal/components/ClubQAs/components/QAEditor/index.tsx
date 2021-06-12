@@ -1,17 +1,16 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
+import { ADD_REVIEW, GET_CLUB_INFO } from "../../../../../../constants/queries";
 import useStyles from "./style";
-import { GET_CLUB_INFO, ADD_REVIEW } from "../../../../constants/queries";
-import StarSelect from "../../../StarSelect";
 
-export interface ReviewEditorProp {
+export interface QAEditorProp {
   clubId: String;
   clubColor: String;
   showReviews: () => void;
 }
 
-const ReviewEditor: React.FC<ReviewEditorProp> = ({
+const QAEditor: React.FC<QAEditorProp> = ({
   clubId,
   clubColor,
   showReviews,
@@ -46,13 +45,9 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
         }}
       >
         <div className={classes.fields}>
-          <StarSelect
-            rating={rating}
-            setRating={(rating: number) => setRating(rating)}
-          />
           <FormControl
             type="text"
-            placeholder="Enter Title (Optional)"
+            placeholder="Enter Subject"
             className={classes.titleField}
             value={title}
             onChange={(e) => {
@@ -63,7 +58,7 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
             type="text"
             as="textarea"
             rows={4}
-            placeholder="Enter Review (Optional)"
+            placeholder="Enter Question"
             className={classes.reviewField}
             value={comment}
             onChange={(e) => {
@@ -79,4 +74,4 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
   );
 };
 
-export default ReviewEditor;
+export default QAEditor;

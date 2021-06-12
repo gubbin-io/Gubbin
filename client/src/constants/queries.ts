@@ -55,15 +55,6 @@ export const ADD_REVIEW = gql`
   }
 `;
 
-export const GET_CLUBS = gql`
-  query {
-    clubs {
-      id
-      clubName
-    }
-  }
-`;
-
 export const GET_CLUB_COLLECTION = gql`
   query ($collectionId: ID!) {
     clubCollection(collectionId: $collectionId) {

@@ -3,7 +3,11 @@ import { Nav } from "react-bootstrap";
 import useStyles from "./style";
 import StarBox from "../../../StarBox";
 
-import { StarHalf, InfoCircleFill } from "react-bootstrap-icons";
+import {
+  StarHalf,
+  InfoCircleFill,
+  QuestionCircleFill,
+} from "react-bootstrap-icons";
 
 export interface ClubBodyProp {
   numMembers: number;
@@ -48,6 +52,12 @@ const ClubBody: React.FC<ClubBodyProp> = ({
           <Nav.Link className={classes.tabButton} eventKey="second">
             <StarHalf size={20} className={classes.icon} />
             {`Ratings & Reviews`}
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="third">
+            <QuestionCircleFill size={20} className={classes.icon} />
+            {`Q&A`}
           </Nav.Link>
         </Nav.Item>
       </Nav>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { Review } from "../../../../constants/types";
+import { Review } from "../../../../../../constants/types";
+import StarBox from "../../../../../StarBox";
 import useStyles from "./style";
-import StarBox from "../../../StarBox";
 
 export interface ReviewViewerProp {
   reviews: Review[];
@@ -30,7 +30,7 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
                   <span className={classes.mediumText}>Anonymous</span>
                 </div>
               </div>
-              <Card.Text>{comment}</Card.Text>
+              <Card.Text className={classes.bodyText}>{comment}</Card.Text>
             </Card.Body>
           </Card>
         ))}
