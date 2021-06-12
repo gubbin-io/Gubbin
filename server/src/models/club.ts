@@ -2,6 +2,15 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+const questionSchema = new Schema({
+  // club: { type: Schema.Types.ObjectId, ref: "Club" },
+  title: String,
+  body: String,
+  questionTime: Date,
+  answer: String,
+  answerTime: Date,
+});
+
 const clubSchema = new Schema({
   clubName: {
     type: String,
@@ -23,6 +32,8 @@ const clubSchema = new Schema({
   reviews: [
     { rating: Number, title: String, comment: String, commentTime: Date },
   ],
+  questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
 });
 
 export default mongoose.model("Club", clubSchema);
+export const Question = mongoose.model("Question", questionSchema);
