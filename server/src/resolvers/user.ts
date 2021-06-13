@@ -90,13 +90,17 @@ const userResolvers = {
       const result = await User.findOne({ _id: parent.userId })
         .populate("memberClubs")
         .exec();
-      return result.memberClubs.map(utils.clubFromSchema);
+      return result.memberClubs.map((schema: any) =>
+        utils.clubFromSchema(schema, parent.userId)
+      );
     },
     organizerClubs: async (parent: any) => {
       const result = await User.findOne({ _id: parent.userId })
         .populate("organizerClubs")
         .exec();
-      return result.organizerClubs.map(utils.clubFromSchema);
+      return result.organizerClubs.map((schema: any) =>
+        utils.clubFromSchema(schema, parent.userId)
+      );
     },
   },
 };
