@@ -7,6 +7,7 @@ import {
   StarHalf,
   InfoCircleFill,
   QuestionCircleFill,
+  Globe2,
 } from "react-bootstrap-icons";
 
 export interface ClubBodyProp {
@@ -58,6 +59,12 @@ const ClubBody: React.FC<ClubBodyProp> = ({
           <Nav.Link className={classes.tabButton} eventKey="reviews">
             <StarHalf size={20} className={classes.icon} />
             {`Ratings & Reviews`}
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="social">
+            <Globe2 size={20} className={classes.icon} />
+            {`Social Media`}
           </Nav.Link>
         </Nav.Item>
       </Nav>

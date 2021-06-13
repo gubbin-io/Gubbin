@@ -3,6 +3,7 @@ import { Tab, Row, Col } from "react-bootstrap";
 import { Question, Review } from "../../../../constants/types";
 import ClubReviews from "../ClubReviews";
 import ClubQAs from "../ClubQAs";
+import ClubSocialMedia from "../ClubSocialMedia";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
 
@@ -59,6 +60,9 @@ const ClubBody: React.FC<ClubBodyProp> = ({
                 questions={questions}
                 clubColor={clubColor}
               />
+            </Tab.Pane>
+            <Tab.Pane eventKey="social">
+              <ClubSocialMedia clubColor={clubColor} />
             </Tab.Pane>
           </Tab.Content>
         </Col>
