@@ -24,16 +24,7 @@ const App: React.FC<any> = () => {
   const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER);
 
   if (loading) return <LoadingScreen />;
-  if (error)
-    return (
-      <LoginScreen
-        loadUser={() => {
-          refetch();
-        }}
-      />
-    );
-
-  console.log(data);
+  if (error) return <LoginScreen />;
 
   const showModalClub = (modalClubId: string) => {
     setModalClubId(modalClubId);
