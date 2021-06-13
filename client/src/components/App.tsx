@@ -21,10 +21,12 @@ const App: React.FC<any> = () => {
   const [show, setShow] = useState(false);
   const [modalClubId, setModalClubId] = useState<string | undefined>(undefined);
   const [searchString, setSearchString] = useState("");
-  const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER);
+  const { loading, error, data } = useQuery(GET_CURRENT_USER);
 
   if (loading) return <LoadingScreen />;
   if (error) return <LoginScreen />;
+
+  sessionStorage.setItem("userId", data.currentUser.userId);
 
   const showModalClub = (modalClubId: string) => {
     setModalClubId(modalClubId);

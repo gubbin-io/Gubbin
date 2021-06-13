@@ -18,7 +18,16 @@ export const GET_MEMBER_CLUBS = gql`
         description
         themeColor
         logoUri
+        joined
       }
+    }
+  }
+`;
+
+export const ADD_MEMBER_CLUB = gql`
+  mutation ($userId: ID!, $clubId: ID!) {
+    addMemberClub(userClub: { userId: $userId, clubId: $clubId }) {
+      success
     }
   }
 `;
@@ -38,6 +47,7 @@ export const FIND_CLUBS = gql`
       clubName
       description
       themeColor
+      joined
       logoUri
     }
   }
@@ -52,21 +62,10 @@ export const GET_CLUB_COLLECTION = gql`
         id
         clubName
         description
+        joined
         themeColor
         logoUri
       }
-    }
-  }
-`;
-
-export const GET_CLUB_CARD = gql`
-  query Club($clubId: ID!) {
-    club(clubId: $clubId) {
-      id
-      clubName
-      description
-      themeColor
-      logoUri
     }
   }
 `;
@@ -77,6 +76,7 @@ export const GET_CLUB_INFO = gql`
       id
       clubName
       rating
+      joined
       description
       numMembers
       themeColor

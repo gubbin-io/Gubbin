@@ -2,8 +2,11 @@ import React from "react";
 import useStyles from "./style";
 import { Button } from "react-bootstrap";
 import { XCircleFill } from "react-bootstrap-icons";
+import JoinButton from "../../../JoinButton";
 
 export interface ClubHeaderProp {
+  clubId: string;
+  joined: boolean;
   clubName?: string;
   tagline: string;
   bgUrl: string;
@@ -13,6 +16,8 @@ export interface ClubHeaderProp {
 }
 
 const ClubHeader: React.FC<ClubHeaderProp> = ({
+  clubId,
+  joined,
   clubName,
   tagline,
   bgUrl,
@@ -49,7 +54,7 @@ const ClubHeader: React.FC<ClubHeaderProp> = ({
       </div>
       {/* Join club button */}
       <div className={classes.join}>
-        <Button className={classes.joinButton}>Join</Button>
+        <JoinButton clubId={clubId} joined={joined} clubColor={clubColor} />
       </div>
     </div>
   );
