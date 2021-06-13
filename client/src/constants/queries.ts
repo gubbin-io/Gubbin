@@ -24,6 +24,9 @@ export const FIND_CLUBS = gql`
     findClubs(searchString: $searchString) {
       id
       clubName
+      description
+      themeColor
+      logoUri
     }
   }
 `;
