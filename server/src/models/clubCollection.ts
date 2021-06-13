@@ -10,7 +10,7 @@ const clubCollectionSchema = new Schema({
     trim: true,
     minlength: 3,
   },
-  clubs: [{ clubId: String }],
+  clubs: [{ type: Schema.Types.ObjectId, ref: "Club" }],
 });
 
 export default mongoose.model("ClubCollection", clubCollectionSchema);

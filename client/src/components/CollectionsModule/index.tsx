@@ -58,11 +58,11 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
           </Button>
         </div>
         <div className={classes.body}>
-          {data.clubCollection.clubs.slice(0, limit).map((club: string) => (
+          {data.clubCollection.clubs.slice(0, limit).map((club: any) => (
             <ClubCard
-              clubID={club}
-              key={club}
-              onClick={() => showModalClub(club)}
+              clubID={club.id}
+              key={club.id}
+              onClick={() => showModalClub(club.id)}
             />
           ))}
           <CardFiller />
