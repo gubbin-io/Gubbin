@@ -11,6 +11,7 @@ export interface Club {
   id: string;
   clubName: string;
   rating: number;
+  joined: boolean;
   description: string;
   numMembers: number;
   themeColor: string;

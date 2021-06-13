@@ -2,15 +2,14 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { LOG_IN } from "../../constants/queries";
+import { GET_CURRENT_USER, LOG_IN } from "../../constants/queries";
+import { client } from "../../constants/routes";
 import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
-export interface ComponentProp {
-  loadUser: () => void;
-}
+export interface ComponentProp {}
 
-const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
+const LoginScreen: React.FC<ComponentProp> = () => {
   const classes = useStyles();
   const [doLogIn] = useMutation(LOG_IN);
 
@@ -58,7 +57,7 @@ const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
                 const storage = remember ? localStorage : sessionStorage;
                 if (token) storage.setItem("token", token);
 
-                loadUser();
+                client.query({ query: GET_CURRENT_USER });
                 setLoading(true);
               } catch (error) {
                 setError(error);

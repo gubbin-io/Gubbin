@@ -34,6 +34,7 @@ const clubSchema = gql`
     questions: [Question]
     socialMedia: SocialMedia
     rating: Float
+    joined: Boolean!
   }
 
   type Review {

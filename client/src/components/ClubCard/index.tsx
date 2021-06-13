@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import JoinButton from "../JoinButton";
 import useStyles from "./style";
 
 export interface ClubCardProp {
@@ -7,6 +8,8 @@ export interface ClubCardProp {
   description: string;
   themeColor?: string;
   logoUri: string;
+  joined: boolean;
+  id: string;
   onClick: () => void;
 }
 
@@ -15,11 +18,11 @@ const ClubCard: React.FC<ClubCardProp> = ({
   description,
   themeColor,
   logoUri,
+  joined,
+  id,
   onClick,
 }) => {
-  const classes = useStyles({
-    clubColor: themeColor,
-  });
+  const classes = useStyles();
 
   return (
     <Card
@@ -34,7 +37,17 @@ const ClubCard: React.FC<ClubCardProp> = ({
         <span className={classes.title}>{clubName}</span>
         <span className={classes.tagline}>{description}</span>
       </div>
-      <Button className={classes.joinButton}>Join</Button>
+      <JoinButton
+        clubId={id}
+        joined={joined}
+        clubColor={themeColor || "#1971c2"}
+        style={{
+          flexShrink: 0,
+          marginLeft: "auto",
+          height: "28px",
+          width: "70px",
+        }}
+      />
     </Card>
   );
 };

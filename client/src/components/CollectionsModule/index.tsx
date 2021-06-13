@@ -9,6 +9,7 @@ import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
 import LoadingScreen from "../LoadingScreen";
+import { Club } from "../../constants/types";
 
 export interface CollectionsModuleProp {
   collectionID: String;
@@ -60,16 +61,27 @@ const CollectionsModule: React.FC<CollectionsModuleProp> = ({
         <div className={classes.body}>
           {data.clubCollection.clubs
             .slice(0, limit)
-            .map(({ clubName, description, themeColor, logoUri, id }: any) => (
-              <ClubCard
-                clubName={clubName}
-                description={description}
-                themeColor={themeColor}
-                logoUri={logoUri}
-                key={id}
-                onClick={() => showModalClub(id)}
-              />
-            ))}
+            .map(
+              ({
+                clubName,
+                description,
+                themeColor,
+                logoUri,
+                id,
+                joined,
+              }: Club) => (
+                <ClubCard
+                  clubName={clubName}
+                  description={description}
+                  themeColor={themeColor}
+                  logoUri={logoUri}
+                  joined={joined}
+                  id={id}
+                  key={id}
+                  onClick={() => showModalClub(id)}
+                />
+              )
+            )}
           <CardFiller />
           <CardFiller />
           <CardFiller />
