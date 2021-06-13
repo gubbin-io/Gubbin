@@ -6,6 +6,7 @@ import expressJwt from "express-jwt";
 import schema from "./schema";
 import resolvers from "./resolvers";
 import connectDB from "./connect";
+import cors from "cors";
 
 dotenv.config();
 connectDB(process.env.DB_URI);
@@ -18,6 +19,7 @@ app.use(
     credentialsRequired: false,
   })
 );
+app.use(cors());
 
 const server = new ApolloServer({
   typeDefs: schema,

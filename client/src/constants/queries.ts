@@ -1,5 +1,24 @@
 import { gql } from "@apollo/client";
 
+export const GET_CURRENT_USER = gql`
+  query {
+    currentUser {
+      userId
+      userName
+      memberClubs
+      organizerClubs
+    }
+  }
+`;
+
+export const LOG_IN = gql`
+  mutation ($userName: String!, $password: String!) {
+    login(userInfo: { userName: $userName, password: $password }) {
+      token
+    }
+  }
+`;
+
 export const FIND_CLUBS = gql`
   query ($searchString: String!) {
     findClubs(searchString: $searchString) {

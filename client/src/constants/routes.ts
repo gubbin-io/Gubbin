@@ -1,4 +1,5 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 interface Config {
   SERVER_URL: string;
@@ -14,7 +15,24 @@ const prod: Config = {
 
 const CONFIG: Config = process.env.NODE_ENV === "production" ? prod : dev;
 
-export const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: CONFIG.SERVER_URL,
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  let token = sessionStorage.getItem("token") || localStorage.getItem("token");
+
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token && token !== "undefined" ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+export const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });

@@ -1,12 +1,27 @@
-import React from "react";
+import { useMutation } from "@apollo/client";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { LOG_IN } from "../../constants/queries";
+import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
-export interface ComponentProp {}
+export interface ComponentProp {
+  loadUser: () => void;
+}
 
-const LoginScreen: React.FC<ComponentProp> = () => {
+const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
   const classes = useStyles();
+  const [doLogIn] = useMutation(LOG_IN);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(true);
+
+  const [error, setError] = useState<any>();
+  const [loading, setLoading] = useState(false);
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <div className={classes.container}>
@@ -30,16 +45,41 @@ const LoginScreen: React.FC<ComponentProp> = () => {
           </span>
           <Form
             className={classes.form}
-            onSubmit={(e: any) => {
+            onSubmit={async (e: any) => {
               e.preventDefault();
+              try {
+                const ret = await doLogIn({
+                  variables: {
+                    userName: username,
+                    password: password,
+                  },
+                });
+                const token = ret.data.login.token as string;
+                const storage = remember ? localStorage : sessionStorage;
+                if (token) storage.setItem("token", token);
+
+                loadUser();
+                setLoading(true);
+              } catch (error) {
+                setError(error);
+              }
             }}
           >
+            {error && (
+              <span style={{ color: "red" }}>
+                Something went wrong, please try again.
+              </span>
+            )}
             <Form.Group controlId="formBasicEmail">
-              <Form.Label className={classes.label}>Email</Form.Label>
+              <Form.Label className={classes.label}>Username</Form.Label>
               <Form.Control
                 className={classes.field}
-                type="email"
-                placeholder="Enter Email"
+                type="text"
+                placeholder="Enter Username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
               />
             </Form.Group>
 
@@ -49,18 +89,26 @@ const LoginScreen: React.FC<ComponentProp> = () => {
                 className={classes.field}
                 type="password"
                 placeholder="Enter Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Remember me" />
+              <Form.Check
+                type="checkbox"
+                label="Remember me"
+                checked={remember}
+                onChange={(e) => {
+                  setRemember(e.target.checked);
+                }}
+              />
             </Form.Group>
             <Button className={classes.submitButton} type="submit">
               Log In
             </Button>
           </Form>
-          <Link className={classes.link} to="/resetpassword">
-            Forgot Password?
-          </Link>
           <span className={classes.miscText}>
             Don't have an account?{" "}
             <Link className={classes.link} to="/signup">
