@@ -127,6 +127,18 @@ const clubResolvers = {
         }
       );
     },
+
+    updateSocialMedia: async (_: any, { clubId, socialMedia }: any) => {
+      let sets: any = {};
+      for (const [k, v] of Object.entries(socialMedia)) {
+        sets[`socialMedia.${k}`] = v;
+      }
+
+      const updated = await Club.updateOne({ _id: clubId }, { $set: sets });
+      return {
+        success: updated.ok,
+      };
+    },
   },
 
   Club: {
