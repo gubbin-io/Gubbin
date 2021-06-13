@@ -35,6 +35,10 @@ export const GET_CLUB_COLLECTION = gql`
       collectionName
       clubs {
         id
+        clubName
+        description
+        themeColor
+        logoUri
       }
     }
   }

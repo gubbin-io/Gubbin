@@ -43,13 +43,18 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
       </div>
 
       <div className={classes.body}>
-        {clubs.map((club: any) => (
-          <ClubCard
-            clubID={club.id}
-            key={club.id}
-            onClick={() => showModalClub(club.id)}
-          />
-        ))}
+        {clubs.map(
+          ({ clubName, description, themeColor, logoUri, id }: any) => (
+            <ClubCard
+              clubName={clubName}
+              description={description}
+              themeColor={themeColor}
+              logoUri={logoUri}
+              key={id}
+              onClick={() => showModalClub(id)}
+            />
+          )
+        )}
         <CardFiller />
         <CardFiller />
         <CardFiller />
