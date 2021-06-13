@@ -33,7 +33,9 @@ export const GET_CLUB_COLLECTION = gql`
     clubCollection(collectionId: $collectionId) {
       collectionId
       collectionName
-      clubs
+      clubs {
+        id
+      }
     }
   }
 `;
