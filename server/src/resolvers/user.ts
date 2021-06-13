@@ -46,6 +46,7 @@ const userResolvers = {
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) return new UserInputError("Invalid Credentials");
 
+      // TODO: user SECRET from .env
       return {
         token: jwt.sign({ userId: user._id }, "SECRET", {
           algorithm: "HS256",
@@ -69,11 +70,44 @@ const userResolvers = {
       };
     },
 
+    removeMemberClub: async (_: any, { userClub: { clubId, userId } }: any) => {
+      const updated = await User.updateOne(
+        { _id: userId },
+        {
+          $pull: {
+            memberClubs: clubId,
+          },
+        }
+      );
+
+      return {
+        success: updated.ok,
+      };
+    },
+
     addOrganizerClub: async (_: any, { userClub: { clubId, userId } }: any) => {
       const updated = await User.updateOne(
         { _id: userId },
         {
           $push: {
+            organizerClubs: clubId,
+          },
+        }
+      );
+
+      return {
+        success: updated.ok,
+      };
+    },
+
+    removeOrganizerClub: async (
+      _: any,
+      { userClub: { clubId, userId } }: any
+    ) => {
+      const updated = await User.updateOne(
+        { _id: userId },
+        {
+          $pull: {
             organizerClubs: clubId,
           },
         }
