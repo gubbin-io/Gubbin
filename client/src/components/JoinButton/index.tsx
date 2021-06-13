@@ -5,6 +5,7 @@ import {
   ADD_MEMBER_CLUB,
   GET_MEMBER_CLUBS,
   REMOVE_MEMBER_CLUB,
+  GET_CLUB_INFO,
 } from "../../constants/queries";
 import useStyles from "./style";
 
@@ -25,18 +26,24 @@ const JoinButton: React.FC<JoinButtonProp> = ({
   const [joinState, setJoinState] = useState(joined);
 
   const [addMemberClub] = useMutation(ADD_MEMBER_CLUB, {
-    refetchQueries: [{ query: GET_MEMBER_CLUBS }],
+    refetchQueries: [
+      { query: GET_MEMBER_CLUBS },
+      { query: GET_CLUB_INFO, variables: { clubId } },
+    ],
   });
 
   const [removeMemberClub] = useMutation(REMOVE_MEMBER_CLUB, {
-    refetchQueries: [{ query: GET_MEMBER_CLUBS }],
+    refetchQueries: [
+      { query: GET_MEMBER_CLUBS },
+      { query: GET_CLUB_INFO, variables: { clubId } },
+    ],
   });
 
   function handleJoin() {
     const userId = sessionStorage.getItem("userId");
 
     if (userId && userId !== "undefined") {
-      addMemberClub({ variables: { userId, clubId: clubId } });
+      addMemberClub({ variables: { userId, clubId } });
       setJoinState(!joinState);
     }
   }
@@ -45,7 +52,7 @@ const JoinButton: React.FC<JoinButtonProp> = ({
     const userId = sessionStorage.getItem("userId");
 
     if (userId && userId !== "undefined") {
-      removeMemberClub({ variables: { userId, clubId: clubId } });
+      removeMemberClub({ variables: { userId, clubId } });
       setJoinState(!joinState);
     }
   }
