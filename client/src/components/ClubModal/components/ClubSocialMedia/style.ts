@@ -14,6 +14,19 @@ const useStyles = createUseStyles((theme: any) => ({
   icon: {
     marginRight: "8px",
   },
+  cards: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "stretch",
+    flexWrap: "wrap",
+    gap: "8px",
+    "@media ( max-width: 880px)": {
+      // One item per row
+      "& > div": {
+        flexBasis: "100%",
+      },
+    },
+  },
 }));
 
 export default useStyles;
