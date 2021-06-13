@@ -1,15 +1,16 @@
+import clubCollection from "../models/clubCollection";
 import ClubCollection from "../models/clubCollection";
+import utils from "./utils";
 
 const clubCollectionResolvers = {
   Query: {
     clubCollections: async () => {
       const collections = await ClubCollection.find();
 
-      return collections.map(({ _id, collectionName, clubs }: any) => ({
+      return collections.map(({ _id, collectionName }: any) => ({
         collectionId: _id,
         collectionName,
         // TODO: return full clubs here, refactor code so that its possible?
-        clubs: clubs.map(({ clubId }: any) => clubId),
       }));
     },
 
@@ -22,7 +23,6 @@ const clubCollectionResolvers = {
         collectionId: collection._id,
         collectionName: collection.collectionName,
         // TODO: return full clubs here, refactor code so that its possible?
-        clubs: collection.clubs.map(({ clubId }: any) => clubId),
       };
     },
   },
@@ -53,9 +53,7 @@ const clubCollectionResolvers = {
         { _id: collectionId },
         {
           $push: {
-            clubs: {
-              clubId,
-            },
+            clubs: clubId,
           },
         }
       );
@@ -63,6 +61,16 @@ const clubCollectionResolvers = {
       return {
         success: updated.ok,
       };
+    },
+  },
+
+  ClubCollection: {
+    clubs: async (parent: any) => {
+      const result = await ClubCollection.findOne({ _id: parent.collectionId })
+        .populate("clubs")
+        .exec();
+      console.log(result);
+      return result.clubs.map(utils.clubFromSchema);
     },
   },
 };
