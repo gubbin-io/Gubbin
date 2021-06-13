@@ -5,8 +5,20 @@ export const GET_CURRENT_USER = gql`
     currentUser {
       userId
       userName
-      memberClubs
-      organizerClubs
+    }
+  }
+`;
+
+export const GET_MEMBER_CLUBS = gql`
+  query {
+    currentUser {
+      memberClubs {
+        id
+        clubName
+        description
+        themeColor
+        logoUri
+      }
     }
   }
 `;
@@ -24,6 +36,9 @@ export const FIND_CLUBS = gql`
     findClubs(searchString: $searchString) {
       id
       clubName
+      description
+      themeColor
+      logoUri
     }
   }
 `;
