@@ -8,8 +8,10 @@ const userSchema = gql`
   extend type Mutation {
     register(userInfo: UserInfo!): User!
     login(userInfo: UserInfo!): AuthResponse!
-    addMemberClub(userClub: UserClub!): AddUserClubResponse!
-    addOrganizerClub(userClub: UserClub!): AddUserClubResponse!
+    addMemberClub(userClub: UserClub!): UpdateResponse!
+    addOrganizerClub(userClub: UserClub!): UpdateResponse!
+    removeMemberClub(userClub: UserClub!): UpdateResponse!
+    removeOrganizerClub(userClub: UserClub!): UpdateResponse!
   }
 
   type User {
@@ -23,7 +25,7 @@ const userSchema = gql`
     token: String!
   }
 
-  type AddUserClubResponse {
+  type UpdateResponse {
     success: Int!
   }
 
