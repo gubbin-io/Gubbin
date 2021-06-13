@@ -30,7 +30,7 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
 
   function checkProperties(obj: any) {
     for (let key in obj) {
-      if (key !== "__typename" && obj[key] !== null && obj[key] != "")
+      if (key !== "__typename" && obj[key] !== null && obj[key] !== "")
         return true;
     }
     return false;
