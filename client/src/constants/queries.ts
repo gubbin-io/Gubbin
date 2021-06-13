@@ -5,8 +5,20 @@ export const GET_CURRENT_USER = gql`
     currentUser {
       userId
       userName
-      memberClubs
-      organizerClubs
+    }
+  }
+`;
+
+export const GET_MEMBER_CLUBS = gql`
+  query {
+    currentUser {
+      memberClubs {
+        id
+        clubName
+        description
+        themeColor
+        logoUri
+      }
     }
   }
 `;
