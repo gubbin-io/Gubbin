@@ -32,6 +32,14 @@ export const ADD_MEMBER_CLUB = gql`
   }
 `;
 
+export const REMOVE_MEMBER_CLUB = gql`
+  mutation ($userId: ID!, $clubId: ID!) {
+    removeMemberClub(userClub: { userId: $userId, clubId: $clubId }) {
+      success
+    }
+  }
+`;
+
 export const LOG_IN = gql`
   mutation ($userName: String!, $password: String!) {
     login(userInfo: { userName: $userName, password: $password }) {

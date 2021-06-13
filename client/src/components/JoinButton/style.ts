@@ -27,10 +27,16 @@ const useStyles = createUseStyles((theme: any) => ({
       color: "#FFFFFF",
       fontWeight: 600,
     },
-    "&:hover, &:disabled, &.disabled": {
+    "&:hover": {
       backgroundColor: "#343A40",
       color: "#FFFFFF",
     },
+
+    "&.joined": {
+      backgroundColor: "#ADB5BD",
+      color: "#FFFFFF",
+    },
+
     "&:focus": {
       backgroundColor: "#000000",
       color: "#FFFFFF",
