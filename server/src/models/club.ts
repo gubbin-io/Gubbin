@@ -29,6 +29,15 @@ const clubSchema = new Schema({
   backgroundUri: String,
   backgroundUriThumbnail: String,
   backgroundFileId: String,
+  socialMedia: {
+    facebook: String,
+    twitter: String,
+    instagram: String,
+    website: String,
+    discord: String,
+    whatsapp: String,
+    messager: String,
+  },
   reviews: [
     { rating: Number, title: String, comment: String, commentTime: Date },
   ],

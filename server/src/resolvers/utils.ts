@@ -38,6 +38,7 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     logoUri: clubSchema.logoUri,
     backgroundUri: clubSchema.backgroundUri,
     joined: joined,
+    socialMedia: clubSchema.socialMedia,
   };
 }
 
