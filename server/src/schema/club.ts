@@ -29,6 +29,7 @@ const clubSchema = gql`
     reviews: [Review]
     questions: [Question]
     rating: Float
+    joined: Boolean!
   }
 
   type Review {
