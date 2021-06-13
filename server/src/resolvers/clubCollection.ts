@@ -1,4 +1,3 @@
-import clubCollection from "../models/clubCollection";
 import ClubCollection from "../models/clubCollection";
 import utils from "./utils";
 
@@ -22,7 +21,6 @@ const clubCollectionResolvers = {
       return {
         collectionId: collection._id,
         collectionName: collection.collectionName,
-        // TODO: return full clubs here, refactor code so that its possible?
       };
     },
   },
@@ -69,7 +67,6 @@ const clubCollectionResolvers = {
       const result = await ClubCollection.findOne({ _id: parent.collectionId })
         .populate("clubs")
         .exec();
-      console.log(result);
       return result.clubs.map(utils.clubFromSchema);
     },
   },
