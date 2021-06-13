@@ -3,6 +3,7 @@ import userSchema from "./user";
 import clubSchema from "./club";
 import clubCollectionSchema from "./clubCollection";
 import questionSchema from "./question";
+import reviewSchema from "./review";
 
 const linkSchema = gql`
   type Query {
@@ -19,4 +20,5 @@ export default [
   clubSchema,
   clubCollectionSchema,
   questionSchema,
+  reviewSchema,
 ];
