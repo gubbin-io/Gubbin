@@ -11,29 +11,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import CollectionsPage from "./CollectionsPage";
 import { Container } from "react-bootstrap";
 import SearchPage from "./SearchPage";
-import { GET_CURRENT_USER } from "../constants/queries";
-import { useQuery } from "@apollo/client";
-import LoadingScreen from "./LoadingScreen";
-import LoginScreen from "./LoginScreen";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
   const [show, setShow] = useState(false);
   const [modalClubId, setModalClubId] = useState<string | undefined>(undefined);
   const [searchString, setSearchString] = useState("");
-  const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER);
-
-  if (loading) return <LoadingScreen />;
-  if (error)
-    return (
-      <LoginScreen
-        loadUser={() => {
-          refetch();
-        }}
-      />
-    );
-
-  console.log(data);
 
   const showModalClub = (modalClubId: string) => {
     setModalClubId(modalClubId);

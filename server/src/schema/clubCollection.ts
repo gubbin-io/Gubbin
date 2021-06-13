@@ -16,7 +16,7 @@ const clubCollectionSchema = gql`
   type ClubCollection {
     collectionId: ID!
     collectionName: String!
-    clubs: [Club]!
+    clubs: [ID]!
   }
 
   type newCollectionResponse {

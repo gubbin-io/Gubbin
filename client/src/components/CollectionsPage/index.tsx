@@ -52,11 +52,11 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
       </div>
 
       <div className={classes.body}>
-        {data.clubCollection.clubs.map((club: any) => (
+        {data.clubCollection.clubs.map((club: string) => (
           <ClubCard
-            clubID={club.id}
-            key={club.id}
-            onClick={() => showModalClub(club.id)}
+            clubID={club}
+            key={club}
+            onClick={() => showModalClub(club)}
           />
         ))}
         <CardFiller />

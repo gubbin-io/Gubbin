@@ -2,39 +2,28 @@ import { gql } from "apollo-server";
 
 const userSchema = gql`
   extend type Query {
-    currentUser: User!
+    users: [User]
   }
 
   extend type Mutation {
-    register(userInfo: UserInfo!): User!
-    login(userInfo: UserInfo!): AuthResponse!
-    addMemberClub(userClub: UserClub!): AddUserClubResponse!
-    addOrganizerClub(userClub: UserClub!): AddUserClubResponse!
+    register(userInfo: UserInfo!): RegisterResponse!
+    login(userInfo: UserInfo!): Boolean!
   }
 
   type User {
-    userId: ID!
-    userName: String!
-    memberClubs: [ID]!
-    organizerClubs: [ID]!
+    id: ID!
+    username: String!
+    firstLetterOfUsername: String!
   }
 
-  type AuthResponse {
-    token: String!
-  }
-
-  type AddUserClubResponse {
-    success: Int!
+  type RegisterResponse {
+    user: User
   }
 
   input UserInfo {
-    userName: String!
+    username: String!
     password: String!
-  }
-
-  input UserClub {
-    clubId: ID!
-    userId: ID!
+    age: Int
   }
 `;
 
