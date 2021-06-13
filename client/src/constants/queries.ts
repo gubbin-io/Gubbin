@@ -1,10 +1,62 @@
 import { gql } from "@apollo/client";
 
+export const GET_CURRENT_USER = gql`
+  query {
+    currentUser {
+      userId
+      userName
+    }
+  }
+`;
+
+export const GET_MEMBER_CLUBS = gql`
+  query {
+    currentUser {
+      memberClubs {
+        id
+        clubName
+        description
+        themeColor
+        logoUri
+        joined
+      }
+    }
+  }
+`;
+
+export const ADD_MEMBER_CLUB = gql`
+  mutation ($userId: ID!, $clubId: ID!) {
+    addMemberClub(userClub: { userId: $userId, clubId: $clubId }) {
+      success
+    }
+  }
+`;
+
+export const REMOVE_MEMBER_CLUB = gql`
+  mutation ($userId: ID!, $clubId: ID!) {
+    removeMemberClub(userClub: { userId: $userId, clubId: $clubId }) {
+      success
+    }
+  }
+`;
+
+export const LOG_IN = gql`
+  mutation ($userName: String!, $password: String!) {
+    login(userInfo: { userName: $userName, password: $password }) {
+      token
+    }
+  }
+`;
+
 export const FIND_CLUBS = gql`
   query ($searchString: String!) {
     findClubs(searchString: $searchString) {
       id
       clubName
+      description
+      themeColor
+      joined
+      logoUri
     }
   }
 `;
@@ -14,19 +66,14 @@ export const GET_CLUB_COLLECTION = gql`
     clubCollection(collectionId: $collectionId) {
       collectionId
       collectionName
-      clubs
-    }
-  }
-`;
-
-export const GET_CLUB_CARD = gql`
-  query Club($clubId: ID!) {
-    club(clubId: $clubId) {
-      id
-      clubName
-      description
-      themeColor
-      logoUri
+      clubs {
+        id
+        clubName
+        description
+        joined
+        themeColor
+        logoUri
+      }
     }
   }
 `;
@@ -37,12 +84,22 @@ export const GET_CLUB_INFO = gql`
       id
       clubName
       rating
+      joined
       description
       numMembers
       themeColor
       about
       logoUri
       backgroundUri
+      socialMedia {
+        facebook
+        twitter
+        instagram
+        website
+        discord
+        whatsapp
+        messager
+      }
       questions {
         questionId
         title

@@ -11,6 +11,7 @@ export interface Club {
   id: string;
   clubName: string;
   rating: number;
+  joined: boolean;
   description: string;
   numMembers: number;
   themeColor: string;
@@ -18,6 +19,7 @@ export interface Club {
   logoUri: string;
   backgroundUri: string;
   reviews: Review[];
+  socialMedia?: SocialMedia;
   questions: Question[];
 }
 
@@ -28,4 +30,14 @@ export interface Question {
   questionTime: Date;
   answer?: string;
   answerTime?: Date;
+}
+
+export interface SocialMedia {
+  facebook?: string;
+  twitter?: string;
+  instagram?: string;
+  website?: string;
+  discord?: string;
+  whatsapp?: string;
+  messager?: string;
 }

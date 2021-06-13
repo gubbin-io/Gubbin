@@ -13,6 +13,10 @@ const clubSchema = gql`
     addClub(clubInfo: ClubInfo!): Club
     addReview(review: NewReview!): Int
     updateLogo(logo: LogoInput!): ReturnImage
+    updateSocialMedia(
+      clubId: ID!
+      socialMedia: SocialMediaInput
+    ): UpdateSocialMediaResponse
   }
 
   type Club {
@@ -28,7 +32,9 @@ const clubSchema = gql`
     backgroundUriThumbnail: String
     reviews: [Review]
     questions: [Question]
+    socialMedia: SocialMedia
     rating: Float
+    joined: Boolean!
   }
 
   type Review {
@@ -54,6 +60,20 @@ const clubSchema = gql`
     thumbnailUri: String!
   }
 
+  type SocialMedia {
+    facebook: String
+    twitter: String
+    instagram: String
+    website: String
+    discord: String
+    whatsapp: String
+    messager: String
+  }
+
+  type UpdateSocialMediaResponse {
+    success: Int!
+  }
+
   input ClubInfo {
     description: String!
     clubName: String!
@@ -75,6 +95,16 @@ const clubSchema = gql`
   input LogoInput {
     clubId: ID!
     content: String
+  }
+
+  input SocialMediaInput {
+    facebook: String
+    twitter: String
+    instagram: String
+    website: String
+    discord: String
+    whatsapp: String
+    messager: String
   }
 `;
 

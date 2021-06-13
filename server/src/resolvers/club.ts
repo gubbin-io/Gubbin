@@ -9,25 +9,29 @@ const clubResolvers = {
   Date: dateScalar,
 
   Query: {
-    clubs: async () => {
+    clubs: async (parent: any, _: any, context: any) => {
       const clubs = await Club.find();
 
-      return clubs.map(utils.clubFromSchema);
+      return clubs.map((schema: any) =>
+        utils.clubFromSchema(schema, context.user?.userId)
+      );
     },
 
-    club: async (_: any, { clubId }: any) => {
+    club: async (_: any, { clubId }: any, context: any) => {
       const club = await Club.findOne({ _id: clubId });
 
       if (!club) return undefined;
 
-      return utils.clubFromSchema(club);
+      return utils.clubFromSchema(club, context.user?.userId);
     },
 
-    findClubs: async (_: any, { searchString }: any) => {
+    findClubs: async (_: any, { searchString }: any, context: any) => {
       const regex = new RegExp(`.*${searchString}.*`, "i");
       const clubs = await Club.find({ clubName: regex });
 
-      return clubs.map(utils.clubFromSchema);
+      return clubs.map((schema: any) =>
+        utils.clubFromSchema(schema, context.user?.userId)
+      );
     },
   },
 
@@ -126,6 +130,18 @@ const clubResolvers = {
           return { uri: result?.url, thumbnailUri: result?.thumbnailUrl };
         }
       );
+    },
+
+    updateSocialMedia: async (_: any, { clubId, socialMedia }: any) => {
+      let sets: any = {};
+      for (const [k, v] of Object.entries(socialMedia)) {
+        sets[`socialMedia.${k}`] = v;
+      }
+
+      const updated = await Club.updateOne({ _id: clubId }, { $set: sets });
+      return {
+        success: updated.ok,
+      };
     },
   },
 

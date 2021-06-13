@@ -32,6 +32,7 @@ const SideBar: React.FC<SideBarProp> = ({ searchString, setSearchString }) => {
         className={classes.button}
         active={location.pathname === "/discover"}
         onClick={() => {
+          setSearchString("");
           history.push("/discover");
         }}
       >
@@ -42,6 +43,7 @@ const SideBar: React.FC<SideBarProp> = ({ searchString, setSearchString }) => {
         className={classes.button}
         active={location.pathname === "/categories"}
         onClick={() => {
+          setSearchString("");
           history.push("/categories");
         }}
       >
@@ -52,6 +54,7 @@ const SideBar: React.FC<SideBarProp> = ({ searchString, setSearchString }) => {
         className={classes.button}
         active={location.pathname === "/myclubs"}
         onClick={() => {
+          setSearchString("");
           history.push("/myclubs");
         }}
       >

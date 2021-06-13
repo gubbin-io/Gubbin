@@ -1,3 +1,5 @@
+import User from "../models/user";
+
 function avgRating(reviews: any) {
   if (!reviews || reviews.length == 0) return undefined;
 
@@ -9,7 +11,13 @@ function avgRating(reviews: any) {
   return rounded;
 }
 
-function clubFromSchema(clubSchema: any) {
+async function clubFromSchema(clubSchema: any, userId: any) {
+  const find = await User.findOne({
+    _id: userId,
+    memberClubs: clubSchema._id,
+  });
+  const joined = find != null;
+
   return {
     clubName: clubSchema.clubName,
     id: clubSchema._id,
@@ -29,6 +37,8 @@ function clubFromSchema(clubSchema: any) {
     themeColor: clubSchema.themeColor,
     logoUri: clubSchema.logoUri,
     backgroundUri: clubSchema.backgroundUri,
+    joined: joined,
+    socialMedia: clubSchema.socialMedia,
   };
 }
 
