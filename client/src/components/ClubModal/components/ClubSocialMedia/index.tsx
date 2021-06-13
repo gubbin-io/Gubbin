@@ -1,56 +1,99 @@
-import React, { useState } from "react";
+import React from "react";
+import { SocialMedia } from "../../../../constants/types";
 import SocialMediaCard from "./components/SocialMediaCard";
 import SocialMediaFiller from "./components/SocialMediaFiller";
 import useStyles from "./style";
 
 export interface SocialMediaProp {
   clubColor: string;
+  socialMedia?: SocialMedia;
 }
 
-const ClubSocialMedia: React.FC<SocialMediaProp> = ({ clubColor }) => {
+const ClubSocialMedia: React.FC<SocialMediaProp> = ({
+  clubColor,
+  socialMedia,
+}) => {
   const classes = useStyles();
+  let body = <p>No social media provided.</p>;
 
+  if (socialMedia) {
+    const {
+      facebook,
+      twitter,
+      instagram,
+      website,
+      discord,
+      whatsapp,
+      messager,
+    } = socialMedia;
+
+    body = (
+      <>
+        {twitter && (
+          <SocialMediaCard
+            icon={"twitter"}
+            title={"Twitter"}
+            link={twitter}
+            clubColor={clubColor}
+          />
+        )}
+        {discord && (
+          <SocialMediaCard
+            icon={"discord"}
+            title={"Discord"}
+            link={discord}
+            clubColor={clubColor}
+          />
+        )}
+        {facebook && (
+          <SocialMediaCard
+            icon={"facebook"}
+            title={"Facebook"}
+            link={facebook}
+            clubColor={clubColor}
+          />
+        )}
+        {instagram && (
+          <SocialMediaCard
+            icon={"instagram"}
+            title={"Instagram"}
+            link={instagram}
+            clubColor={clubColor}
+          />
+        )}
+        {whatsapp && (
+          <SocialMediaCard
+            icon={"whatsapp"}
+            title={"WhatsApp"}
+            link={whatsapp}
+            clubColor={clubColor}
+          />
+        )}
+        {messager && (
+          <SocialMediaCard
+            icon={""}
+            title={"Messenger"}
+            link={messager}
+            clubColor={clubColor}
+          />
+        )}
+        {website && (
+          <SocialMediaCard
+            icon={""}
+            title={"Website"}
+            link={website}
+            clubColor={clubColor}
+          />
+        )}
+      </>
+    );
+  }
   return (
     <>
       <span className={classes.sectionHeading}>{`Social Media`}</span>
       <hr className={classes.divider} />
       <div className={classes.cards}>
-        <SocialMediaCard
-          icon={"twitter"}
-          title={"Twitter"}
-          link={"https://twitter.com"}
-          clubColor={clubColor}
-        />
-        <SocialMediaCard
-          icon={"discord"}
-          title={"Discord Server"}
-          link={"https://discord.com"}
-          clubColor={clubColor}
-        />
-        <SocialMediaCard
-          icon={"facebook"}
-          title={"Facebook Group"}
-          link={"https://facebook.com"}
-          clubColor={clubColor}
-        />
-        <SocialMediaCard
-          icon={"instagram"}
-          title={"Instagram Profile"}
-          link={"https://instagram.com"}
-          clubColor={clubColor}
-        />
-        <SocialMediaCard
-          icon={"whatsapp"}
-          title={"WhatsApp Group Chat"}
-          link={"https://web.whatsapp.com"}
-          clubColor={clubColor}
-        />
-        <SocialMediaCard
-          icon={""}
-          title={"Website"}
-          link={"https://example.com"}
-          clubColor={clubColor}
-        />
+        {body}
         <SocialMediaFiller />
       </div>
     </>

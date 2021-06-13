@@ -9,21 +9,32 @@ import {
   QuestionCircleFill,
   Globe2,
 } from "react-bootstrap-icons";
+import { SocialMedia } from "../../../../constants/types";
 
-export interface ClubBodyProp {
+export interface ClubSideBarProp {
   numMembers: number;
   rating?: number;
+  socialMedia?: SocialMedia;
   clubColor: string;
   numReviews: number;
 }
 
-const ClubBody: React.FC<ClubBodyProp> = ({
+const ClubSideBar: React.FC<ClubSideBarProp> = ({
   numMembers,
   clubColor,
   rating,
   numReviews,
+  socialMedia,
 }) => {
   const classes = useStyles({ clubColor });
+
+  function checkProperties(obj: any) {
+    for (let key in obj) {
+      if (key !== "__typename" && obj[key] !== null && obj[key] != "")
+        return true;
+    }
+    return false;
+  }
 
   return (
     <div className={classes.sidebar}>
@@ -61,15 +72,17 @@ const ClubBody: React.FC<ClubBodyProp> = ({
             {`Ratings & Reviews`}
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link className={classes.tabButton} eventKey="social">
-            <Globe2 size={20} className={classes.icon} />
-            {`Social Media`}
-          </Nav.Link>
-        </Nav.Item>
+        {socialMedia && checkProperties(socialMedia) && (
+          <Nav.Item>
+            <Nav.Link className={classes.tabButton} eventKey="social">
+              <Globe2 size={20} className={classes.icon} />
+              {`Social Media`}
+            </Nav.Link>
+          </Nav.Item>
+        )}
       </Nav>
     </div>
   );
 };
 
-export default ClubBody;
+export default ClubSideBar;

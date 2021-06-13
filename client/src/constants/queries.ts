@@ -83,6 +83,15 @@ export const GET_CLUB_INFO = gql`
       about
       logoUri
       backgroundUri
+      socialMedia {
+        facebook
+        twitter
+        instagram
+        website
+        discord
+        whatsapp
+        messager
+      }
       questions {
         questionId
         title
