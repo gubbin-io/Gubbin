@@ -2,6 +2,7 @@ import User from "../models/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserInputError } from "apollo-server-errors";
+import utils from "./utils";
 
 const userResolvers = {
   Query: {
@@ -48,7 +49,7 @@ const userResolvers = {
       return {
         token: jwt.sign({ userId: user._id }, "SECRET", {
           algorithm: "HS256",
-          expiresIn: "1d",
+          expiresIn: "1y",
         }),
       };
     },
@@ -58,9 +59,7 @@ const userResolvers = {
         { _id: userId },
         {
           $push: {
-            memberClubs: {
-              clubId,
-            },
+            memberClubs: clubId,
           },
         }
       );
@@ -75,9 +74,7 @@ const userResolvers = {
         { _id: userId },
         {
           $push: {
-            organizerClubs: {
-              clubId,
-            },
+            organizerClubs: clubId,
           },
         }
       );
@@ -90,12 +87,16 @@ const userResolvers = {
 
   User: {
     memberClubs: async (parent: any) => {
-      const user = await User.findOne({ _id: parent.userId });
-      return user.memberClubs;
+      const result = await User.findOne({ _id: parent.userId })
+        .populate("memberClubs")
+        .exec();
+      return result.memberClubs.map(utils.clubFromSchema);
     },
     organizerClubs: async (parent: any) => {
-      const user = await User.findOne({ _id: parent.userId });
-      return user.organizerClubs;
+      const result = await User.findOne({ _id: parent.userId })
+        .populate("organizerClubs")
+        .exec();
+      return result.organizerClubs.map(utils.clubFromSchema);
     },
   },
 };
