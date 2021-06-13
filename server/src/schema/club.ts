@@ -11,7 +11,6 @@ const clubSchema = gql`
 
   extend type Mutation {
     addClub(clubInfo: ClubInfo!): Club
-    addReview(review: NewReview!): Int
     updateLogo(logo: LogoInput!): ReturnImage
     updateSocialMedia(
       clubId: ID!
@@ -44,6 +43,8 @@ const clubSchema = gql`
     title: String
     comment: String
     commentTime: Date
+    response: String
+    responseTime: Date
   }
 
   type Question {
@@ -82,14 +83,6 @@ const clubSchema = gql`
     about: String
     logoUri: String
     backgroundUri: String
-  }
-
-  input NewReview {
-    clubId: ID!
-    reviewer: String!
-    rating: Int!
-    title: String
-    comment: String
   }
 
   input LogoInput {

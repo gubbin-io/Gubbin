@@ -75,30 +75,6 @@ const clubResolvers = {
       return savedClub;
     },
 
-    addReview: async (
-      _: any,
-      { review: { clubId, reviewer, rating, title, comment } }: any
-    ) => {
-      if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
-
-      const updated = await Club.updateOne(
-        { _id: clubId },
-        {
-          $push: {
-            reviews: {
-              reviewer,
-              rating,
-              title,
-              comment,
-              commentTime: new Date(),
-            },
-          },
-        }
-      );
-
-      return updated.ok;
-    },
-
     updateLogo: async (_: any, { logo: { clubId, content } }: any) => {
       const imagekit = new ImageKit({
         publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
@@ -146,8 +122,9 @@ const clubResolvers = {
   },
 
   Club: {
-    rating: (parent: any) => {
-      return utils.avgRating(parent.reviews);
+    rating: async (parent: any) => {
+      const club = await Club.findOne(parent.id).populate("reviews").exec();
+      return utils.avgRating(club.reviews);
     },
 
     questions: async (parent: any) => {
@@ -155,6 +132,13 @@ const clubResolvers = {
         .populate("questions")
         .exec();
       return result.questions.map(utils.questionFromSchema);
+    },
+
+    reviews: async (parent: any) => {
+      const result = await Club.findOne({ _id: parent.id })
+        .populate("reviews")
+        .exec();
+      return result.reviews.map(utils.reviewFromSchema);
     },
   },
 };

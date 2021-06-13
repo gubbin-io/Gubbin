@@ -23,16 +23,6 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     id: clubSchema._id,
     description: clubSchema.description,
     about: clubSchema.about,
-    reviews: clubSchema.reviews.map(
-      ({ _id, reviewer, rating, title, comment, commentTime }: any) => ({
-        id: _id,
-        reviewer,
-        rating,
-        title,
-        comment,
-        commentTime,
-      })
-    ),
     numMembers: clubSchema.numMembers,
     themeColor: clubSchema.themeColor,
     logoUri: clubSchema.logoUri,
@@ -53,4 +43,22 @@ function questionFromSchema(questionSchema: any) {
   };
 }
 
-export default { avgRating, clubFromSchema, questionFromSchema };
+function reviewFromSchema(reviewSchema: any) {
+  return {
+    id: reviewSchema._id,
+    rating: reviewSchema.rating,
+    title: reviewSchema.title,
+    comment: reviewSchema.comment,
+    commentTime: reviewSchema.commentTime,
+    response: reviewSchema.response,
+    responseTime: reviewSchema.responseTime,
+    reviewer: { userName: "Anonymous" },
+  };
+}
+
+export default {
+  avgRating,
+  clubFromSchema,
+  questionFromSchema,
+  reviewFromSchema,
+};

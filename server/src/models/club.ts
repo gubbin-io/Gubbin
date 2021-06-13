@@ -3,12 +3,22 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
-  // club: { type: Schema.Types.ObjectId, ref: "Club" },
   title: String,
   body: String,
   questionTime: Date,
   answer: String,
   answerTime: Date,
+});
+
+const reviewSchema = new Schema({
+  rating: Number,
+  title: String,
+  comment: String,
+  commentTime: Date,
+  reviewer: { type: Schema.Types.ObjectId, ref: "User" },
+  response: String,
+  responseTime: Date,
+  responser: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const clubSchema = new Schema({
@@ -38,11 +48,10 @@ const clubSchema = new Schema({
     whatsapp: String,
     messager: String,
   },
-  reviews: [
-    { rating: Number, title: String, comment: String, commentTime: Date },
-  ],
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
 });
 
 export default mongoose.model("Club", clubSchema);
 export const Question = mongoose.model("Question", questionSchema);
+export const Review = mongoose.model("Review", reviewSchema);
