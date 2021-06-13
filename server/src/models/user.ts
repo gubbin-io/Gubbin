@@ -12,8 +12,8 @@ const userSchema = new Schema({
   },
 
   password: String,
-  memberClubs: [{ clubId: String }],
-  organizerClubs: [{ clubId: String }],
+  memberClubs: [{ type: Schema.Types.ObjectId, ref: "Club" }],
+  organizerClubs: [{ type: Schema.Types.ObjectId, ref: "Club" }],
 });
 
 export default mongoose.model("User", userSchema);

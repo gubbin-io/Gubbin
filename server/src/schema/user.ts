@@ -15,8 +15,8 @@ const userSchema = gql`
   type User {
     userId: ID!
     userName: String!
-    memberClubs: [ID]!
-    organizerClubs: [ID]!
+    memberClubs: [Club]!
+    organizerClubs: [Club]!
   }
 
   type AuthResponse {

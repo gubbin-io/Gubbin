@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { GET_CLUB_COLLECTION } from "../../constants/queries";
+import { GET_MEMBER_CLUBS } from "../../constants/queries";
 import CollectionsPage from "../CollectionsPage";
 import LoadingScreen from "../LoadingScreen";
 
@@ -9,9 +9,7 @@ export interface MyClubsPageProp {
 }
 
 const MyClubsPage: React.FC<MyClubsPageProp> = ({ showModalClub }) => {
-  const { loading, error, data } = useQuery(GET_CLUB_COLLECTION, {
-    variables: { collectionId: "60c2a579fc9fae915373f2bb" },
-  });
+  const { loading, error, data } = useQuery(GET_MEMBER_CLUBS);
 
   if (loading) return <LoadingScreen />;
   if (error) return <p>`Error! ${error}`</p>;
@@ -20,8 +18,8 @@ const MyClubsPage: React.FC<MyClubsPageProp> = ({ showModalClub }) => {
     <CollectionsPage
       showBackButton={false}
       showModalClub={showModalClub}
-      collectionTitle={data.clubCollection.collectionName}
-      clubs={data.clubCollection.clubs}
+      collectionTitle={"My Clubs"}
+      clubs={data.currentUser.memberClubs}
     />
   );
 };

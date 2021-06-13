@@ -9,7 +9,6 @@ const clubCollectionResolvers = {
       return collections.map(({ _id, collectionName }: any) => ({
         collectionId: _id,
         collectionName,
-        // TODO: return full clubs here, refactor code so that its possible?
       }));
     },
 
