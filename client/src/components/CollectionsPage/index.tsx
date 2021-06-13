@@ -1,34 +1,27 @@
-import { useQuery } from "@apollo/client";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { ArrowLeftShort } from "react-bootstrap-icons";
 import { useHistory } from "react-router-dom";
-import { GET_CLUB_COLLECTION } from "../../constants/queries";
+import { Club } from "../../constants/types";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
-import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
 export interface CollectionsPageProp {
-  collectionID: String;
   showBackButton?: boolean;
   showModalClub: (id: string) => void;
+  collectionTitle: String;
+  clubs: Club[];
 }
 
 const CollectionsPage: React.FC<CollectionsPageProp> = ({
-  collectionID,
+  clubs,
+  collectionTitle,
   showBackButton = true,
   showModalClub,
 }) => {
   const classes = useStyles();
   const history = useHistory();
-
-  const { loading, error, data } = useQuery(GET_CLUB_COLLECTION, {
-    variables: { collectionId: collectionID },
-  });
-
-  if (loading) return <LoadingScreen />;
-  if (error) return <p>`Error! ${error}`</p>;
 
   return (
     <>
@@ -44,15 +37,13 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
           </Button>
         )}
         <div className={classes.heading}>
-          <span className={classes.titleText}>
-            {data.clubCollection.collectionName}
-          </span>
+          <span className={classes.titleText}>{collectionTitle}</span>
           <hr className={classes.divider} />
         </div>
       </div>
 
       <div className={classes.body}>
-        {data.clubCollection.clubs.map((club: any) => (
+        {clubs.map((club: any) => (
           <ClubCard
             clubID={club.id}
             key={club.id}

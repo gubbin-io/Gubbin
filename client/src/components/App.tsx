@@ -8,13 +8,13 @@ import ClubModal from "./ClubModal";
 import CategoriesPage from "./CategoriesPage";
 import MyClubsPage from "./MyClubsPage";
 import { Switch, Route, Redirect } from "react-router-dom";
-import CollectionsPage from "./CollectionsPage";
 import { Container } from "react-bootstrap";
 import SearchPage from "./SearchPage";
 import { GET_CURRENT_USER } from "../constants/queries";
 import { useQuery } from "@apollo/client";
 import LoadingScreen from "./LoadingScreen";
 import LoginScreen from "./LoginScreen";
+import CollectionsPageWithId from "./CollectionsPage/CollectionsPageWithId";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
@@ -79,7 +79,7 @@ const App: React.FC<any> = () => {
                 path="/collection/:id"
                 render={({ match }) => {
                   return (
-                    <CollectionsPage
+                    <CollectionsPageWithId
                       collectionID={match.params.id}
                       showModalClub={showModalClub}
                     />

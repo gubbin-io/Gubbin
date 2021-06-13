@@ -1,16 +1,22 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
+import CollectionsPage from ".";
 import { GET_CLUB_COLLECTION } from "../../constants/queries";
-import CollectionsPage from "../CollectionsPage";
 import LoadingScreen from "../LoadingScreen";
 
-export interface MyClubsPageProp {
+export interface CollectionsPageWithIdProp {
+  collectionID: String;
+  showBackButton?: boolean;
   showModalClub: (id: string) => void;
 }
 
-const MyClubsPage: React.FC<MyClubsPageProp> = ({ showModalClub }) => {
+const CollectionsPageWithId: React.FC<CollectionsPageWithIdProp> = ({
+  collectionID,
+  showBackButton = true,
+  showModalClub,
+}) => {
   const { loading, error, data } = useQuery(GET_CLUB_COLLECTION, {
-    variables: { collectionId: "60c2a579fc9fae915373f2bb" },
+    variables: { collectionId: collectionID },
   });
 
   if (loading) return <LoadingScreen />;
@@ -18,7 +24,7 @@ const MyClubsPage: React.FC<MyClubsPageProp> = ({ showModalClub }) => {
 
   return (
     <CollectionsPage
-      showBackButton={false}
+      showBackButton={showBackButton}
       showModalClub={showModalClub}
       collectionTitle={data.clubCollection.collectionName}
       clubs={data.clubCollection.clubs}
@@ -26,4 +32,4 @@ const MyClubsPage: React.FC<MyClubsPageProp> = ({ showModalClub }) => {
   );
 };
 
-export default MyClubsPage;
+export default CollectionsPageWithId;
