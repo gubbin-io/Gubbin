@@ -26,6 +26,7 @@ const SearchPage: React.FC<SearchPageProp> = ({
       collectionTitle="Search"
       clubs={data.findClubs}
       showModalClub={showModalClub}
+      showBackButton={false}
     />
   );
 };
