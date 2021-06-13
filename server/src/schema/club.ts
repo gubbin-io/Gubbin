@@ -16,7 +16,11 @@ const clubSchema = gql`
     updateSocialMedia(
       clubId: ID!
       socialMedia: SocialMediaInput
-    ): UpdateSocialMediaResponse
+    ): UpdateResponse
+    updateCommittee(
+      clubId: ID!
+      committee: [CommitteeMemberInput!]!
+    ): UpdateResponse
   }
 
   type Club {
@@ -33,6 +37,7 @@ const clubSchema = gql`
     reviews: [Review]
     questions: [Question]
     socialMedia: SocialMedia
+    committee: [CommitteeMember!]
     rating: Float
   }
 
@@ -69,8 +74,20 @@ const clubSchema = gql`
     messager: String
   }
 
-  type UpdateSocialMediaResponse {
+  type UpdateResponse {
     success: Int!
+  }
+
+  type CommitteeMember {
+    name: String!
+    role: String!
+    contactInfo: String
+  }
+
+  input CommitteeMemberInput {
+    name: String!
+    role: String!
+    contactInfo: String
   }
 
   input ClubInfo {

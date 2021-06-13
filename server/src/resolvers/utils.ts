@@ -29,6 +29,7 @@ function clubFromSchema(clubSchema: any) {
     themeColor: clubSchema.themeColor,
     logoUri: clubSchema.logoUri,
     backgroundUri: clubSchema.backgroundUri,
+    committee: clubSchema.committee,
     socialMedia: clubSchema.socialMedia,
   };
 }

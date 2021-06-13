@@ -139,6 +139,16 @@ const clubResolvers = {
         success: updated.ok,
       };
     },
+
+    updateCommittee: async (_: any, { clubId, committee }: any) => {
+      const updated = await Club.updateOne(
+        { _id: clubId },
+        { $set: { committee: committee } }
+      );
+      return {
+        success: updated.ok,
+      };
+    },
   },
 
   Club: {

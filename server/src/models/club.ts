@@ -38,6 +38,7 @@ const clubSchema = new Schema({
     whatsapp: String,
     messager: String,
   },
+  committee: [{ name: String, role: String, contactInfo: String }],
   reviews: [
     { rating: Number, title: String, comment: String, commentTime: Date },
   ],
