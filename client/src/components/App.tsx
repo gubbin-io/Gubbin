@@ -16,6 +16,7 @@ import LoadingScreen from "./LoadingScreen";
 import LoginScreen from "./LoginScreen";
 import CollectionsPageWithId from "./CollectionsPage/CollectionsPageWithId";
 import ManageClubsPage from "./ManageClubsPage";
+import ClubManagementPage from "./ClubManagementPage";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
@@ -72,13 +73,23 @@ const App: React.FC<any> = () => {
               </Route>
 
               {isOrganiser && (
-                <Route path="/manage">
-                  <ManageClubsPage
-                    showModalClub={(id) => {
-                      showModalClub(id);
+                <>
+                  <Route exact path="/manage">
+                    <ManageClubsPage
+                      showModalClub={(id) => {
+                        showModalClub(id);
+                      }}
+                    />
+                  </Route>
+
+                  <Route
+                    exact
+                    path="/manage/:id"
+                    render={({ match }) => {
+                      return <ClubManagementPage clubId={match.params.id} />;
                     }}
                   />
-                </Route>
+                </>
               )}
 
               <Route

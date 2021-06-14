@@ -69,7 +69,7 @@ const SideBar: React.FC<SideBarProp> = ({
       {showManageTab && (
         <Button
           className={classes.button}
-          active={location.pathname === "/manage"}
+          active={location.pathname.startsWith("/manage")}
           onClick={() => {
             setSearchString("");
             history.push("/manage");

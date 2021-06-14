@@ -7,6 +7,7 @@ import { Club } from "../../constants/types";
 import ClubCard from "../ClubCard";
 import CardFiller from "../ClubCard/components/CardFiller";
 import useStyles from "./style";
+import { useHistory } from "react-router-dom";
 
 export interface ManagePageProp {
   showModalClub: (id: string) => void;
@@ -15,6 +16,7 @@ export interface ManagePageProp {
 const ManagePage: React.FC<ManagePageProp> = ({ showModalClub }) => {
   const { loading, error, data } = useQuery(GET_ORGANISER_CLUBS);
   const classes = useStyles();
+  const history = useHistory();
 
   if (loading) return <LoadingScreen />;
   if (error) return <p>`Error! ${error}`</p>;
@@ -47,7 +49,9 @@ const ManagePage: React.FC<ManagePageProp> = ({ showModalClub }) => {
               logoUri={logoUri}
               isOrganiser={true}
               key={id}
-              onClick={() => {}}
+              onClick={() => {
+                history.push(`manage/${id}`);
+              }}
               onView={() => showModalClub(id)}
             />
           )

@@ -13,7 +13,11 @@ const ViewButton: React.FC<ViewButtonProp> = ({ onClick, clubColor }) => {
   return (
     <Button
       className={classes.joinButton}
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClick();
+      }}
       style={{
         flexShrink: 0,
         marginLeft: "auto",
