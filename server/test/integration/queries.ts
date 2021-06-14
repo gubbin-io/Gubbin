@@ -29,6 +29,14 @@ const GET_CLUB = gql`
         title
         comment
       }
+      questions {
+        questionId
+        title
+        body
+        questionTime
+        answer
+        answerTime
+      }
       rating
     }
   }
@@ -64,6 +72,18 @@ const ADD_REVIEW = gql`
   }
 `;
 
+const POST_QUESTION = gql`
+  mutation postQuestion($clubId: ID!, $title: String!, $body: String) {
+    postQuestion(questionPost: { clubId: $clubId, title: $title, body: $body })
+  }
+`;
+
+const POST_ANSWER = gql`
+  mutation postAnswer($questionId: ID!, $answer: String!) {
+    postAnswer(answerPost: { questionId: $questionId, answer: $answer })
+  }
+`;
+
 const UPDATE_LOGO = gql`
   mutation updateLogo($clubId: ID!, $content: String!) {
     updateLogo(logo: { clubId: $clubId, content: $content }) {
@@ -73,4 +93,14 @@ const UPDATE_LOGO = gql`
   }
 `;
 
-export { ADD_CLUB, GET_CLUB, GET_CLUBS, ADD_REVIEW, UPDATE_LOGO };
+const queries = {
+  ADD_CLUB,
+  GET_CLUB,
+  GET_CLUBS,
+  ADD_REVIEW,
+  UPDATE_LOGO,
+  POST_QUESTION,
+  POST_ANSWER,
+};
+
+export default queries;
