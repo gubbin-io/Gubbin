@@ -1,10 +1,13 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
-  container: ({ showDivider }: any) => ({
+  container: {
     marginBottom: "20px",
-    borderBottom: showDivider ? `1px solid ${theme.separator}` : 0,
-  }),
+    borderBottom: `1px solid ${theme.separator}`,
+    "&:last-child": {
+      borderBottom: 0,
+    },
+  },
   header: {
     display: "flex",
     alignItems: "center",
