@@ -47,55 +47,56 @@ const App: React.FC<any> = () => {
           setSearchString={setSearchString}
         />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
+        <div className={classes.scrollContainer}>
+          <Container className={classes.mainContainer}>
+            {searchString === "" ? (
+              <Switch>
+                <Route path="/discover">
+                  <DiscoverPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
+                <Route path="/categories">
+                  <CategoriesPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
+                <Route path="/myclubs">
+                  <MyClubsPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
 
-        <Container className={classes.mainContainer}>
-          {searchString === "" ? (
-            <Switch>
-              <Route path="/discover">
-                <DiscoverPage
-                  showModalClub={(id) => {
-                    showModalClub(id);
+                <Route
+                  path="/collection/:id"
+                  render={({ match }) => {
+                    return (
+                      <CollectionsPageWithId
+                        collectionID={match.params.id}
+                        showModalClub={showModalClub}
+                      />
+                    );
                   }}
                 />
-              </Route>
-              <Route path="/categories">
-                <CategoriesPage
-                  showModalClub={(id) => {
-                    showModalClub(id);
-                  }}
-                />
-              </Route>
-              <Route path="/myclubs">
-                <MyClubsPage
-                  showModalClub={(id) => {
-                    showModalClub(id);
-                  }}
-                />
-              </Route>
 
-              <Route
-                path="/collection/:id"
-                render={({ match }) => {
-                  return (
-                    <CollectionsPageWithId
-                      collectionID={match.params.id}
-                      showModalClub={showModalClub}
-                    />
-                  );
-                }}
+                <Route exact path="/">
+                  <Redirect to="/discover" />;
+                </Route>
+              </Switch>
+            ) : (
+              <SearchPage
+                searchString={searchString}
+                showModalClub={showModalClub}
               />
-
-              <Route exact path="/">
-                <Redirect to="/discover" />;
-              </Route>
-            </Switch>
-          ) : (
-            <SearchPage
-              searchString={searchString}
-              showModalClub={showModalClub}
-            />
-          )}
-        </Container>
+            )}
+          </Container>
+        </div>
       </div>
     </>
   );
