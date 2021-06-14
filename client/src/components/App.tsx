@@ -72,26 +72,6 @@ const App: React.FC<any> = () => {
                 />
               </Route>
 
-              {isOrganiser && (
-                <>
-                  <Route exact path="/manage">
-                    <ManageClubsPage
-                      showModalClub={(id) => {
-                        showModalClub(id);
-                      }}
-                    />
-                  </Route>
-
-                  <Route
-                    exact
-                    path="/manage/:id"
-                    render={({ match }) => {
-                      return <ClubManagementPage clubId={match.params.id} />;
-                    }}
-                  />
-                </>
-              )}
-
               <Route
                 path="/collection/:id"
                 render={({ match }) => {
@@ -103,6 +83,25 @@ const App: React.FC<any> = () => {
                   );
                 }}
               />
+
+              {isOrganiser && (
+                <Route exact path="/manage">
+                  <ManageClubsPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
+              )}
+
+              {isOrganiser && (
+                <Route
+                  path="/manage/:id"
+                  render={({ match }) => {
+                    return <ClubManagementPage clubId={match.params.id} />;
+                  }}
+                />
+              )}
 
               <Route path="/">
                 <Redirect to="/discover" />;
