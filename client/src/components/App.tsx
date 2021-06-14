@@ -15,6 +15,7 @@ import { useQuery } from "@apollo/client";
 import LoadingScreen from "./LoadingScreen";
 import LoginScreen from "./LoginScreen";
 import CollectionsPageWithId from "./CollectionsPage/CollectionsPageWithId";
+import ManageClubsPage from "./ManageClubsPage";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
@@ -33,6 +34,7 @@ const App: React.FC<any> = () => {
     setShow(true);
   };
 
+  const isOrganiser = data.currentUser.organizerClubs.length > 0;
   return (
     <>
       <TopBar />
@@ -40,6 +42,7 @@ const App: React.FC<any> = () => {
         <SideBar
           searchString={searchString}
           setSearchString={setSearchString}
+          showManageTab={isOrganiser}
         />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
 
@@ -68,6 +71,16 @@ const App: React.FC<any> = () => {
                 />
               </Route>
 
+              {isOrganiser && (
+                <Route path="/manage">
+                  <ManageClubsPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
+              )}
+
               <Route
                 path="/collection/:id"
                 render={({ match }) => {
@@ -80,7 +93,7 @@ const App: React.FC<any> = () => {
                 }}
               />
 
-              <Route exact path="/">
+              <Route path="/">
                 <Redirect to="/discover" />;
               </Route>
             </Switch>

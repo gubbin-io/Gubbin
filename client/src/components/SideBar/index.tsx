@@ -1,15 +1,20 @@
 import React from "react";
 import useStyles from "./style";
 import { Form, Button } from "react-bootstrap";
-import { EyeFill, GridFill, PeopleFill } from "react-bootstrap-icons";
+import { BookHalf, EyeFill, GridFill, PeopleFill } from "react-bootstrap-icons";
 import { useHistory, useLocation } from "react-router-dom";
 
 export interface SideBarProp {
   searchString: string;
   setSearchString: (search: string) => void;
+  showManageTab: boolean;
 }
 
-const SideBar: React.FC<SideBarProp> = ({ searchString, setSearchString }) => {
+const SideBar: React.FC<SideBarProp> = ({
+  searchString,
+  setSearchString,
+  showManageTab,
+}) => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -61,6 +66,19 @@ const SideBar: React.FC<SideBarProp> = ({ searchString, setSearchString }) => {
         <PeopleFill className={classes.icon} size={20} />
         My Clubs
       </Button>
+      {showManageTab && (
+        <Button
+          className={classes.button}
+          active={location.pathname === "/manage"}
+          onClick={() => {
+            setSearchString("");
+            history.push("/manage");
+          }}
+        >
+          <BookHalf className={classes.icon} size={20} />
+          Manage Clubs
+        </Button>
+      )}
     </div>
   );
 };
