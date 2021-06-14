@@ -192,8 +192,8 @@ describe("Reviews", function () {
 
     expect(reviews.errors).toBeUndefined();
     expect(reviews.data?.club.reviews.length).toBe(2);
-    expect(reviews.data?.club.reviews[1].rating).toBe(4);
-    expect(reviews.data?.club.reviews[0].title).toBe("So so");
+    expect(reviews.data?.club.reviews[0].rating).toBe(4);
+    expect(reviews.data?.club.reviews[1].title).toBe("So so");
     expect(reviews.data?.club.rating).toBe(3.5);
   });
 
@@ -291,12 +291,12 @@ describe("Q&A", function () {
 
     expect(club.errors).toBeUndefined();
     expect(club.data?.club.questions.length).toBe(2);
-    expect(club.data?.club.questions[0].questionId).toBe(q1.data?.postQuestion);
-    expect(club.data?.club.questions[0].title).toBe("Ski question1");
-    expect(club.data?.club.questions[0].body).toBe("OK1");
-    expect(club.data?.club.questions[1].questionId).toBe(q2.data?.postQuestion);
-    expect(club.data?.club.questions[1].title).toBe("Ski question2");
-    expect(club.data?.club.questions[1].body).toBe("OK2");
+    expect(club.data?.club.questions[1].questionId).toBe(q1.data?.postQuestion);
+    expect(club.data?.club.questions[1].title).toBe("Ski question1");
+    expect(club.data?.club.questions[1].body).toBe("OK1");
+    expect(club.data?.club.questions[0].questionId).toBe(q2.data?.postQuestion);
+    expect(club.data?.club.questions[0].title).toBe("Ski question2");
+    expect(club.data?.club.questions[0].body).toBe("OK2");
   });
 
   it("can post and query answer to a question", async () => {

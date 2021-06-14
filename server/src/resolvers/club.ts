@@ -131,14 +131,19 @@ const clubResolvers = {
       const result = await Club.findOne({ _id: parent.id })
         .populate("questions")
         .exec();
-      return result.questions.map(utils.questionFromSchema);
+      return result.questions
+        .map(utils.questionFromSchema)
+        .sort(utils.questionCompareFunc);
     },
 
     reviews: async (parent: any) => {
       const result = await Club.findOne({ _id: parent.id })
         .populate("reviews")
         .exec();
-      return result.reviews.map(utils.reviewFromSchema);
+
+      return result.reviews
+        .map(utils.reviewFromSchema)
+        .sort(utils.reviewCompareFunc);
     },
   },
 };
