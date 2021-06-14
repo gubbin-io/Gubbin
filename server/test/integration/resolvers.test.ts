@@ -123,6 +123,37 @@ describe("Clubs", function () {
 
     expect(addClub.errors).toEqual(expect.any(Array));
   });
+
+  it("can update club basic info", async () => {
+    const addClub = await server.executeOperation({
+      query: queries.ADD_CLUB,
+      variables: {
+        clubName: "Skiing",
+        description: "A place to ski",
+        about: "A very long description\n for skiing",
+      },
+    });
+
+    const clubId = addClub.data?.addClub.id;
+
+    const response = await server.executeOperation({
+      query: queries.UPDATE_BASIC_INFO,
+      variables: { clubId: clubId, about: "Updated about", numMembers: 54 },
+    });
+
+    const club = await server.executeOperation({
+      query: queries.GET_CLUB,
+      variables: { clubId: clubId },
+    });
+
+    console.log(club.data?.club);
+    expect(club.errors).toBeUndefined();
+    expect(response.errors).toBeUndefined();
+    expect(response.data?.updateBasicInfo.success).toBe(1);
+    expect(club.data?.club.description).toBe("A place to ski");
+    expect(club.data?.club.about).toBe("Updated about");
+    expect(club.data?.club.numMembers).toBe(54);
+  });
 });
 
 describe("Reviews", function () {

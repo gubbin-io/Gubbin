@@ -15,7 +15,12 @@ const clubSchema = gql`
     updateSocialMedia(
       clubId: ID!
       socialMedia: SocialMediaInput
-    ): UpdateSocialMediaResponse
+    ): UpdateResponse
+
+    updateBasicInfo(
+      clubId: ID!
+      basicInfoInput: BasicInfoInput!
+    ): UpdateResponse
   }
 
   type Club {
@@ -71,7 +76,7 @@ const clubSchema = gql`
     messager: String
   }
 
-  type UpdateSocialMediaResponse {
+  type UpdateResponse {
     success: Int!
   }
 
@@ -88,6 +93,13 @@ const clubSchema = gql`
   input LogoInput {
     clubId: ID!
     content: String
+  }
+
+  input BasicInfoInput {
+    description: String
+    numMembers: Int
+    themeColor: String
+    about: String
   }
 
   input SocialMediaInput {

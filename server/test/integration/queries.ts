@@ -38,6 +38,8 @@ const GET_CLUB = gql`
         answerTime
       }
       rating
+      numMembers
+      themeColor
     }
   }
 `;
@@ -93,6 +95,28 @@ const UPDATE_LOGO = gql`
   }
 `;
 
+const UPDATE_BASIC_INFO = gql`
+  mutation updateBasicInfo(
+    $clubId: ID!
+    $about: String
+    $description: String
+    $numMembers: Int
+    $themeColor: String
+  ) {
+    updateBasicInfo(
+      clubId: $clubId
+      basicInfoInput: {
+        about: $about
+        description: $description
+        numMembers: $numMembers
+        themeColor: $themeColor
+      }
+    ) {
+      success
+    }
+  }
+`;
+
 const queries = {
   ADD_CLUB,
   GET_CLUB,
@@ -101,6 +125,7 @@ const queries = {
   UPDATE_LOGO,
   POST_QUESTION,
   POST_ANSWER,
+  UPDATE_BASIC_INFO,
 };
 
 export default queries;
