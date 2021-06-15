@@ -92,6 +92,7 @@ export const GET_CLUB_COLLECTION = gql`
         joined
         themeColor
         logoUri
+        backgroundUri
       }
     }
   }
