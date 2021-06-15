@@ -1,25 +1,27 @@
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
-  container: {
-    marginBottom: "20px",
-    borderBottom: `1px solid ${theme.separator}`,
-    "&:last-child": {
-      borderBottom: 0,
-    },
-  },
-  header: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  headerText: {
+  titleText: {
     fontWeight: 500,
     fontSize: "24px",
     lineHeight: "30px",
   },
-  expandButton: {
-    padding: `8px`,
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    width: "100%",
+  },
+  heading: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+  },
+  divider: { marginTop: "8px", marginBottom: "8px", width: "100%" },
+  backButton: {
+    padding: `0px`,
 
     borderRadius: theme.radius,
     border: 0,
@@ -28,7 +30,7 @@ const useStyles = createUseStyles((theme: any) => ({
     color: theme.text,
 
     display: `flex`,
-    width: `96px`,
+    width: `36px`,
     alignItems: `center`,
     justifyContent: "center",
 
@@ -58,35 +60,8 @@ const useStyles = createUseStyles((theme: any) => ({
     WebkitTransition: `0.2s background`,
     MozTransition: `0.2s background`,
   },
-  body: {
-    marginTop: "12px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "stretch",
-    flexWrap: "wrap",
-    marginBottom: "20px",
-    gap: "16px",
-    "@media ( max-width: 1680px)": {
-      // Three items per row
-      "& > div": {
-        flexBasis: "26%",
-      },
-    },
-    "@media ( max-width: 1280px)": {
-      // Two items per row
-      "& > div": {
-        flexBasis: "33.3%",
-      },
-    },
-    "@media ( max-width: 880px)": {
-      // One item per row
-      "& > div": {
-        flexBasis: "100%",
-      },
-    },
-  },
   icon: {
-    marginLeft: "8px",
+    marginRight: "0px",
   },
 }));
 

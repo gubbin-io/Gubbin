@@ -17,7 +17,6 @@ const DiscoverPage: React.FC<DiscoverPageProp> = ({ showModalClub }) => {
       <CollectionsModule
         collectionID="60c24ba2cdbf3552fd23f897"
         showModalClub={showModalClub}
-        showDivider={false}
       />
     </>
   );

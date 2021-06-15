@@ -13,16 +13,14 @@ import { Club } from "../../constants/types";
 
 export interface CollectionsModuleProp {
   collectionID: String;
-  showDivider?: boolean;
   showModalClub: (id: string) => void;
 }
 
 const CollectionsModule: React.FC<CollectionsModuleProp> = ({
   collectionID,
-  showDivider = true,
   showModalClub,
 }) => {
-  const classes = useStyles({ showDivider });
+  const classes = useStyles();
   const history = useHistory();
   const { loading, error, data } = useQuery(GET_CLUB_COLLECTION, {
     variables: { collectionId: collectionID },

@@ -119,6 +119,18 @@ const clubResolvers = {
         success: updated.ok,
       };
     },
+
+    updateBasicInfo: async (_: any, { clubId, basicInfoInput }: any) => {
+      let sets: any = {};
+      for (const [k, v] of Object.entries(basicInfoInput)) {
+        if (v) sets[`${k}`] = v;
+      }
+
+      const updated = await Club.updateOne({ _id: clubId }, { $set: sets });
+      return {
+        success: updated.ok,
+      };
+    },
   },
 
   Club: {
@@ -131,14 +143,19 @@ const clubResolvers = {
       const result = await Club.findOne({ _id: parent.id })
         .populate("questions")
         .exec();
-      return result.questions.map(utils.questionFromSchema);
+      return result.questions
+        .map(utils.questionFromSchema)
+        .sort(utils.questionCompareFunc);
     },
 
     reviews: async (parent: any) => {
       const result = await Club.findOne({ _id: parent.id })
         .populate("reviews")
         .exec();
-      return result.reviews.map(utils.reviewFromSchema);
+
+      return result.reviews
+        .map(utils.reviewFromSchema)
+        .sort(utils.reviewCompareFunc);
     },
   },
 };
