@@ -10,6 +10,7 @@ import {
   GET_CLUB_INFO,
   UPDATE_LOGO,
   GET_ORGANISER_CLUBS,
+  UPDATE_BACKGROUND,
 } from "../../../../constants/queries";
 import { toBase64 } from "../../../../constants/functions";
 
@@ -47,6 +48,10 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
     refetchQueries,
   });
 
+  const [updateBackground] = useMutation(UPDATE_BACKGROUND, {
+    refetchQueries,
+  });
+
   async function handleSubmit(values: any) {
     updateBasicInfo({
       variables: {
@@ -64,6 +69,16 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
         variables: {
           clubId,
           content: logoString,
+        },
+      });
+    }
+
+    if (values.backgroundURI) {
+      const bgString = await toBase64(values.backgroundURI);
+      updateBackground({
+        variables: {
+          clubId,
+          content: bgString,
         },
       });
     }

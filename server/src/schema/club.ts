@@ -11,7 +11,8 @@ const clubSchema = gql`
 
   extend type Mutation {
     addClub(clubInfo: ClubInfo!): Club
-    updateLogo(logo: LogoInput!): ReturnImage
+    updateLogo(logo: ImageInput!): ReturnImage
+    updateBackground(background: ImageInput!): ReturnImage
     updateSocialMedia(
       clubId: ID!
       socialMedia: SocialMediaInput
@@ -21,6 +22,8 @@ const clubSchema = gql`
       clubId: ID!
       basicInfoInput: BasicInfoInput!
     ): UpdateResponse
+
+    addEvent(clubId: ID!, eventInput: EventInput!): UpdateResponse
   }
 
   type Club {
@@ -31,11 +34,10 @@ const clubSchema = gql`
     about: String
     clubName: String!
     logoUri: String
-    logoUriThumbnail: String
     backgroundUri: String
-    backgroundUriThumbnail: String
     reviews: [Review]
     questions: [Question]
+    events: [Event]
     socialMedia: SocialMedia
     rating: Float
     joined: Boolean!
@@ -61,9 +63,16 @@ const clubSchema = gql`
     answerTime: Date
   }
 
+  type Event {
+    eventId: ID!
+    title: String
+    body: String
+    link: String
+    date: Date
+  }
+
   type ReturnImage {
     uri: String!
-    thumbnailUri: String!
   }
 
   type SocialMedia {
@@ -90,7 +99,7 @@ const clubSchema = gql`
     backgroundUri: String
   }
 
-  input LogoInput {
+  input ImageInput {
     clubId: ID!
     content: String
   }
@@ -101,6 +110,13 @@ const clubSchema = gql`
     numMembers: Int
     themeColor: String
     about: String
+  }
+
+  input EventInput {
+    title: String
+    body: String
+    link: String
+    date: Date
   }
 
   input SocialMediaInput {

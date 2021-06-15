@@ -8,6 +8,7 @@ import {
   InfoCircleFill,
   QuestionCircleFill,
   Globe2,
+  CalendarEventFill,
 } from "react-bootstrap-icons";
 import { SocialMedia } from "../../../../constants/types";
 import { checkProperties } from "../../../../constants/functions";
@@ -65,6 +66,14 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
             {`Ratings & Reviews`}
           </Nav.Link>
         </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="events">
+            <CalendarEventFill size={20} className={classes.icon} />
+            {`Events`}
+          </Nav.Link>
+        </Nav.Item>
+
         {socialMedia && checkProperties(socialMedia) && (
           <Nav.Item>
             <Nav.Link className={classes.tabButton} eventKey="social">

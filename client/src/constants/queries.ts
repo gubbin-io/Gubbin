@@ -111,6 +111,13 @@ export const GET_CLUB_INFO = gql`
       about
       logoUri
       backgroundUri
+      events {
+        eventId
+        title
+        body
+        link
+        date
+      }
       socialMedia {
         facebook
         twitter
@@ -218,6 +225,14 @@ export const UPDATE_SOCIAL_MEDIA = gql`
 export const UPDATE_LOGO = gql`
   mutation MyMutation($clubId: ID!, $content: String!) {
     updateLogo(logo: { clubId: $clubId, content: $content }) {
+      uri
+    }
+  }
+`;
+
+export const UPDATE_BACKGROUND = gql`
+  mutation ($content: String!, $clubId: ID!) {
+    updateBackground(background: { clubId: $clubId, content: $content }) {
       uri
     }
   }

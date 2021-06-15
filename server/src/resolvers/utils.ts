@@ -1,4 +1,5 @@
 import User from "../models/user";
+import ImageKit from "imagekit";
 
 function avgRating(reviews: any) {
   if (!reviews || reviews.length == 0) return undefined;
@@ -9,6 +10,12 @@ function avgRating(reviews: any) {
   const rounded = (Math.round(averageRating * 10) / 10).toFixed(1);
 
   return rounded;
+}
+
+function eventsFromSchema(eventsSchema: any) {
+  return eventsSchema.map(({ _id, title, body, link, date }: any) => {
+    return { eventId: _id, title, body, link, date };
+  });
 }
 
 async function clubFromSchema(clubSchema: any, userId: any) {
@@ -29,6 +36,7 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     backgroundUri: clubSchema.backgroundUri,
     joined: joined,
     socialMedia: clubSchema.socialMedia,
+    events: eventsFromSchema(clubSchema.events),
   };
 }
 
@@ -68,6 +76,15 @@ function questionCompareFunc(question1: any, question2: any) {
   return 0;
 }
 
+function getImageKit() {
+  return new ImageKit({
+    publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
+    privateKey:
+      process.env.IMAGEKIT_PRIVATE_KEY || "PRIVATE KEY UNDEFINED IN .env",
+    urlEndpoint: "https://ik.imagekit.io/gubbin/",
+  });
+}
+
 export default {
   avgRating,
   clubFromSchema,
@@ -75,4 +92,5 @@ export default {
   reviewFromSchema,
   reviewCompareFunc,
   questionCompareFunc,
+  getImageKit,
 };
