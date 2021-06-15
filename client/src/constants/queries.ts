@@ -213,3 +213,11 @@ export const UPDATE_SOCIAL_MEDIA = gql`
     }
   }
 `;
+
+export const UPDATE_LOGO = gql`
+  mutation MyMutation($clubId: ID!, $content: String!) {
+    updateLogo(logo: { clubId: $clubId, content: $content }) {
+      uri
+    }
+  }
+`;

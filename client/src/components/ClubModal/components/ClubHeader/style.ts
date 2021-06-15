@@ -28,6 +28,7 @@ const useStyles = createUseStyles((theme: any) => ({
   icon: {
     width: `96px`,
     height: `96px`,
+    borderRadius: `4px`,
   },
   details: {
     gridArea: "details",

@@ -10,6 +10,7 @@ import {
   Globe2,
 } from "react-bootstrap-icons";
 import { SocialMedia } from "../../../../constants/types";
+import { checkProperties } from "../../../../constants/functions";
 
 export interface ClubSideBarProp {
   numMembers: number;
@@ -27,14 +28,6 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
   socialMedia,
 }) => {
   const classes = useStyles({ clubColor });
-
-  function checkProperties(obj: any) {
-    for (let key in obj) {
-      if (key !== "__typename" && obj[key] !== null && obj[key] !== "")
-        return true;
-    }
-    return false;
-  }
 
   return (
     <div className={classes.sidebar}>
