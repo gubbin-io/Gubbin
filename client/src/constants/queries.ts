@@ -163,3 +163,53 @@ export const ADD_REVIEW = gql`
     )
   }
 `;
+
+export const UPDATE_BASIC_INFO = gql`
+  mutation (
+    $about: String
+    $clubName: String
+    $description: String
+    $themeColor: String
+    $clubId: ID!
+  ) {
+    updateBasicInfo(
+      basicInfoInput: {
+        about: $about
+        clubName: $clubName
+        description: $description
+        themeColor: $themeColor
+      }
+      clubId: $clubId
+    ) {
+      success
+    }
+  }
+`;
+
+export const UPDATE_SOCIAL_MEDIA = gql`
+  mutation MyMutation(
+    $clubId: ID = ""
+    $facebook: String = ""
+    $discord: String = ""
+    $instagram: String = ""
+    $messager: String = ""
+    $twitter: String = ""
+    $website: String = ""
+    $whatsapp: String = ""
+  ) {
+    updateSocialMedia(
+      clubId: $clubId
+      socialMedia: {
+        discord: $discord
+        facebook: $facebook
+        instagram: $instagram
+        messager: $messager
+        twitter: $twitter
+        website: $website
+        whatsapp: $whatsapp
+      }
+    ) {
+      success
+    }
+  }
+`;

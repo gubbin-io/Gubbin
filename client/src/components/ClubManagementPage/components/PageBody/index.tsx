@@ -46,6 +46,7 @@ const PageBody: React.FC<PageBodyProp> = ({
                 <SocialMediaPage
                   socialMedia={socialMedia}
                   themeColor={themeColor}
+                  clubId={clubId}
                 />
               </Tab.Pane>
             </Tab.Content>

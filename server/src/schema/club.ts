@@ -96,6 +96,7 @@ const clubSchema = gql`
   }
 
   input BasicInfoInput {
+    clubName: String
     description: String
     numMembers: Int
     themeColor: String

@@ -13,22 +13,51 @@ import {
 import { SocialMedia } from "../../../../constants/types";
 import useStyles from "./style";
 import schema from "./schema";
+import { useMutation } from "@apollo/client";
+import {
+  UPDATE_SOCIAL_MEDIA,
+  GET_CLUB_INFO,
+} from "../../../../constants/queries";
 
 export interface SocialMediaProp {
+  clubId: string;
   socialMedia?: SocialMedia;
   themeColor: string;
 }
 
 const SocialMediaPage: React.FC<SocialMediaProp> = ({
+  clubId,
   socialMedia,
   themeColor,
 }) => {
   const classes = useStyles({ clubColor: themeColor });
 
+  const [updateSocialMedia] = useMutation(UPDATE_SOCIAL_MEDIA, {
+    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
+  });
+
+  async function handleSubmit(values: any) {
+    console.log(values);
+    updateSocialMedia({
+      variables: {
+        clubId,
+        discord: values.discord,
+        facebook: values.facebook,
+        instagram: values.instagram,
+        messager: values.messager,
+        twitter: values.twitter,
+        website: values.website,
+        whatsapp: values.whatsapp,
+      },
+    });
+  }
+
   return (
     <>
       <Formik
-        onSubmit={console.log}
+        onSubmit={(values) => {
+          handleSubmit(values);
+        }}
         validationSchema={schema}
         initialValues={{
           facebook: socialMedia?.facebook || "",

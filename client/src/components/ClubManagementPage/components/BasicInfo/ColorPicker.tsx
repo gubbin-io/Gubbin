@@ -23,7 +23,7 @@ function createColorPicker(values: any, classes: any, setFieldValue: any) {
         ]}
         width="100%"
         onChange={(color) => {
-          setFieldValue("themeColor", color);
+          setFieldValue("themeColor", color.hex);
         }}
       />
     </div>

@@ -24,7 +24,7 @@ const TopBar: React.FC<TopBarProp> = () => {
       <Container fluid className={classes.container}>
         <Navbar.Brand as={Link} to="/" className={classes.brand}>
           <img
-            src="images/brand-icon.svg"
+            src="/images/brand-icon.svg"
             className={classes.icon}
             alt="Logo"
           />

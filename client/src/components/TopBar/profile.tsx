@@ -2,7 +2,7 @@ import React from "react";
 
 const ProfileToggle = React.forwardRef(({ onClick }: any, ref: any) => (
   <img
-    src="images/user.png"
+    src="/images/user.png"
     className="d-inline-block align-top"
     alt="userPic"
     style={{

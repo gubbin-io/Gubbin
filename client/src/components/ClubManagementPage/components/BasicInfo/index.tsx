@@ -4,6 +4,11 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import createColorPicker from "./ColorPicker";
 import useStyles from "./style";
 import schema from "./schema";
+import { useMutation } from "@apollo/client";
+import {
+  UPDATE_BASIC_INFO,
+  GET_CLUB_INFO,
+} from "../../../../constants/queries";
 
 export interface BasicInfoProp {
   clubId: string;
@@ -27,10 +32,28 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
     "Upload Background Image"
   );
 
+  const [updateBasicInfo] = useMutation(UPDATE_BASIC_INFO, {
+    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
+  });
+
+  async function handleSubmit(values: any) {
+    updateBasicInfo({
+      variables: {
+        clubId,
+        clubName: values.clubName,
+        description: values.description,
+        about: values.about,
+        themeColor: values.themeColor,
+      },
+    });
+  }
+
   return (
     <Formik
       validationSchema={schema}
-      onSubmit={console.log}
+      onSubmit={(values) => {
+        handleSubmit(values);
+      }}
       initialValues={{
         clubName: clubName,
         description: description,
@@ -96,7 +119,7 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
             </Form.Group>
 
             {/* Club About */}
-            <Form.Group as={Row} controlId="validationFormikDescription">
+            <Form.Group as={Row} controlId="validationFormikAbout">
               <Form.Label className={classes.label} column sm={2}>
                 About
               </Form.Label>
@@ -140,7 +163,7 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
                 Logo
               </Form.Label>
               <Col sm={10}>
-                <Form.File name="logoURI" id="custom-file" custom>
+                <Form.File name="logoURI" id="logo-uri" custom>
                   <Form.File.Input
                     isValid={touched.logoURI && !errors.logoURI}
                     isInvalid={!!errors.logoURI}
@@ -170,7 +193,7 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
                 Background
               </Form.Label>
               <Col sm={10}>
-                <Form.File name="backgroundURI" id="custom-file" custom>
+                <Form.File name="backgroundURI" id="bg-file" custom>
                   <Form.File.Input
                     isValid={touched.backgroundURI && !errors.backgroundURI}
                     isInvalid={!!errors.backgroundURI}
