@@ -63,15 +63,6 @@ const useStyles = createUseStyles((theme: any) => ({
   icon: {
     marginRight: "0px",
   },
-  pickerBox: {
-    borderRadius: "8px",
-    "& > div": {
-      borderRadius: "8px !important",
-      boxshadow: "none !important",
-      WebkitBoxShadow: "none !important",
-      backgroundColor: "#F8F9FA !important",
-    },
-  },
 }));
 
 export default useStyles;
