@@ -57,26 +57,38 @@ const GET_CLUBS = gql`
 const ADD_REVIEW = gql`
   mutation addReview(
     $clubId: ID!
-    $reviewer: String!
     $rating: Int!
     $title: String!
     $comment: String
+    $anonymousReview: Boolean
   ) {
     addReview(
       review: {
         clubId: $clubId
-        reviewer: $reviewer
         rating: $rating
         title: $title
         comment: $comment
+        anonymousReview: $anonymousReview
       }
     )
   }
 `;
 
 const POST_QUESTION = gql`
-  mutation postQuestion($clubId: ID!, $title: String!, $body: String) {
-    postQuestion(questionPost: { clubId: $clubId, title: $title, body: $body })
+  mutation postQuestion(
+    $clubId: ID!
+    $title: String!
+    $body: String
+    $anonymousQuestion: Boolean
+  ) {
+    postQuestion(
+      questionPost: {
+        clubId: $clubId
+        title: $title
+        body: $body
+        anonymousQuestion: $anonymousQuestion
+      }
+    )
   }
 `;
 

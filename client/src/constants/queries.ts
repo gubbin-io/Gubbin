@@ -131,6 +131,10 @@ export const GET_CLUB_INFO = gql`
         questionId
         title
         body
+        anonymousQuestion
+        questioner {
+          userName
+        }
         questionTime
         answer
         answerTime
@@ -141,6 +145,10 @@ export const GET_CLUB_INFO = gql`
         title
         comment
         commentTime
+        anonymousReview
+        reviewer {
+          userName
+        }
       }
     }
   }
@@ -148,14 +156,20 @@ export const GET_CLUB_INFO = gql`
 
 export const POST_QUESTION = gql`
   mutation ($clubId: ID!, $title: String!, $body: String) {
-    postQuestion(questionPost: { clubId: $clubId, title: $title, body: $body })
+    postQuestion(
+      questionPost: {
+        clubId: $clubId
+        title: $title
+        body: $body
+        anonymousQuestion: false
+      }
+    )
   }
 `;
 
 export const ADD_REVIEW = gql`
   mutation NewReview(
     $clubId: ID!
-    $reviewer: String!
     $rating: Int!
     $title: String
     $comment: String
@@ -163,10 +177,10 @@ export const ADD_REVIEW = gql`
     addReview(
       review: {
         clubId: $clubId
-        reviewer: $reviewer
         rating: $rating
         title: $title
         comment: $comment
+        anonymousReview: false
       }
     )
   }

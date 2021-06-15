@@ -10,6 +10,7 @@ const questionSchema = gql`
     clubId: ID!
     title: String!
     body: String
+    anonymousQuestion: Boolean
   }
 
   input AnswerPost {

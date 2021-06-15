@@ -40,18 +40,36 @@ async function clubFromSchema(clubSchema: any, userId: any) {
   };
 }
 
-function questionFromSchema(questionSchema: any) {
+async function questionFromSchema(questionSchema: any) {
+  let user = await User.findOne({ _id: questionSchema.questioner });
+  let userName: String;
+  if (questionSchema.anonymousQuestion || !user) {
+    userName = "Anonymous";
+  } else {
+    userName = user.userName;
+  }
+
   return {
     questionId: questionSchema._id,
     title: questionSchema.title,
     body: questionSchema.body,
     questionTime: questionSchema.questionTime,
+    questioner: { userName },
+    anonymousQuestion: questionSchema.anonymousQuestion,
     answer: questionSchema.answer,
     answerTime: questionSchema.answerTime,
   };
 }
 
-function reviewFromSchema(reviewSchema: any) {
+async function reviewFromSchema(reviewSchema: any) {
+  let user = await User.findOne({ _id: reviewSchema.reviewer });
+  let userName: String;
+  if (reviewSchema.anonymousReview || !user) {
+    userName = "Anonymous";
+  } else {
+    userName = user.userName;
+  }
+
   return {
     id: reviewSchema._id,
     rating: reviewSchema.rating,
@@ -60,7 +78,8 @@ function reviewFromSchema(reviewSchema: any) {
     commentTime: reviewSchema.commentTime,
     response: reviewSchema.response,
     responseTime: reviewSchema.responseTime,
-    reviewer: { userName: "Anonymous" },
+    anonymousReview: reviewSchema.anonymousReview,
+    reviewer: { userName },
   };
 }
 

@@ -6,20 +6,35 @@ import schema from "../../src/schema";
 import resolvers from "../../src/resolvers";
 import connectDB from "../../src/connect";
 import queries from "./queries";
+import User from "../../src/models/user";
+import { Connection } from "mongoose";
 
-dotenv.config();
-// In-memory MongoDB using jest-mongodb
-const db = connectDB(process.env.MONGO_URL);
+let server: ApolloServer;
+let db: Connection;
 
-const server = new ApolloServer({
-  typeDefs: schema,
-  resolvers,
-  uploads: false,
+beforeAll(async () => {
+  dotenv.config();
+  // In-memory MongoDB using jest-mongodb
+  db = connectDB(process.env.MONGO_URL);
+
+  const u = new User({ userName: "Test User" });
+  const testUser = await u.save();
+
+  server = new ApolloServer({
+    typeDefs: schema,
+    resolvers,
+    context: () => {
+      return { user: { userId: testUser._id } };
+    },
+    uploads: false,
+  });
 });
 
 async function removeAllCollections() {
-  for (const [_, document] of Object.entries(db.collections)) {
-    await document.deleteMany({});
+  for (const [name, document] of Object.entries(db.collections)) {
+    if (name != "users") {
+      await document.deleteMany({});
+    }
   }
 }
 
@@ -186,6 +201,7 @@ describe("Reviews", function () {
         rating: 3,
         title: "Good",
         comment: "OK",
+        anonymousReview: true,
       },
     });
 
@@ -201,6 +217,7 @@ describe("Reviews", function () {
         rating: 3,
         title: "So so",
         comment: "OK",
+        anonymousReview: true,
       },
     });
 
@@ -212,6 +229,7 @@ describe("Reviews", function () {
         rating: 4,
         title: "I am Vuuuton",
         comment: "GOOD",
+        anonymousReview: true,
       },
     });
 
@@ -236,6 +254,7 @@ describe("Reviews", function () {
         rating: 3,
         title: "Greg here",
         comment: "GOOD",
+        anonymousReview: true,
       },
     });
 
@@ -277,6 +296,7 @@ describe("Q&A", function () {
         clubId: skiid,
         title: "Ski question",
         body: "OK",
+        anonymousQuestion: true,
       },
     });
 
@@ -289,6 +309,7 @@ describe("Q&A", function () {
       variables: {
         clubId: skiid,
         body: "OK",
+        anonymousQuestion: true,
       },
     });
 
@@ -302,6 +323,7 @@ describe("Q&A", function () {
         clubId: skiid,
         title: "Ski question1",
         body: "OK1",
+        anonymousQuestion: true,
       },
     });
 
@@ -311,6 +333,7 @@ describe("Q&A", function () {
         clubId: skiid,
         title: "Ski question2",
         body: "OK2",
+        anonymousQuestion: true,
       },
     });
 
@@ -336,6 +359,7 @@ describe("Q&A", function () {
         clubId: skiid,
         title: "Ski question1",
         body: "OK1",
+        anonymousQuestion: true,
       },
     });
 

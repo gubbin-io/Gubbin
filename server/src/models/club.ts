@@ -6,6 +6,8 @@ const questionSchema = new Schema({
   title: String,
   body: String,
   questionTime: Date,
+  questioner: { type: Schema.Types.ObjectId, ref: "User" },
+  anonymousQuestion: Boolean,
   answer: String,
   answerTime: Date,
 });
@@ -16,6 +18,7 @@ const reviewSchema = new Schema({
   comment: String,
   commentTime: Date,
   reviewer: { type: Schema.Types.ObjectId, ref: "User" },
+  anonymousReview: Boolean,
   response: String,
   responseTime: Date,
   responser: { type: Schema.Types.ObjectId, ref: "User" },
