@@ -60,8 +60,8 @@ const clubSchema = gql`
     title: String
     body: String
     questionTime: Date
-    questioner: User!
-    anonymousQuestion: Boolean!
+    questioner: User
+    anonymousQuestion: Boolean
     answer: String
     answerTime: Date
   }

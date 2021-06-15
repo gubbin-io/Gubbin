@@ -35,6 +35,8 @@ export interface Question {
   title: string;
   body: string;
   questionTime: Date;
+  anonymousQuestion?: boolean;
+  questioner?: User;
   answer?: string;
   answerTime?: Date;
 }
