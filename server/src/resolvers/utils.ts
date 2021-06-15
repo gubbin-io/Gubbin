@@ -12,6 +12,12 @@ function avgRating(reviews: any) {
   return rounded;
 }
 
+function eventsFromSchema(eventsSchema: any) {
+  return eventsSchema.map(({ _id, title, body, link, date }: any) => {
+    return { eventId: _id, title, body, link, date };
+  });
+}
+
 async function clubFromSchema(clubSchema: any, userId: any) {
   const find = await User.findOne({
     _id: userId,
@@ -30,6 +36,7 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     backgroundUri: clubSchema.backgroundUri,
     joined: joined,
     socialMedia: clubSchema.socialMedia,
+    events: eventsFromSchema(clubSchema.events),
   };
 }
 

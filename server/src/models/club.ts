@@ -48,6 +48,7 @@ const clubSchema = new Schema({
   },
   reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
+  events: [{ title: String, body: String, link: String, date: Date }],
 });
 
 export default mongoose.model("Club", clubSchema);

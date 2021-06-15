@@ -22,6 +22,8 @@ const clubSchema = gql`
       clubId: ID!
       basicInfoInput: BasicInfoInput!
     ): UpdateResponse
+
+    addEvent(clubId: ID!, eventInput: EventInput!): UpdateResponse
   }
 
   type Club {
@@ -35,6 +37,7 @@ const clubSchema = gql`
     backgroundUri: String
     reviews: [Review]
     questions: [Question]
+    events: [Event]
     socialMedia: SocialMedia
     rating: Float
     joined: Boolean!
@@ -58,6 +61,14 @@ const clubSchema = gql`
     questionTime: Date
     answer: String
     answerTime: Date
+  }
+
+  type Event {
+    eventId: ID!
+    title: String
+    body: String
+    link: String
+    date: Date
   }
 
   type ReturnImage {
@@ -99,6 +110,13 @@ const clubSchema = gql`
     numMembers: Int
     themeColor: String
     about: String
+  }
+
+  input EventInput {
+    title: String
+    body: String
+    link: String
+    date: Date
   }
 
   input SocialMediaInput {
