@@ -1,10 +1,8 @@
 import { UserInputError } from "apollo-server-errors";
-import ImageKit from "imagekit";
 import Club from "../models/club";
 import utils from "./utils";
 
 import dateScalar from "./datatypes";
-import { util } from "prettier";
 
 const clubResolvers = {
   Date: dateScalar,
@@ -144,6 +142,20 @@ const clubResolvers = {
       }
 
       const updated = await Club.updateOne({ _id: clubId }, { $set: sets });
+      return {
+        success: updated.ok,
+      };
+    },
+
+    addEvent: async (_: any, { clubId, eventInput }: any) => {
+      const updated = await Club.updateOne(
+        { _id: clubId },
+        {
+          $push: {
+            events: eventInput,
+          },
+        }
+      );
       return {
         success: updated.ok,
       };
