@@ -34,10 +34,8 @@ const clubSchema = new Schema({
   themeColor: String,
   about: String,
   logoUri: String,
-  logoUriThumbnail: String,
   logoFileId: String,
   backgroundUri: String,
-  backgroundUriThumbnail: String,
   backgroundFileId: String,
   socialMedia: {
     facebook: String,

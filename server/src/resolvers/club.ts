@@ -4,6 +4,7 @@ import Club from "../models/club";
 import utils from "./utils";
 
 import dateScalar from "./datatypes";
+import { util } from "prettier";
 
 const clubResolvers = {
   Date: dateScalar,
@@ -76,36 +77,52 @@ const clubResolvers = {
     },
 
     updateLogo: async (_: any, { logo: { clubId, content } }: any) => {
-      const imagekit = new ImageKit({
-        publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
-        privateKey:
-          process.env.IMAGEKIT_PRIVATE_KEY || "PRIVATE KEY UNDEFINED IN .env",
-        urlEndpoint: "https://ik.imagekit.io/gubbin/",
+      const imagekit = utils.getImageKit();
+
+      const result = await imagekit.upload({
+        file: content,
+        fileName: Date.now().toString(),
+        folder: "club_logo",
+        tags: clubId.toString(),
       });
 
-      const filename: string = Date.now().toString();
-      imagekit.upload(
+      const prev = await Club.findOneAndUpdate(
+        { _id: clubId },
         {
-          file: content,
-          fileName: filename,
-          folder: "club_logo",
-          tags: clubId.toString(),
-        },
-        async (error, result) => {
-          if (error) throw error;
-          else {
-            const updated = await Club.updateOne(
-              { _id: clubId },
-              {
-                logoUri: result?.url,
-                logoUriThumbnail: result?.thumbnailUrl,
-                logoFileId: result?.fileId,
-              }
-            );
-          }
-          return { uri: result?.url, thumbnailUri: result?.thumbnailUrl };
+          logoUri: result?.url,
+          logoFileId: result?.fileId,
         }
       );
+
+      imagekit.deleteFile(prev.logoFileId);
+
+      return { uri: result?.url };
+    },
+
+    updateBackground: async (
+      _: any,
+      { background: { clubId, content } }: any
+    ) => {
+      const imagekit = utils.getImageKit();
+
+      const result = await imagekit.upload({
+        file: content,
+        fileName: Date.now().toString(),
+        folder: "club_background_photo",
+        tags: clubId.toString(),
+      });
+
+      const prev = await Club.findOneAndUpdate(
+        { _id: clubId },
+        {
+          backgroundUri: result?.url,
+          backgroundFileId: result?.fileId,
+        }
+      );
+
+      imagekit.deleteFile(prev.backgroundFileId);
+
+      return { uri: result?.url };
     },
 
     updateSocialMedia: async (_: any, { clubId, socialMedia }: any) => {
