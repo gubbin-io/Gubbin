@@ -26,7 +26,12 @@ const App: React.FC<any> = () => {
   const { loading, error, data } = useQuery(GET_CURRENT_USER);
 
   if (loading) return <LoadingScreen />;
-  if (error) return <LoginScreen />;
+  if (error) {
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
+    return <LoginScreen />;
+  }
 
   sessionStorage.setItem("userId", data.currentUser.userId);
 

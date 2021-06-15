@@ -25,10 +25,6 @@ const userSchema = gql`
     token: String!
   }
 
-  type UpdateResponse {
-    success: Int!
-  }
-
   input UserInfo {
     userName: String!
     password: String!

@@ -56,9 +56,23 @@ function reviewFromSchema(reviewSchema: any) {
   };
 }
 
+function reviewCompareFunc(review1: any, review2: any) {
+  if (review1.commentTime > review2.commentTime) return -1;
+  if (review1.commentTime < review2.commentTime) return 1;
+  return 0;
+}
+
+function questionCompareFunc(question1: any, question2: any) {
+  if (question1.questionTime > question2.questionTime) return -1;
+  if (question1.questionTime < question2.questionTime) return 1;
+  return 0;
+}
+
 export default {
   avgRating,
   clubFromSchema,
   questionFromSchema,
   reviewFromSchema,
+  reviewCompareFunc,
+  questionCompareFunc,
 };
