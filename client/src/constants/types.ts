@@ -1,10 +1,16 @@
 export interface Review {
   id: string;
-  reviewer: string;
+  reviewer?: User;
   rating: number;
   title?: string;
   comment?: string;
   commentTime: Date;
+  anonymousReview?: boolean;
+}
+
+export interface User {
+  userId: string;
+  userName: string;
 }
 
 export interface Club {

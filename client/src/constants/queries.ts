@@ -141,6 +141,10 @@ export const GET_CLUB_INFO = gql`
         title
         comment
         commentTime
+        anonymousReview
+        reviewer {
+          userName
+        }
       }
     }
   }
@@ -155,7 +159,6 @@ export const POST_QUESTION = gql`
 export const ADD_REVIEW = gql`
   mutation NewReview(
     $clubId: ID!
-    $reviewer: String!
     $rating: Int!
     $title: String
     $comment: String
@@ -163,10 +166,10 @@ export const ADD_REVIEW = gql`
     addReview(
       review: {
         clubId: $clubId
-        reviewer: $reviewer
         rating: $rating
         title: $title
         comment: $comment
+        anonymousReview: false
       }
     )
   }
