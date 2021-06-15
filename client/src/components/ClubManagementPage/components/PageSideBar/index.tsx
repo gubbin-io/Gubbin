@@ -1,6 +1,10 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { InfoCircleFill, Globe2 } from "react-bootstrap-icons";
+import {
+  InfoCircleFill,
+  Globe2,
+  QuestionCircleFill,
+} from "react-bootstrap-icons";
 import useStyles from "./style";
 
 export interface PageSideBarProp {
@@ -23,6 +27,13 @@ const PageSideBar: React.FC<PageSideBarProp> = ({ clubColor }) => {
           <Nav.Link className={classes.tabButton} eventKey="social">
             <Globe2 size={20} className={classes.icon} />
             {`Social Media`}
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="questions">
+            <QuestionCircleFill size={20} className={classes.icon} />
+            {`Q&A`}
           </Nav.Link>
         </Nav.Item>
       </Nav>

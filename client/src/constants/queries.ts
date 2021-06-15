@@ -237,3 +237,9 @@ export const UPDATE_BACKGROUND = gql`
     }
   }
 `;
+
+export const POST_ANSWER = gql`
+  mutation PostAnswer($answer: String = "", $questionId: ID!) {
+    postAnswer(answerPost: { questionId: $questionId, answer: $answer })
+  }
+`;
