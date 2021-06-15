@@ -54,7 +54,11 @@ const PageBody: React.FC<PageBodyProp> = ({
               </Tab.Pane>
 
               <Tab.Pane eventKey="questions">
-                <QuestionAnswering questions={questions} clubId={clubId} />
+                <QuestionAnswering
+                  questions={questions}
+                  clubId={clubId}
+                  themeColor={themeColor}
+                />
               </Tab.Pane>
             </Tab.Content>
           </div>
