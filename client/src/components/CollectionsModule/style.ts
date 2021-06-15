@@ -2,8 +2,11 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles((theme: any) => ({
   container: {
-    marginBottom: "20px",
+    marginTop: "20px",
     borderBottom: `1px solid ${theme.separator}`,
+    "&:first-child": {
+      marginTop: 0,
+    },
     "&:last-child": {
       borderBottom: 0,
     },

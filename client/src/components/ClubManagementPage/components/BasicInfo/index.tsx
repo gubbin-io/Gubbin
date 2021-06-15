@@ -8,7 +8,10 @@ import { useMutation } from "@apollo/client";
 import {
   UPDATE_BASIC_INFO,
   GET_CLUB_INFO,
+  UPDATE_LOGO,
+  GET_ORGANISER_CLUBS,
 } from "../../../../constants/queries";
+import { toBase64 } from "../../../../constants/functions";
 
 export interface BasicInfoProp {
   clubId: string;
@@ -31,9 +34,17 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
   const [backgroundFileName, setbackgroundFileName] = useState(
     "Upload Background Image"
   );
+  const refetchQueries = [
+    { query: GET_CLUB_INFO, variables: { clubId } },
+    { query: GET_ORGANISER_CLUBS },
+  ];
 
   const [updateBasicInfo] = useMutation(UPDATE_BASIC_INFO, {
-    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
+    refetchQueries,
+  });
+
+  const [updateLogo] = useMutation(UPDATE_LOGO, {
+    refetchQueries,
   });
 
   async function handleSubmit(values: any) {
@@ -46,6 +57,16 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
         themeColor: values.themeColor,
       },
     });
+
+    if (values.logoURI) {
+      const logoString = await toBase64(values.logoURI);
+      updateLogo({
+        variables: {
+          clubId,
+          content: logoString,
+        },
+      });
+    }
   }
 
   return (

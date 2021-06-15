@@ -23,9 +23,11 @@ const useStyles = createUseStyles((theme: any) => ({
   mainContainer: {
     display: "flex",
     flexDirection: "column",
-    overflowY: "scroll",
     maxWidth: "1440px",
     padding: "32px 16px 32px 32px",
+  },
+  scrollContainer: {
+    overflowY: "scroll",
     "&::-webkit-scrollbar": {
       width: `16px`,
     },

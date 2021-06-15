@@ -17,6 +17,7 @@ const useStyles = createUseStyles((theme: any) => ({
     width: "48px",
     height: "48px",
     marginRight: "12px",
+    borderRadius: theme.radius,
   },
   title: {
     fontWeight: 500,

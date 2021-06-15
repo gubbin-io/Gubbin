@@ -51,74 +51,75 @@ const App: React.FC<any> = () => {
           showManageTab={isOrganiser}
         />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
-
-        <Container className={classes.mainContainer}>
-          {searchString === "" ? (
-            <Switch>
-              <Route path="/discover">
-                <DiscoverPage
-                  showModalClub={(id) => {
-                    showModalClub(id);
-                  }}
-                />
-              </Route>
-              <Route path="/categories">
-                <CategoriesPage
-                  showModalClub={(id) => {
-                    showModalClub(id);
-                  }}
-                />
-              </Route>
-              <Route path="/myclubs">
-                <MyClubsPage
-                  showModalClub={(id) => {
-                    showModalClub(id);
-                  }}
-                />
-              </Route>
-
-              <Route
-                path="/collection/:id"
-                render={({ match }) => {
-                  return (
-                    <CollectionsPageWithId
-                      collectionID={match.params.id}
-                      showModalClub={showModalClub}
-                    />
-                  );
-                }}
-              />
-
-              {isOrganiser && (
-                <Route exact path="/manage">
-                  <ManageClubsPage
+        <div className={classes.scrollContainer}>
+          <Container className={classes.mainContainer}>
+            {searchString === "" ? (
+              <Switch>
+                <Route path="/discover">
+                  <DiscoverPage
                     showModalClub={(id) => {
                       showModalClub(id);
                     }}
                   />
                 </Route>
-              )}
+                <Route path="/categories">
+                  <CategoriesPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
+                <Route path="/myclubs">
+                  <MyClubsPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
 
-              {isOrganiser && (
                 <Route
-                  path="/manage/:id"
+                  path="/collection/:id"
                   render={({ match }) => {
-                    return <ClubManagementPage clubId={match.params.id} />;
+                    return (
+                      <CollectionsPageWithId
+                        collectionID={match.params.id}
+                        showModalClub={showModalClub}
+                      />
+                    );
                   }}
                 />
-              )}
 
-              <Route path="/">
-                <Redirect to="/discover" />;
-              </Route>
-            </Switch>
-          ) : (
-            <SearchPage
-              searchString={searchString}
-              showModalClub={showModalClub}
-            />
-          )}
-        </Container>
+                {isOrganiser && (
+                  <Route exact path="/manage">
+                    <ManageClubsPage
+                      showModalClub={(id) => {
+                        showModalClub(id);
+                      }}
+                    />
+                  </Route>
+                )}
+
+                {isOrganiser && (
+                  <Route
+                    path="/manage/:id"
+                    render={({ match }) => {
+                      return <ClubManagementPage clubId={match.params.id} />;
+                    }}
+                  />
+                )}
+
+                <Route path="/">
+                  <Redirect to="/discover" />;
+                </Route>
+              </Switch>
+            ) : (
+              <SearchPage
+                searchString={searchString}
+                showModalClub={showModalClub}
+              />
+            )}
+          </Container>
+        </div>
       </div>
     </>
   );

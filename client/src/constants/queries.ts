@@ -92,6 +92,7 @@ export const GET_CLUB_COLLECTION = gql`
         joined
         themeColor
         logoUri
+        backgroundUri
       }
     }
   }
@@ -210,6 +211,14 @@ export const UPDATE_SOCIAL_MEDIA = gql`
       }
     ) {
       success
+    }
+  }
+`;
+
+export const UPDATE_LOGO = gql`
+  mutation MyMutation($clubId: ID!, $content: String!) {
+    updateLogo(logo: { clubId: $clubId, content: $content }) {
+      uri
     }
   }
 `;
