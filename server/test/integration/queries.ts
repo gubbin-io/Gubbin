@@ -90,7 +90,6 @@ const UPDATE_LOGO = gql`
   mutation updateLogo($clubId: ID!, $content: String!) {
     updateLogo(logo: { clubId: $clubId, content: $content }) {
       uri
-      thumbnailUri
     }
   }
 `;

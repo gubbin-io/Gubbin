@@ -1,4 +1,5 @@
 import User from "../models/user";
+import ImageKit from "imagekit";
 
 function avgRating(reviews: any) {
   if (!reviews || reviews.length == 0) return undefined;
@@ -68,6 +69,15 @@ function questionCompareFunc(question1: any, question2: any) {
   return 0;
 }
 
+function getImageKit() {
+  return new ImageKit({
+    publicKey: "public_kC3Isp/ICZSn3Glw68BA3tWFcRs=",
+    privateKey:
+      process.env.IMAGEKIT_PRIVATE_KEY || "PRIVATE KEY UNDEFINED IN .env",
+    urlEndpoint: "https://ik.imagekit.io/gubbin/",
+  });
+}
+
 export default {
   avgRating,
   clubFromSchema,
@@ -75,4 +85,5 @@ export default {
   reviewFromSchema,
   reviewCompareFunc,
   questionCompareFunc,
+  getImageKit,
 };
