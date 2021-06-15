@@ -146,7 +146,6 @@ describe("Clubs", function () {
       variables: { clubId: clubId },
     });
 
-    console.log(club.data?.club);
     expect(club.errors).toBeUndefined();
     expect(response.errors).toBeUndefined();
     expect(response.data?.updateBasicInfo.success).toBe(1);
