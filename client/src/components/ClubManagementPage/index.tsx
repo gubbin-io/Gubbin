@@ -26,15 +26,14 @@ const ClubManagementPage: React.FC<ClubManagementPageProp> = ({ clubId }) => {
   else if (error) body = <p>Error! {error.message}</p>;
   else {
     const {
-      id, // DO NOT ALLOW
-      clubName, // Allow
-      description, // Allow
-      themeColor, // Allow
-
-      about, // Allow
-      socialMedia, // Allow - 7 Options (Each with own text box)
-    }: // questions, // Allow - Only answer though
-    Club = data.club;
+      id,
+      clubName,
+      description,
+      themeColor,
+      about,
+      socialMedia,
+      questions,
+    }: Club = data.club;
 
     body = (
       <PageBody
@@ -44,6 +43,7 @@ const ClubManagementPage: React.FC<ClubManagementPageProp> = ({ clubId }) => {
         about={about}
         themeColor={themeColor}
         socialMedia={socialMedia}
+        questions={questions}
       />
     );
   }
