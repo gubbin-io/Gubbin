@@ -35,7 +35,7 @@ const useStyles = createUseStyles((theme: any) => ({
   },
   carousel: {
     width: "100%",
-    height: "320px",
+    height: "288px",
     margin: 0,
 
     display: "flex",

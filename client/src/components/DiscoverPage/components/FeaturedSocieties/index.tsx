@@ -1,8 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
-import Carousel from "react-bootstrap/esm/Carousel";
-import { classicNameResolver } from "typescript";
+import { Col, Row } from "react-bootstrap";
 import { GET_CLUB_COLLECTION } from "../../../../constants/queries";
 import { Club } from "../../../../constants/types";
 import LoadingScreen from "../../../LoadingScreen";
@@ -37,6 +35,10 @@ const FeaturedSocieties: React.FC<FeaturedSocietiesProp> = ({
               md={12}
               lg={8}
               xl={5}
+              onClick={() => {
+                showModalClub(id);
+              }}
+              style={{ cursor: "pointer" }}
             >
               <div className={classes.featureCard}>
                 <img
