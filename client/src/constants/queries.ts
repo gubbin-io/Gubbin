@@ -5,6 +5,10 @@ export const GET_CURRENT_USER = gql`
     currentUser {
       userId
       userName
+
+      organizerClubs {
+        id
+      }
     }
   }
 `;
@@ -13,6 +17,21 @@ export const GET_MEMBER_CLUBS = gql`
   query {
     currentUser {
       memberClubs {
+        id
+        clubName
+        description
+        themeColor
+        logoUri
+        joined
+      }
+    }
+  }
+`;
+
+export const GET_ORGANISER_CLUBS = gql`
+  query {
+    currentUser {
+      organizerClubs {
         id
         clubName
         description
@@ -143,5 +162,63 @@ export const ADD_REVIEW = gql`
         comment: $comment
       }
     )
+  }
+`;
+
+export const UPDATE_BASIC_INFO = gql`
+  mutation (
+    $about: String
+    $clubName: String
+    $description: String
+    $themeColor: String
+    $clubId: ID!
+  ) {
+    updateBasicInfo(
+      basicInfoInput: {
+        about: $about
+        clubName: $clubName
+        description: $description
+        themeColor: $themeColor
+      }
+      clubId: $clubId
+    ) {
+      success
+    }
+  }
+`;
+
+export const UPDATE_SOCIAL_MEDIA = gql`
+  mutation MyMutation(
+    $clubId: ID = ""
+    $facebook: String = ""
+    $discord: String = ""
+    $instagram: String = ""
+    $messager: String = ""
+    $twitter: String = ""
+    $website: String = ""
+    $whatsapp: String = ""
+  ) {
+    updateSocialMedia(
+      clubId: $clubId
+      socialMedia: {
+        discord: $discord
+        facebook: $facebook
+        instagram: $instagram
+        messager: $messager
+        twitter: $twitter
+        website: $website
+        whatsapp: $whatsapp
+      }
+    ) {
+      success
+    }
+  }
+`;
+
+export const UPDATE_LOGO = gql`
+  mutation MyMutation($clubId: ID!, $content: String!) {
+    updateLogo(logo: { clubId: $clubId, content: $content }) {
+      uri
+    }
   }
 `;

@@ -15,6 +15,8 @@ import { useQuery } from "@apollo/client";
 import LoadingScreen from "./LoadingScreen";
 import LoginScreen from "./LoginScreen";
 import CollectionsPageWithId from "./CollectionsPage/CollectionsPageWithId";
+import ManageClubsPage from "./ManageClubsPage";
+import ClubManagementPage from "./ClubManagementPage";
 
 const App: React.FC<any> = () => {
   const classes = useStyles();
@@ -38,6 +40,7 @@ const App: React.FC<any> = () => {
     setShow(true);
   };
 
+  const isOrganiser = data.currentUser.organizerClubs.length > 0;
   return (
     <>
       <TopBar />
@@ -45,6 +48,7 @@ const App: React.FC<any> = () => {
         <SideBar
           searchString={searchString}
           setSearchString={setSearchString}
+          showManageTab={isOrganiser}
         />
         <ClubModal show={show} setShow={setShow} clubId={modalClubId} />
         <div className={classes.scrollContainer}>
@@ -95,8 +99,37 @@ const App: React.FC<any> = () => {
                 showModalClub={showModalClub}
               />
             )}
-          </Container>
-        </div>
+            
+              {isOrganiser && (
+                <Route exact path="/manage">
+                  <ManageClubsPage
+                    showModalClub={(id) => {
+                      showModalClub(id);
+                    }}
+                  />
+                </Route>
+              )}
+
+              {isOrganiser && (
+                <Route
+                  path="/manage/:id"
+                  render={({ match }) => {
+                    return <ClubManagementPage clubId={match.params.id} />;
+                  }}
+                />
+              )}
+
+              <Route path="/">
+                <Redirect to="/discover" />;
+              </Route>
+            </Switch>
+          ) : (
+            <SearchPage
+              searchString={searchString}
+              showModalClub={showModalClub}
+            />
+          )}
+        </Container>
       </div>
     </>
   );
