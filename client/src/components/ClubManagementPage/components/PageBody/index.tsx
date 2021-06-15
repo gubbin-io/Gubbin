@@ -1,8 +1,9 @@
 import React from "react";
 import { Tab } from "react-bootstrap";
-import { SocialMedia } from "../../../../constants/types";
+import { Question, SocialMedia } from "../../../../constants/types";
 import BasicInfo from "../BasicInfo";
 import PageSideBar from "../PageSideBar";
+import QuestionAnswering from "../QuestionAnswering";
 import SocialMediaPage from "../SocialMedia";
 import useStyles from "./style";
 
@@ -12,6 +13,7 @@ export interface PageBodyProp {
   description: string;
   about: string;
   themeColor: string;
+  questions: Question[];
   socialMedia?: SocialMedia;
 }
 
@@ -21,6 +23,7 @@ const PageBody: React.FC<PageBodyProp> = ({
   description,
   about,
   themeColor,
+  questions,
   socialMedia,
 }) => {
   const classes = useStyles();
@@ -48,6 +51,10 @@ const PageBody: React.FC<PageBodyProp> = ({
                   themeColor={themeColor}
                   clubId={clubId}
                 />
+              </Tab.Pane>
+
+              <Tab.Pane eventKey="questions">
+                <QuestionAnswering questions={questions} clubId={clubId} />
               </Tab.Pane>
             </Tab.Content>
           </div>
