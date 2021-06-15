@@ -36,8 +36,25 @@ const QuestionAnswering: React.FC<QuestionAnsweringProp> = ({
                 </div>
               </div>
               <Card.Text className={classes.bodyText}>{body}</Card.Text>
+              {answer && (
+                <>
+                  <hr />
+                  <div className={classes.bodyHeader}>
+                    <div className={classes.headerLeft}>
+                      <span className={classes.largeText}>
+                        Committee Response
+                      </span>
+                    </div>
+                    <div className={classes.headerRight}>
+                      <span className={classes.mediumText}>Organiser</span>
+                    </div>
+                  </div>
+                  <Card.Text className={classes.bodyText}>{answer}</Card.Text>
+                </>
+              )}
             </Card.Body>
           </Card>
+
           <ResponseEditor response={answer} themeColor={themeColor} />
         </>
       ))}
