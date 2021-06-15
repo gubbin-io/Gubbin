@@ -70,7 +70,7 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
         <Nav.Item>
           <Nav.Link className={classes.tabButton} eventKey="events">
             <CalendarEventFill size={20} className={classes.icon} />
-            {`Recent Events`}
+            {`Events`}
           </Nav.Link>
         </Nav.Item>
 
