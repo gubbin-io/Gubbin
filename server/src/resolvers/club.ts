@@ -36,7 +36,6 @@ const clubResolvers = {
 
   Mutation: {
     addClub: async (_: any, data: any) => {
-      // TODO: accept files as inputs instead of URIs
       const {
         description,
         clubName,
@@ -47,7 +46,6 @@ const clubResolvers = {
         backgroundUri,
       } = data.clubInfo;
 
-      // TODO: Throw checking and saving logic below into a separate components and add tests
       const club = await Club.findOne({ clubName });
       if (club)
         throw new UserInputError(`Duplicated club name \"${clubName}\".`);

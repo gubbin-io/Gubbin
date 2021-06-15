@@ -111,6 +111,13 @@ export const GET_CLUB_INFO = gql`
       about
       logoUri
       backgroundUri
+      events {
+        eventId
+        title
+        body
+        link
+        date
+      }
       socialMedia {
         facebook
         twitter

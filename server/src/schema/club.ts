@@ -64,6 +64,7 @@ const clubSchema = gql`
   }
 
   type Event {
+    eventId: ID!
     title: String
     body: String
     link: String

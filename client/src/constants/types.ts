@@ -19,6 +19,7 @@ export interface Club {
   logoUri: string;
   backgroundUri: string;
   reviews: Review[];
+  events: ClubEvent[];
   socialMedia?: SocialMedia;
   questions: Question[];
 }
@@ -40,4 +41,11 @@ export interface SocialMedia {
   discord?: string;
   whatsapp?: string;
   messager?: string;
+}
+export interface ClubEvent {
+  eventId: string;
+  title: string;
+  body: string;
+  link: string;
+  date: Date;
 }

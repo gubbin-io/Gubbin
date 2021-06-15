@@ -13,8 +13,8 @@ function avgRating(reviews: any) {
 }
 
 function eventsFromSchema(eventsSchema: any) {
-  return eventsSchema.map(({ title, body, link, date }: any) => {
-    return { title, body, link, date };
+  return eventsSchema.map(({ _id, title, body, link, date }: any) => {
+    return { eventId: _id, title, body, link, date };
   });
 }
 
