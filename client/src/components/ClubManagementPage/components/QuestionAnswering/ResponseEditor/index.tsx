@@ -4,18 +4,36 @@ import { PenFill, XSquareFill } from "react-bootstrap-icons";
 import { Formik } from "formik";
 import schema from "./schema";
 import useStyles from "./style";
+import { GET_CLUB_INFO, POST_ANSWER } from "../../../../../constants/queries";
+import { useMutation } from "@apollo/client";
 
 export interface ResponseEditorProp {
+  clubId: string;
+  questionId: string;
   response?: string;
   themeColor: string;
 }
 
 const ResponseEditor: React.FC<ResponseEditorProp> = ({
+  clubId,
+  questionId,
   response,
   themeColor,
 }) => {
   const classes = useStyles({ clubColor: themeColor });
   const [showEditor, setShowEditor] = useState(false);
+  const [postAnswer] = useMutation(POST_ANSWER, {
+    refetchQueries: [{ query: GET_CLUB_INFO, variables: { clubId } }],
+  });
+
+  function handleSubmit(value: any) {
+    postAnswer({
+      variables: {
+        answer: value.response,
+        questionId,
+      },
+    });
+  }
 
   return (
     <>
@@ -37,19 +55,12 @@ const ResponseEditor: React.FC<ResponseEditorProp> = ({
       ) : (
         <Formik
           validationSchema={schema}
-          onSubmit={console.log}
+          onSubmit={(v: any) => handleSubmit(v)}
           initialValues={{
             response: response || "",
           }}
         >
-          {({
-            handleSubmit,
-            handleChange,
-            values,
-            touched,
-            errors,
-            setFieldValue,
-          }) => {
+          {({ handleSubmit, handleChange, values, touched, errors }) => {
             return (
               <>
                 <Form noValidate onSubmit={handleSubmit}>

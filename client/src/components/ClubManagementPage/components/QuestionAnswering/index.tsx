@@ -17,11 +17,10 @@ const QuestionAnswering: React.FC<QuestionAnsweringProp> = ({
 }) => {
   const classes = useStyles();
 
-  console.log(questions);
   return (
     <>
       {questions.map(({ questionId, title, body, questionTime, answer }) => (
-        <>
+        <div key={questionId}>
           <Card className={classes.reviewCard} key={questionId}>
             <Card.Body className={classes.reviewBody}>
               <div className={classes.bodyHeader}>
@@ -55,8 +54,13 @@ const QuestionAnswering: React.FC<QuestionAnsweringProp> = ({
             </Card.Body>
           </Card>
 
-          <ResponseEditor response={answer} themeColor={themeColor} />
-        </>
+          <ResponseEditor
+            response={answer}
+            themeColor={themeColor}
+            questionId={questionId}
+            clubId={clubId}
+          />
+        </div>
       ))}
     </>
   );
