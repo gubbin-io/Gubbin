@@ -11,7 +11,7 @@ const reviewSchema = gql`
     rating: Int!
     title: String
     comment: String
-    reviewer: String
+    anonymousReview: Boolean
   }
 
   input ResponsePost {

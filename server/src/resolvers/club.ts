@@ -170,9 +170,12 @@ const clubResolvers = {
       const result = await Club.findOne({ _id: parent.id })
         .populate("questions")
         .exec();
-      return result.questions
-        .map(utils.questionFromSchema)
-        .sort(utils.questionCompareFunc);
+
+      let temp: any[] = [];
+      for (let question of result.questions) {
+        temp.push(await utils.questionFromSchema(question));
+      }
+      return temp.sort(utils.questionCompareFunc);
     },
 
     reviews: async (parent: any) => {
@@ -180,9 +183,11 @@ const clubResolvers = {
         .populate("reviews")
         .exec();
 
-      return result.reviews
-        .map(utils.reviewFromSchema)
-        .sort(utils.reviewCompareFunc);
+      let temp: any[] = [];
+      for (let review of result.reviews) {
+        temp.push(await utils.reviewFromSchema(review));
+      }
+      return temp.sort(utils.reviewCompareFunc);
     },
   },
 };

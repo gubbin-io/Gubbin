@@ -46,6 +46,7 @@ const clubSchema = gql`
   type Review {
     id: ID!
     reviewer: User!
+    anonymousReview: Boolean!
     rating: Int!
     title: String
     comment: String
@@ -59,6 +60,8 @@ const clubSchema = gql`
     title: String
     body: String
     questionTime: Date
+    questioner: User!
+    anonymousQuestion: Boolean!
     answer: String
     answerTime: Date
   }

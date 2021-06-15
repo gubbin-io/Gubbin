@@ -1,20 +1,32 @@
 import { UserInputError } from "apollo-server-errors";
 
 import Club, { Review } from "../models/club";
+import User from "../models/user";
 
 const reviewResolvers = {
   Query: {},
 
   Mutation: {
-    addReview: async (_: any, data: any) => {
-      const { clubId, rating, title, comment } = data.review;
+    addReview: async (_: any, data: any, { user }: any) => {
+      const { clubId, rating, title, comment, anonymousReview } = data.review;
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
+
+      if (!user || !user.userId) {
+        // TODO: Error
+      }
+
+      const userSchema = await User.findOne({ _id: user.userId });
+      if (!userSchema) {
+        // TODO: Error
+      }
 
       const newReview = new Review({
         rating,
         title,
         comment,
         commentTime: Date.now(),
+        anonymousReview,
+        reviewer: user.userId,
       });
 
       const savedReview = await newReview.save();
