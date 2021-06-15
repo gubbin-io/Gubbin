@@ -6,6 +6,7 @@ import ClubQAs from "../ClubQAs";
 import ClubSocialMedia from "../ClubSocialMedia";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
+import ClubEvents from "../ClubEvents";
 
 export interface ClubBodyProp {
   clubId: string;
@@ -63,6 +64,10 @@ const ClubBody: React.FC<ClubBodyProp> = ({
                 clubColor={clubColor}
               />
             </Tab.Pane>
+            <Tab.Pane eventKey="events">
+              <ClubEvents />
+            </Tab.Pane>
+
             <Tab.Pane eventKey="social">
               <ClubSocialMedia
                 clubColor={clubColor}
