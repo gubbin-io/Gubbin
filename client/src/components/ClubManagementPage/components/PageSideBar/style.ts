@@ -48,6 +48,7 @@ const useStyles = createUseStyles((theme: any) => ({
   sidebar: {
     width: "240px",
     padding: "0px 16px",
+    flex: "0 0 240px",
   },
   tabButton: ({ clubColor }: any) => ({
     backgroundColor: theme.inactive,
