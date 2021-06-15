@@ -33,7 +33,7 @@ const LoginScreen: React.FC<ComponentProp> = () => {
       <div className={classes.right}>
         <div className={classes.login}>
           <img
-            src="images/brand-icon.svg"
+            src="/images/brand-icon.svg"
             alt="Gubbin Logo"
             className={classes.brandIcon}
           />
