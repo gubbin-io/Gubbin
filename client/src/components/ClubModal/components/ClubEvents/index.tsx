@@ -10,8 +10,6 @@ export interface ClubEventsProp {
 const ClubEvents: React.FC<ClubEventsProp> = ({ events }) => {
   const classes = useStyles();
 
-  // TODO: use our own proxy https://www.npmjs.com/package/cors-anywhere
-  console.log(events);
   return (
     <>
       <span className={classes.sectionHeading}>{`Events`}</span>
@@ -26,7 +24,7 @@ const ClubEvents: React.FC<ClubEventsProp> = ({ events }) => {
               showGraphic={true}
               maxLine={2}
               url={link}
-              proxyUrl="https://thingproxy.freeboard.io/fetch"
+              proxyUrl="https://quiet-ravine-55003.herokuapp.com"
             />
           )}
         </div>
