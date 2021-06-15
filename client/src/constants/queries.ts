@@ -222,3 +222,11 @@ export const UPDATE_LOGO = gql`
     }
   }
 `;
+
+export const UPDATE_BACKGROUND = gql`
+  mutation ($content: String!, $clubId: ID!) {
+    updateBackground(background: { clubId: $clubId, content: $content }) {
+      uri
+    }
+  }
+`;
