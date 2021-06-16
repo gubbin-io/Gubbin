@@ -2,16 +2,19 @@ import React from "react";
 import { Tab, Row, Col } from "react-bootstrap";
 import {
   ClubEvent,
+  ClubUpdate,
+  Committee,
   Question,
   Review,
   SocialMedia,
 } from "../../../../constants/types";
 import ClubReviews from "../ClubReviews";
 import ClubQAs from "../ClubQAs";
-import ClubSocialMedia from "../ClubSocialMedia";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
 import ClubEvents from "../ClubEvents";
+import ClubUpdates from "../ClubUpdates";
+import ClubSocialMedia from "../ClubSocialMedia";
 
 export interface ClubBodyProp {
   clubId: string;
@@ -22,8 +25,10 @@ export interface ClubBodyProp {
   rating?: number;
   reviews: Review[];
   events: ClubEvent[];
+  updates: ClubUpdate[];
   questions: Question[];
   socialMedia?: SocialMedia;
+  committee: Committee[];
 }
 
 const ClubBody: React.FC<ClubBodyProp> = ({
@@ -35,6 +40,8 @@ const ClubBody: React.FC<ClubBodyProp> = ({
   rating,
   questions,
   events,
+  updates,
+  committee,
   reviews,
 }) => {
   const classes = useStyles();
@@ -47,7 +54,6 @@ const ClubBody: React.FC<ClubBodyProp> = ({
           numMembers={numMembers}
           rating={rating}
           numReviews={reviews.length}
-          socialMedia={socialMedia}
         />
         {/* Main Content of Tab */}
         <Col className={classes.contentColumn}>
@@ -75,10 +81,15 @@ const ClubBody: React.FC<ClubBodyProp> = ({
               <ClubEvents events={events} />
             </Tab.Pane>
 
+            <Tab.Pane eventKey="updates">
+              <ClubUpdates updates={updates} />
+            </Tab.Pane>
+
             <Tab.Pane eventKey="social">
               <ClubSocialMedia
                 clubColor={clubColor}
                 socialMedia={socialMedia}
+                committee={committee}
               />
             </Tab.Pane>
           </Tab.Content>

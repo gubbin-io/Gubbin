@@ -9,43 +9,11 @@ const useStyles = createUseStyles((theme: any) => ({
   },
   divider: {
     marginTop: "8px",
-    marginBottom: "16px",
-  },
-  icon: {
-    marginRight: "8px",
-  },
-  cards: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "stretch",
-    flexWrap: "wrap",
-    marginTop: "16px",
-    gap: "8px",
-    "@media ( max-width: 880px)": {
-      // One item per row
-      "& > div": {
-        flexBasis: "100%",
-      },
-    },
-  },
-  largeText: {
-    fontWeight: 600,
-    fontSize: "18px",
-    letterSpacing: "0.1px",
-    lineHeight: "100%",
-  },
-  committeeSection: {
-    marginTop: "24px",
-  },
-  committeeBody: {
-    marginTop: "16px",
+    marginBottom: "24px",
   },
   reviewCard: {
     borderWidth: 0,
     marginTop: "12px",
-    width: "100%",
-    marginLeft: 0,
-    marginRight: 0,
   },
   reviewBody: {
     backgroundColor: theme.inactive,
@@ -75,6 +43,12 @@ const useStyles = createUseStyles((theme: any) => ({
     lineHeight: "100%",
     marginBottom: "8px",
   },
+  largeText: {
+    fontWeight: 500,
+    fontSize: "16px",
+    lineHeight: "100%",
+    marginBottom: "8px",
+  },
   mediumText: {
     fontWeight: 500,
     fontSize: "14px",
@@ -86,7 +60,8 @@ const useStyles = createUseStyles((theme: any) => ({
     fontSize: "14px",
     lineHeight: "15px",
     textTransform: "uppercase",
-    color: "#ADB5BD",
+    color: "#6B7178",
+    marginBottom: "8px",
   },
 }));
 

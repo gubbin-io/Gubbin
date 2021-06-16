@@ -17,6 +17,10 @@ const clubSchema = gql`
       clubId: ID!
       socialMedia: SocialMediaInput
     ): UpdateResponse
+    updateCommittee(
+      clubId: ID!
+      committee: [CommitteeMemberInput!]!
+    ): UpdateResponse
 
     updateBasicInfo(
       clubId: ID!
@@ -24,6 +28,7 @@ const clubSchema = gql`
     ): UpdateResponse
 
     addEvent(clubId: ID!, eventInput: EventInput!): UpdateResponse
+    addUpdate(clubId: ID!, updateInput: UpdateInput!): UpdateResponse
   }
 
   type Club {
@@ -38,7 +43,9 @@ const clubSchema = gql`
     reviews: [Review]
     questions: [Question]
     events: [Event]
+    updates: [Update]
     socialMedia: SocialMedia
+    committee: [CommitteeMember!]
     rating: Float
     joined: Boolean!
   }
@@ -74,6 +81,13 @@ const clubSchema = gql`
     date: Date
   }
 
+  type Update {
+    updateId: ID!
+    title: String
+    description: String
+    date: Date
+  }
+
   type ReturnImage {
     uri: String!
   }
@@ -90,6 +104,18 @@ const clubSchema = gql`
 
   type UpdateResponse {
     success: Int!
+  }
+
+  type CommitteeMember {
+    name: String!
+    role: String!
+    contactInfo: String
+  }
+
+  input CommitteeMemberInput {
+    name: String!
+    role: String!
+    contactInfo: String
   }
 
   input ClubInfo {
@@ -119,6 +145,12 @@ const clubSchema = gql`
     title: String
     body: String
     link: String
+    date: Date
+  }
+
+  input UpdateInput {
+    title: String
+    description: String
     date: Date
   }
 

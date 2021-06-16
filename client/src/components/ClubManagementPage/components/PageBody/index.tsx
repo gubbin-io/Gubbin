@@ -4,8 +4,10 @@ import { Question, SocialMedia } from "../../../../constants/types";
 import BasicInfo from "../BasicInfo";
 import PageSideBar from "../PageSideBar";
 import QuestionAnswering from "../QuestionAnswering";
+import Updates from "../Updates";
 import SocialMediaPage from "../SocialMedia";
 import useStyles from "./style";
+import Events from "../Events";
 
 export interface PageBodyProp {
   clubId: string;
@@ -59,6 +61,14 @@ const PageBody: React.FC<PageBodyProp> = ({
                   clubId={clubId}
                   themeColor={themeColor}
                 />
+              </Tab.Pane>
+
+              <Tab.Pane eventKey="events">
+                <Events clubId={clubId} themeColor={themeColor} />
+              </Tab.Pane>
+
+              <Tab.Pane eventKey="update">
+                <Updates clubId={clubId} themeColor={themeColor} />
               </Tab.Pane>
             </Tab.Content>
           </div>

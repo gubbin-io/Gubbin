@@ -4,6 +4,8 @@ import {
   InfoCircleFill,
   Globe2,
   QuestionCircleFill,
+  ExclamationSquareFill,
+  CalendarEventFill,
 } from "react-bootstrap-icons";
 import useStyles from "./style";
 
@@ -34,6 +36,20 @@ const PageSideBar: React.FC<PageSideBarProp> = ({ clubColor }) => {
           <Nav.Link className={classes.tabButton} eventKey="questions">
             <QuestionCircleFill size={20} className={classes.icon} />
             {`Q&A`}
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="events">
+            <CalendarEventFill size={20} className={classes.icon} />
+            {`Events`}
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="update">
+            <ExclamationSquareFill size={20} className={classes.icon} />
+            {`Updates`}
           </Nav.Link>
         </Nav.Item>
       </Nav>

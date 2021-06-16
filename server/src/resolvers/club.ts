@@ -133,6 +133,16 @@ const clubResolvers = {
       };
     },
 
+    updateCommittee: async (_: any, { clubId, committee }: any) => {
+      const updated = await Club.updateOne(
+        { _id: clubId },
+        { $set: { committee: committee } }
+      );
+      return {
+        success: updated.ok,
+      };
+    },
+
     updateBasicInfo: async (_: any, { clubId, basicInfoInput }: any) => {
       let sets: any = {};
       for (const [k, v] of Object.entries(basicInfoInput)) {
@@ -151,6 +161,20 @@ const clubResolvers = {
         {
           $push: {
             events: eventInput,
+          },
+        }
+      );
+      return {
+        success: updated.ok,
+      };
+    },
+
+    addUpdate: async (_: any, { clubId, updateInput }: any) => {
+      const updated = await Club.updateOne(
+        { _id: clubId },
+        {
+          $push: {
+            updates: updateInput,
           },
         }
       );

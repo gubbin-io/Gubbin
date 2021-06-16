@@ -118,6 +118,12 @@ export const GET_CLUB_INFO = gql`
         link
         date
       }
+      updates {
+        updateId
+        title
+        description
+        date
+      }
       socialMedia {
         facebook
         twitter
@@ -126,6 +132,11 @@ export const GET_CLUB_INFO = gql`
         discord
         whatsapp
         messager
+      }
+      committee {
+        name
+        role
+        contactInfo
       }
       questions {
         questionId
@@ -255,5 +266,29 @@ export const UPDATE_BACKGROUND = gql`
 export const POST_ANSWER = gql`
   mutation PostAnswer($answer: String = "", $questionId: ID!) {
     postAnswer(answerPost: { questionId: $questionId, answer: $answer })
+  }
+`;
+
+export const ADD_UPDATE = gql`
+  mutation addUpdate(
+    $clubId: ID!
+    $title: String
+    $description: String
+    $date: Date
+  ) {
+    addUpdate(
+      clubId: $clubId
+      updateInput: { title: $title, description: $description, date: $date }
+    ) {
+      success
+    }
+  }
+`;
+
+export const ADD_EVENT = gql`
+  mutation AddEvent($link: String!, $title: String = "", $clubId: ID!) {
+    addEvent(clubId: $clubId, eventInput: { link: $link, title: $title }) {
+      success
+    }
   }
 `;
