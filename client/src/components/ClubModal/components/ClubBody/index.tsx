@@ -2,16 +2,17 @@ import React from "react";
 import { Tab, Row, Col } from "react-bootstrap";
 import {
   ClubEvent,
+  Committee,
   Question,
   Review,
   SocialMedia,
 } from "../../../../constants/types";
 import ClubReviews from "../ClubReviews";
 import ClubQAs from "../ClubQAs";
-import ClubSocialMedia from "../ClubSocialMedia";
 import useStyles from "./style";
 import ClubSideBar from "../ClubSideBar";
 import ClubEvents from "../ClubEvents";
+import ClubSocialMedia from "../ClubSocialMedia";
 
 export interface ClubBodyProp {
   clubId: string;
@@ -24,6 +25,7 @@ export interface ClubBodyProp {
   events: ClubEvent[];
   questions: Question[];
   socialMedia?: SocialMedia;
+  committee: Committee[];
 }
 
 const ClubBody: React.FC<ClubBodyProp> = ({
@@ -35,6 +37,7 @@ const ClubBody: React.FC<ClubBodyProp> = ({
   rating,
   questions,
   events,
+  committee,
   reviews,
 }) => {
   const classes = useStyles();
@@ -47,7 +50,6 @@ const ClubBody: React.FC<ClubBodyProp> = ({
           numMembers={numMembers}
           rating={rating}
           numReviews={reviews.length}
-          socialMedia={socialMedia}
         />
         {/* Main Content of Tab */}
         <Col className={classes.contentColumn}>
@@ -79,6 +81,7 @@ const ClubBody: React.FC<ClubBodyProp> = ({
               <ClubSocialMedia
                 clubColor={clubColor}
                 socialMedia={socialMedia}
+                committee={committee}
               />
             </Tab.Pane>
           </Tab.Content>
