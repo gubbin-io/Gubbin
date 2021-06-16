@@ -8,6 +8,7 @@ import {
   InfoCircleFill,
   QuestionCircleFill,
   CalendarEventFill,
+  ExclamationSquareFill,
   PeopleFill,
 } from "react-bootstrap-icons";
 
@@ -70,6 +71,13 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
           </Nav.Link>
         </Nav.Item>
 
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="updates">
+            <ExclamationSquareFill size={20} className={classes.icon} />
+            {`Updates`}
+          </Nav.Link>
+        </Nav.Item>
+        
         <Nav.Item>
           <Nav.Link className={classes.tabButton} eventKey="social">
             <PeopleFill size={20} className={classes.icon} />

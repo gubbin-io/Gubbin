@@ -168,6 +168,20 @@ const clubResolvers = {
         success: updated.ok,
       };
     },
+
+    addUpdate: async (_: any, { clubId, updateInput }: any) => {
+      const updated = await Club.updateOne(
+        { _id: clubId },
+        {
+          $push: {
+            updates: updateInput,
+          },
+        }
+      );
+      return {
+        success: updated.ok,
+      };
+    },
   },
 
   Club: {

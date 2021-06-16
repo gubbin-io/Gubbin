@@ -118,6 +118,12 @@ export const GET_CLUB_INFO = gql`
         link
         date
       }
+      updates {
+        updateId
+        title
+        description
+        date
+      }
       socialMedia {
         facebook
         twitter
@@ -260,5 +266,21 @@ export const UPDATE_BACKGROUND = gql`
 export const POST_ANSWER = gql`
   mutation PostAnswer($answer: String = "", $questionId: ID!) {
     postAnswer(answerPost: { questionId: $questionId, answer: $answer })
+  }
+`;
+
+export const ADD_UPDATE = gql`
+  mutation addUpdate(
+    $clubId: ID!
+    $title: String
+    $description: String
+    $date: Date
+  ) {
+    addUpdate(
+      clubId: $clubId
+      updateInput: { title: $title, description: $description, date: $date }
+    ) {
+      success
+    }
   }
 `;

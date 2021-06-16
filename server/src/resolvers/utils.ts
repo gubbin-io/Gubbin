@@ -18,6 +18,16 @@ function eventsFromSchema(eventsSchema: any) {
   });
 }
 
+function updatesFromSchema(updatesSchema: any) {
+  let temp: any[] = updatesSchema.map(
+    ({ _id, title, description, date }: any) => {
+      return { updateId: _id, title, description, date };
+    }
+  );
+  temp.sort(updateCompareFunc);
+  return temp;
+}
+
 async function clubFromSchema(clubSchema: any, userId: any) {
   const find = await User.findOne({
     _id: userId,
@@ -38,6 +48,7 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     joined: joined,
     socialMedia: clubSchema.socialMedia,
     events: eventsFromSchema(clubSchema.events),
+    updates: updatesFromSchema(clubSchema.updates),
   };
 }
 
@@ -93,6 +104,12 @@ function reviewCompareFunc(review1: any, review2: any) {
 function questionCompareFunc(question1: any, question2: any) {
   if (question1.questionTime > question2.questionTime) return -1;
   if (question1.questionTime < question2.questionTime) return 1;
+  return 0;
+}
+
+function updateCompareFunc(update1: any, update2: any) {
+  if (update1.date > update2.date) return -1;
+  if (update1.date < update2.date) return 1;
   return 0;
 }
 
