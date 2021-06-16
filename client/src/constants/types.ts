@@ -20,6 +20,7 @@ export interface Club {
   joined: boolean;
   description: string;
   numMembers: number;
+  committee: Committee[];
   themeColor: string;
   about: string;
   logoUri: string;
@@ -58,9 +59,16 @@ export interface ClubEvent {
   link: string;
   date: Date;
 }
+
 export interface ClubUpdate {
   updateId: string;
   title: string;
   description: string;
   date: Date;
+}
+
+export interface Committee {
+  name: string;
+  role: string;
+  contactInfo: string;
 }

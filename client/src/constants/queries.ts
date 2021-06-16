@@ -133,6 +133,11 @@ export const GET_CLUB_INFO = gql`
         whatsapp
         messager
       }
+      committee {
+        name
+        role
+        contactInfo
+      }
       questions {
         questionId
         title

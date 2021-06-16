@@ -1,5 +1,7 @@
 import React from "react";
-import { SocialMedia } from "../../../../constants/types";
+import { Card } from "react-bootstrap";
+import { checkProperties } from "../../../../constants/functions";
+import { Committee, SocialMedia } from "../../../../constants/types";
 import SocialMediaCard from "./components/SocialMediaCard";
 import SocialMediaFiller from "./components/SocialMediaFiller";
 import useStyles from "./style";
@@ -7,11 +9,13 @@ import useStyles from "./style";
 export interface SocialMediaProp {
   clubColor: string;
   socialMedia?: SocialMedia;
+  committee: Committee[];
 }
 
 const ClubSocialMedia: React.FC<SocialMediaProp> = ({
   clubColor,
   socialMedia,
+  committee,
 }) => {
   const classes = useStyles();
   let body = <p>No social media provided.</p>;
@@ -90,12 +94,45 @@ const ClubSocialMedia: React.FC<SocialMediaProp> = ({
   }
   return (
     <>
-      <span className={classes.sectionHeading}>{`Social Media`}</span>
+      <span className={classes.sectionHeading}>{`Contact`}</span>
       <hr className={classes.divider} />
-      <div className={classes.cards}>
-        {body}
-        <SocialMediaFiller />
-      </div>
+      {socialMedia && checkProperties(socialMedia) && (
+        <>
+          <span className={classes.largeText}>Social Media</span>
+          <div className={classes.cards}>
+            {body}
+            <SocialMediaFiller />
+          </div>
+        </>
+      )}
+      {committee.length > 0 && (
+        <div className={classes.committeeSection}>
+          <span className={classes.largeText}>Committee</span>
+          <div className={classes.committeeBody}>
+            {committee.length > 0 &&
+              committee.map(({ name, role, contactInfo }, index) => (
+                <Card className={classes.reviewCard} key={index}>
+                  <Card.Body className={classes.reviewBody}>
+                    <div className={classes.bodyHeader}>
+                      <div className={classes.headerLeft}>
+                        <span className={classes.extraLargeText}>{name}</span>
+                        <span className={classes.smallText}>{role}</span>
+                      </div>
+                    </div>
+                    <Card.Text className={classes.bodyText}>
+                      {contactInfo}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              ))}
+          </div>
+        </div>
+      )}
+      {!(
+        socialMedia &&
+        checkProperties(socialMedia) &&
+        committee.length > 0
+      ) && <p>No contact info provided. </p>}
     </>
   );
 };
