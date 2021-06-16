@@ -13,7 +13,6 @@ const reviewResolvers = {
       if (rating > 5 || rating < 1) throw new UserInputError("Invalid rating");
 
       await utils.authenticateUser(user);
-      await utils.checkIsMember(user.userId, clubId);
 
       const newReview = new Review({
         rating,
