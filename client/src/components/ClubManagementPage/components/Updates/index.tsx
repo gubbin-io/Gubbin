@@ -5,7 +5,11 @@ import createDatePicker from "./DatePicker";
 import useStyles from "./style";
 import schema from "./schema";
 import { useMutation } from "@apollo/client";
-import { ADD_UPDATE } from "../../../../constants/queries";
+import {
+  ADD_UPDATE,
+  GET_CLUB_INFO,
+  GET_ORGANISER_CLUBS,
+} from "../../../../constants/queries";
 
 export interface UpdatesProp {
   clubId: string;
@@ -15,7 +19,12 @@ export interface UpdatesProp {
 const Updates: React.FC<UpdatesProp> = ({ clubId, themeColor }) => {
   const classes = useStyles({ clubColor: themeColor });
 
-  const [addUpdate] = useMutation(ADD_UPDATE);
+  const refetchQueries = [
+    { query: GET_CLUB_INFO, variables: { clubId } },
+    { query: GET_ORGANISER_CLUBS },
+  ];
+
+  const [addUpdate] = useMutation(ADD_UPDATE, { refetchQueries });
   const date = useState(new Date());
 
   async function handleSubmit(values: any) {

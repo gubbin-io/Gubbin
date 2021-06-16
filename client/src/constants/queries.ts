@@ -284,3 +284,11 @@ export const ADD_UPDATE = gql`
     }
   }
 `;
+
+export const ADD_EVENT = gql`
+  mutation AddEvent($link: String!, $title: String = "", $clubId: ID!) {
+    addEvent(clubId: $clubId, eventInput: { link: $link, title: $title }) {
+      success
+    }
+  }
+`;

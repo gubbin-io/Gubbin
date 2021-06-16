@@ -17,7 +17,7 @@ const useStyles = createUseStyles((theme: any) => ({
       borderRadius: `${theme.radius} !important`,
       borderColor: theme.separator,
       boxShadow: "none",
-      marginTop: "6px",
+      marginTop: "12px",
       maxWidth: "800px",
     },
   },

@@ -19,7 +19,7 @@ const useStyles = createUseStyles((theme: any) => ({
     justifyContent: "space-between",
     alignItems: "stretch",
     flexWrap: "wrap",
-    marginTop: "8px",
+    marginTop: "16px",
     gap: "8px",
     "@media ( max-width: 880px)": {
       // One item per row
@@ -35,10 +35,10 @@ const useStyles = createUseStyles((theme: any) => ({
     lineHeight: "100%",
   },
   committeeSection: {
-    marginTop: "20px",
+    marginTop: "24px",
   },
   committeeBody: {
-    marginTop: "8px",
+    marginTop: "16px",
   },
   reviewCard: {
     borderWidth: 0,
