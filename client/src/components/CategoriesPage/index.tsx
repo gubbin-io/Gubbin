@@ -17,7 +17,6 @@ const CategoriesPage: React.FC<CategoriesPageProp> = ({ showModalClub }) => {
       <CollectionsModule
         collectionID="60c2a56afc9fae915373f2ba"
         showModalClub={showModalClub}
-        showDivider={false}
       />
     </>
   );

@@ -44,10 +44,19 @@ const CollectionsPage: React.FC<CollectionsPageProp> = ({
 
       <div className={classes.body}>
         {clubs.map(
-          ({ clubName, description, themeColor, logoUri, id }: any) => (
+          ({
+            clubName,
+            description,
+            themeColor,
+            logoUri,
+            id,
+            joined,
+          }: Club) => (
             <ClubCard
               clubName={clubName}
               description={description}
+              joined={joined}
+              id={id}
               themeColor={themeColor}
               logoUri={logoUri}
               key={id}

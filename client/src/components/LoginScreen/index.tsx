@@ -1,16 +1,14 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { LOG_IN } from "../../constants/queries";
+import { GET_CURRENT_USER, LOG_IN } from "../../constants/queries";
+import { client } from "../../constants/routes";
 import LoadingScreen from "../LoadingScreen";
 import useStyles from "./style";
 
-export interface ComponentProp {
-  loadUser: () => void;
-}
+export interface ComponentProp {}
 
-const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
+const LoginScreen: React.FC<ComponentProp> = () => {
   const classes = useStyles();
   const [doLogIn] = useMutation(LOG_IN);
 
@@ -35,7 +33,7 @@ const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
       <div className={classes.right}>
         <div className={classes.login}>
           <img
-            src="/brand-icon.svg"
+            src="/images/brand-icon.svg"
             alt="Gubbin Logo"
             className={classes.brandIcon}
           />
@@ -58,7 +56,7 @@ const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
                 const storage = remember ? localStorage : sessionStorage;
                 if (token) storage.setItem("token", token);
 
-                loadUser();
+                client.query({ query: GET_CURRENT_USER });
                 setLoading(true);
               } catch (error) {
                 setError(error);
@@ -109,12 +107,12 @@ const LoginScreen: React.FC<ComponentProp> = ({ loadUser }) => {
               Log In
             </Button>
           </Form>
-          <span className={classes.miscText}>
+          {/* <span className={classes.miscText}>
             Don't have an account?{" "}
             <Link className={classes.link} to="/signup">
               Sign Up!
             </Link>
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

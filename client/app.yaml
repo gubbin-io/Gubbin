@@ -4,9 +4,12 @@ handlers:
   - url: /static
     static_dir: build/static
 
-  - url: /(.*\.(json|ico|js|png|svg|txt))$
+  - url: /images
+    static_dir: build/images
+
+  - url: /(.*\.(json|ico|js|txt))$
     static_files: build/\1
-    upload: build/.*\.(json|ico|js|png|svg|txt)$
+    upload: build/.*\.(json|ico|js|txt)$
 
   - url: .*
     static_files: build/index.html

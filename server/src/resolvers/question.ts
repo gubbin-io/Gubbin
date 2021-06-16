@@ -1,16 +1,28 @@
 import Club, { Question } from "../models/club";
+import User from "../models/user";
 
 const questionResolvers = {
   Query: {},
 
   Mutation: {
-    postQuestion: async (_: any, data: any) => {
-      const { clubId, title, body } = data.questionPost;
+    postQuestion: async (_: any, data: any, { user }: any) => {
+      const { clubId, title, body, anonymousQuestion } = data.questionPost;
+
+      if (!user || !user.userId) {
+        // TODO: Error
+      }
+
+      const userSchema = await User.findOne({ _id: user.userId });
+      if (!userSchema) {
+        // TODO: Error
+      }
 
       const newQuestion = new Question({
         title,
         body,
         questionTime: Date.now(),
+        anonymousQuestion,
+        questioner: user.userId,
       });
 
       const savedQuestion = await newQuestion.save();

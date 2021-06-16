@@ -3,12 +3,25 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
-  // club: { type: Schema.Types.ObjectId, ref: "Club" },
   title: String,
   body: String,
   questionTime: Date,
+  questioner: { type: Schema.Types.ObjectId, ref: "User" },
+  anonymousQuestion: Boolean,
   answer: String,
   answerTime: Date,
+});
+
+const reviewSchema = new Schema({
+  rating: Number,
+  title: String,
+  comment: String,
+  commentTime: Date,
+  reviewer: { type: Schema.Types.ObjectId, ref: "User" },
+  anonymousReview: Boolean,
+  response: String,
+  responseTime: Date,
+  responser: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const clubSchema = new Schema({
@@ -24,10 +37,8 @@ const clubSchema = new Schema({
   themeColor: String,
   about: String,
   logoUri: String,
-  logoUriThumbnail: String,
   logoFileId: String,
   backgroundUri: String,
-  backgroundUriThumbnail: String,
   backgroundFileId: String,
   socialMedia: {
     facebook: String,
@@ -39,11 +50,11 @@ const clubSchema = new Schema({
     messager: String,
   },
   committee: [{ name: String, role: String, contactInfo: String }],
-  reviews: [
-    { rating: Number, title: String, comment: String, commentTime: Date },
-  ],
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
+  events: [{ title: String, body: String, link: String, date: Date }],
 });
 
 export default mongoose.model("Club", clubSchema);
 export const Question = mongoose.model("Question", questionSchema);
+export const Review = mongoose.model("Review", reviewSchema);

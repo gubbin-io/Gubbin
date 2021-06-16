@@ -46,6 +46,7 @@ const userResolvers = {
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) return new UserInputError("Invalid Credentials");
 
+      // TODO: user SECRET from .env
       return {
         token: jwt.sign({ userId: user._id }, "SECRET", {
           algorithm: "HS256",
@@ -59,6 +60,21 @@ const userResolvers = {
         { _id: userId },
         {
           $push: {
+            memberClubs: clubId,
+          },
+        }
+      );
+
+      return {
+        success: updated.ok,
+      };
+    },
+
+    removeMemberClub: async (_: any, { userClub: { clubId, userId } }: any) => {
+      const updated = await User.updateOne(
+        { _id: userId },
+        {
+          $pull: {
             memberClubs: clubId,
           },
         }
@@ -83,6 +99,24 @@ const userResolvers = {
         success: updated.ok,
       };
     },
+
+    removeOrganizerClub: async (
+      _: any,
+      { userClub: { clubId, userId } }: any
+    ) => {
+      const updated = await User.updateOne(
+        { _id: userId },
+        {
+          $pull: {
+            organizerClubs: clubId,
+          },
+        }
+      );
+
+      return {
+        success: updated.ok,
+      };
+    },
   },
 
   User: {
@@ -90,13 +124,17 @@ const userResolvers = {
       const result = await User.findOne({ _id: parent.userId })
         .populate("memberClubs")
         .exec();
-      return result.memberClubs.map(utils.clubFromSchema);
+      return result.memberClubs.map((schema: any) =>
+        utils.clubFromSchema(schema, parent.userId)
+      );
     },
     organizerClubs: async (parent: any) => {
       const result = await User.findOne({ _id: parent.userId })
         .populate("organizerClubs")
         .exec();
-      return result.organizerClubs.map(utils.clubFromSchema);
+      return result.organizerClubs.map((schema: any) =>
+        utils.clubFromSchema(schema, parent.userId)
+      );
     },
   },
 };

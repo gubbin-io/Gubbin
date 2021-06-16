@@ -62,11 +62,13 @@ const clubCollectionResolvers = {
   },
 
   ClubCollection: {
-    clubs: async (parent: any) => {
+    clubs: async (parent: any, _: any, context: any) => {
       const result = await ClubCollection.findOne({ _id: parent.collectionId })
         .populate("clubs")
         .exec();
-      return result.clubs.map(utils.clubFromSchema);
+      return result.clubs.map((schema: any) =>
+        utils.clubFromSchema(schema, context.user?.userId)
+      );
     },
   },
 };

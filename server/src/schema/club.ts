@@ -11,8 +11,8 @@ const clubSchema = gql`
 
   extend type Mutation {
     addClub(clubInfo: ClubInfo!): Club
-    addReview(review: NewReview!): Int
-    updateLogo(logo: LogoInput!): ReturnImage
+    updateLogo(logo: ImageInput!): ReturnImage
+    updateBackground(background: ImageInput!): ReturnImage
     updateSocialMedia(
       clubId: ID!
       socialMedia: SocialMediaInput
@@ -21,6 +21,13 @@ const clubSchema = gql`
       clubId: ID!
       committee: [CommitteeMemberInput!]!
     ): UpdateResponse
+
+    updateBasicInfo(
+      clubId: ID!
+      basicInfoInput: BasicInfoInput!
+    ): UpdateResponse
+
+    addEvent(clubId: ID!, eventInput: EventInput!): UpdateResponse
   }
 
   type Club {
@@ -31,23 +38,26 @@ const clubSchema = gql`
     about: String
     clubName: String!
     logoUri: String
-    logoUriThumbnail: String
     backgroundUri: String
-    backgroundUriThumbnail: String
     reviews: [Review]
     questions: [Question]
+    events: [Event]
     socialMedia: SocialMedia
     committee: [CommitteeMember!]
     rating: Float
+    joined: Boolean!
   }
 
   type Review {
     id: ID!
-    reviewer: User!
+    reviewer: User
+    anonymousReview: Boolean
     rating: Int!
     title: String
     comment: String
     commentTime: Date
+    response: String
+    responseTime: Date
   }
 
   type Question {
@@ -55,13 +65,22 @@ const clubSchema = gql`
     title: String
     body: String
     questionTime: Date
+    questioner: User
+    anonymousQuestion: Boolean
     answer: String
     answerTime: Date
   }
 
+  type Event {
+    eventId: ID!
+    title: String
+    body: String
+    link: String
+    date: Date
+  }
+
   type ReturnImage {
     uri: String!
-    thumbnailUri: String!
   }
 
   type SocialMedia {
@@ -100,17 +119,24 @@ const clubSchema = gql`
     backgroundUri: String
   }
 
-  input NewReview {
-    clubId: ID!
-    reviewer: String!
-    rating: Int!
-    title: String
-    comment: String
-  }
-
-  input LogoInput {
+  input ImageInput {
     clubId: ID!
     content: String
+  }
+
+  input BasicInfoInput {
+    clubName: String
+    description: String
+    numMembers: Int
+    themeColor: String
+    about: String
+  }
+
+  input EventInput {
+    title: String
+    body: String
+    link: String
+    date: Date
   }
 
   input SocialMediaInput {
