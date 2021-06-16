@@ -1,5 +1,6 @@
 import Club, { Question } from "../models/club";
 import User from "../models/user";
+import utils from "./utils";
 
 const questionResolvers = {
   Query: {},
@@ -8,14 +9,7 @@ const questionResolvers = {
     postQuestion: async (_: any, data: any, { user }: any) => {
       const { clubId, title, body, anonymousQuestion } = data.questionPost;
 
-      if (!user || !user.userId) {
-        // TODO: Error
-      }
-
-      const userSchema = await User.findOne({ _id: user.userId });
-      if (!userSchema) {
-        // TODO: Error
-      }
+      await utils.authenticateUser(user);
 
       const newQuestion = new Question({
         title,
@@ -38,8 +32,10 @@ const questionResolvers = {
       return savedQuestion._id;
     },
 
-    postAnswer: async (_: any, data: any) => {
+    postAnswer: async (_: any, data: any, { user }: any) => {
+      await utils.authenticateUser(user);
       const { questionId, answer } = data.answerPost;
+
       const updated = await Question.updateOne(
         { _id: questionId },
         {
