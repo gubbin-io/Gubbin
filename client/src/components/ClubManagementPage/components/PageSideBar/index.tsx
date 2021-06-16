@@ -4,7 +4,7 @@ import {
   InfoCircleFill,
   Globe2,
   QuestionCircleFill,
-  Calendar,
+  ExclamationSquareFill,
 } from "react-bootstrap-icons";
 import useStyles from "./style";
 
@@ -40,7 +40,7 @@ const PageSideBar: React.FC<PageSideBarProp> = ({ clubColor }) => {
 
         <Nav.Item>
           <Nav.Link className={classes.tabButton} eventKey="update">
-            <Calendar size={20} className={classes.icon} />
+            <ExclamationSquareFill size={20} className={classes.icon} />
             {`Updates`}
           </Nav.Link>
         </Nav.Item>

@@ -14,9 +14,6 @@ const useStyles = createUseStyles((theme: any) => ({
   reviewCard: {
     borderWidth: 0,
     marginTop: "12px",
-    width: "90%",
-    marginLeft: 24,
-    marginRight: 24,
   },
   reviewBody: {
     backgroundColor: theme.inactive,

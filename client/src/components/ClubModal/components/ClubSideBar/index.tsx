@@ -9,7 +9,7 @@ import {
   QuestionCircleFill,
   Globe2,
   CalendarEventFill,
-  Calendar,
+  ExclamationSquareFill,
 } from "react-bootstrap-icons";
 import { SocialMedia } from "../../../../constants/types";
 import { checkProperties } from "../../../../constants/functions";
@@ -77,7 +77,7 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
 
         <Nav.Item>
           <Nav.Link className={classes.tabButton} eventKey="updates">
-            <Calendar size={20} className={classes.icon} />
+            <ExclamationSquareFill size={20} className={classes.icon} />
             {`Updates`}
           </Nav.Link>
         </Nav.Item>
