@@ -7,16 +7,13 @@ import {
   StarHalf,
   InfoCircleFill,
   QuestionCircleFill,
-  Globe2,
   CalendarEventFill,
+  PeopleFill,
 } from "react-bootstrap-icons";
-import { SocialMedia } from "../../../../constants/types";
-import { checkProperties } from "../../../../constants/functions";
 
 export interface ClubSideBarProp {
   numMembers: number;
   rating?: number;
-  socialMedia?: SocialMedia;
   clubColor: string;
   numReviews: number;
 }
@@ -26,7 +23,6 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
   clubColor,
   rating,
   numReviews,
-  socialMedia,
 }) => {
   const classes = useStyles({ clubColor });
 
@@ -74,14 +70,12 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
           </Nav.Link>
         </Nav.Item>
 
-        {socialMedia && checkProperties(socialMedia) && (
-          <Nav.Item>
-            <Nav.Link className={classes.tabButton} eventKey="social">
-              <Globe2 size={20} className={classes.icon} />
-              {`Social Media`}
-            </Nav.Link>
-          </Nav.Item>
-        )}
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="social">
+            <PeopleFill size={20} className={classes.icon} />
+            {`Contact`}
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
     </div>
   );
