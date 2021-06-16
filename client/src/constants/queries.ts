@@ -263,3 +263,19 @@ export const POST_ANSWER = gql`
     postAnswer(answerPost: { questionId: $questionId, answer: $answer })
   }
 `;
+
+export const ADD_UPDATE = gql`
+  mutation addUpdate(
+    $clubId: ID!
+    $title: String
+    $description: String
+    $date: Date
+  ) {
+    addUpdate(
+      clubId: $clubId
+      updateInput: { title: $title, description: $description, date: $date }
+    ) {
+      success
+    }
+  }
+`;
