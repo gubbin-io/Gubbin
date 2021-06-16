@@ -1,5 +1,6 @@
 import User from "../models/user";
 import ImageKit from "imagekit";
+import { AuthenticationError, ForbiddenError } from "apollo-server";
 
 function avgRating(reviews: any) {
   if (!reviews || reviews.length == 0) return undefined;
@@ -122,6 +123,34 @@ function getImageKit() {
   });
 }
 
+async function authenticateUser(user: any) {
+  if (!user || !user.userId) {
+    throw new AuthenticationError("You must be logged in");
+  }
+
+  const userSchema = await User.findOne({ _id: user.userId });
+  if (!userSchema) {
+    throw new AuthenticationError("Invalid credentials");
+  }
+}
+
+async function checkIsMember(userId: any, clubId: any) {
+  const user = await User.findById(userId);
+  if (
+    !user.memberClubs.includes(clubId) &&
+    !user.organizerClubs.includes(clubId)
+  ) {
+    throw new ForbiddenError("You are not a member of this club");
+  }
+}
+
+async function checkIsOrganizer(userId: any, clubId: any) {
+  const user = await User.findById(userId);
+  if (!user.organizerClubs.includes(clubId)) {
+    throw new ForbiddenError("You are not an organizer of this club");
+  }
+}
+
 export default {
   avgRating,
   clubFromSchema,
@@ -130,4 +159,7 @@ export default {
   reviewCompareFunc,
   questionCompareFunc,
   getImageKit,
+  authenticateUser,
+  checkIsMember,
+  checkIsOrganizer,
 };
