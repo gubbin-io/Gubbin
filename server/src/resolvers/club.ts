@@ -142,7 +142,7 @@ const clubResolvers = {
         success: updated.ok,
       };
     },
-  },
+
     updateBasicInfo: async (_: any, { clubId, basicInfoInput }: any) => {
       let sets: any = {};
       for (const [k, v] of Object.entries(basicInfoInput)) {
