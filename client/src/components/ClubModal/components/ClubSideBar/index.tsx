@@ -74,6 +74,13 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
           </Nav.Link>
         </Nav.Item>
 
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="updates">
+            <CalendarEventFill size={20} className={classes.icon} />
+            {`Updates`}
+          </Nav.Link>
+        </Nav.Item>
+
         {socialMedia && checkProperties(socialMedia) && (
           <Nav.Item>
             <Nav.Link className={classes.tabButton} eventKey="social">

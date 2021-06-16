@@ -118,6 +118,12 @@ export const GET_CLUB_INFO = gql`
         link
         date
       }
+      updates {
+        updateId
+        title
+        description
+        date
+      }
       socialMedia {
         facebook
         twitter

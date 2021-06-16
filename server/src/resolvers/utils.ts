@@ -19,8 +19,8 @@ function eventsFromSchema(eventsSchema: any) {
 }
 
 function updatesFromSchema(updatesSchema: any) {
-  return updatesSchema.map(({ _id, title, body, date }: any) => {
-    return { eventId: _id, title, body, date };
+  return updatesSchema.map(({ _id, title, description, date }: any) => {
+    return { updateId: _id, title, description, date };
   });
 }
 

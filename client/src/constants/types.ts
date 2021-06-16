@@ -26,6 +26,7 @@ export interface Club {
   backgroundUri: string;
   reviews: Review[];
   events: ClubEvent[];
+  updates: ClubUpdate[];
   socialMedia?: SocialMedia;
   questions: Question[];
 }
@@ -55,5 +56,11 @@ export interface ClubEvent {
   title: string;
   body: string;
   link: string;
+  date: Date;
+}
+export interface ClubUpdate {
+  updateId: string;
+  title: string;
+  description: string;
   date: Date;
 }
