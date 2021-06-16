@@ -49,6 +49,7 @@ const clubSchema = new Schema({
     whatsapp: String,
     messager: String,
   },
+  committee: [{ name: String, role: String, contactInfo: String }],
   reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
   events: [{ title: String, body: String, link: String, date: Date }],

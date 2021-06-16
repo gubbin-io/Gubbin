@@ -34,6 +34,7 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     themeColor: clubSchema.themeColor,
     logoUri: clubSchema.logoUri,
     backgroundUri: clubSchema.backgroundUri,
+    committee: clubSchema.committee,
     joined: joined,
     socialMedia: clubSchema.socialMedia,
     events: eventsFromSchema(clubSchema.events),
