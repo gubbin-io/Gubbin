@@ -18,6 +18,12 @@ function eventsFromSchema(eventsSchema: any) {
   });
 }
 
+function updatesFromSchema(updatesSchema: any) {
+  return updatesSchema.map(({ _id, title, body, date }: any) => {
+    return { eventId: _id, title, body, date };
+  });
+}
+
 async function clubFromSchema(clubSchema: any, userId: any) {
   const find = await User.findOne({
     _id: userId,
@@ -38,6 +44,7 @@ async function clubFromSchema(clubSchema: any, userId: any) {
     joined: joined,
     socialMedia: clubSchema.socialMedia,
     events: eventsFromSchema(clubSchema.events),
+    updates: updatesFromSchema(clubSchema.updates),
   };
 }
 

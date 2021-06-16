@@ -28,6 +28,7 @@ const clubSchema = gql`
     ): UpdateResponse
 
     addEvent(clubId: ID!, eventInput: EventInput!): UpdateResponse
+    addUpdate(clubId: ID!, updateInput: UpdateInput!): UpdateResponse
   }
 
   type Club {
@@ -42,6 +43,7 @@ const clubSchema = gql`
     reviews: [Review]
     questions: [Question]
     events: [Event]
+    updates: [Update]
     socialMedia: SocialMedia
     committee: [CommitteeMember!]
     rating: Float
@@ -76,6 +78,13 @@ const clubSchema = gql`
     title: String
     body: String
     link: String
+    date: Date
+  }
+
+  type Update {
+    updateId: ID!
+    title: String
+    description: String
     date: Date
   }
 
@@ -136,6 +145,12 @@ const clubSchema = gql`
     title: String
     body: String
     link: String
+    date: Date
+  }
+
+  input UpdateInput {
+    title: String
+    description: String
     date: Date
   }
 
