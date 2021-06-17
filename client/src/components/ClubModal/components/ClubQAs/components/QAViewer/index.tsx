@@ -28,7 +28,7 @@ const QAViewer: React.FC<QAViewerProp> = ({ questions }) => {
                 <div className={classes.headerLeft}>
                   <span className={classes.extraLargeText}>{title}</span>
                   <span className={classes.smallText}>
-                    {new Date(questionTime).toLocaleString()}
+                    {new Date(questionTime).toLocaleDateString()}
                   </span>
                 </div>
                 <div className={classes.headerRight}>
