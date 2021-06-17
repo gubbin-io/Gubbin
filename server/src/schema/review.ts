@@ -15,7 +15,7 @@ const reviewSchema = gql`
   }
 
   input FollowupPost {
-    followupId: ID!
+    reviewId: ID!
     comment: String!
     isCommittee: Boolean!
   }
