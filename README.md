@@ -1,6 +1,6 @@
 # Gubbin
 
-The best place to discover and join clubs and societies available to you.
+Discover and engage with clubs and societies that interest you.
 
 ## Conventions
 
