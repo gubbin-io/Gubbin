@@ -24,6 +24,7 @@ const QAEditor: React.FC<QAEditorProp> = ({
   });
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const [anonymous, setAnonymous] = useState(false);
 
   return (
     <>
@@ -36,10 +37,12 @@ const QAEditor: React.FC<QAEditorProp> = ({
               clubId,
               title,
               body: content,
+              anonymousQuestion: anonymous,
             },
           });
           setContent("");
           setTitle("");
+          setAnonymous(false);
           showViewer();
         }}
       >
@@ -64,6 +67,19 @@ const QAEditor: React.FC<QAEditorProp> = ({
               setContent(e.target.value);
             }}
           />
+          <Form.Group
+            controlId="formBasicCheckbox"
+            style={{ marginTop: "8px" }}
+          >
+            <Form.Check
+              type="checkbox"
+              label="Submit as Anonymous"
+              checked={anonymous}
+              onChange={() => {
+                setAnonymous(!anonymous);
+              }}
+            />
+          </Form.Group>
           <Button className={classes.submitButton} type="submit">
             Submit
           </Button>

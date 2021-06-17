@@ -23,6 +23,7 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
   const [rating, setRating] = useState(3);
   const [comment, setComment] = useState("");
   const [title, setTitle] = useState("");
+  const [anonymous, setAnonymous] = useState(false);
 
   return (
     <>
@@ -36,11 +37,13 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
               rating,
               title,
               comment,
+              anonymousReview: anonymous,
             },
           });
           setRating(3);
           setComment("");
           setTitle("");
+          setAnonymous(false);
           showViewer();
         }}
       >
@@ -69,6 +72,19 @@ const ReviewEditor: React.FC<ReviewEditorProp> = ({
               setComment(e.target.value);
             }}
           />
+          <Form.Group
+            controlId="formBasicCheckbox"
+            style={{ marginTop: "8px" }}
+          >
+            <Form.Check
+              type="checkbox"
+              label="Submit as Anonymous"
+              checked={anonymous}
+              onChange={() => {
+                setAnonymous(!anonymous);
+              }}
+            />
+          </Form.Group>
           <Button className={classes.submitButton} type="submit">
             Submit
           </Button>
