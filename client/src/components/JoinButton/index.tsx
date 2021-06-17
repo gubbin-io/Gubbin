@@ -71,7 +71,7 @@ const JoinButton: React.FC<JoinButtonProp> = ({
       }}
       style={style}
     >
-      {joinState ? `Joined` : `Join`}
+      {joinState ? `Leave` : `Join`}
     </Button>
   );
 };
