@@ -6,6 +6,14 @@ export interface Review {
   comment?: string;
   commentTime: Date;
   anonymousReview?: boolean;
+  followups?: ReviewFollowup[];
+}
+
+export interface ReviewFollowup {
+  followupId: string;
+  comment: string;
+  followupTime: Date;
+  isCommittee: boolean;
 }
 
 export interface User {

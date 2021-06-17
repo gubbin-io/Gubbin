@@ -89,8 +89,11 @@ async function reviewFromSchema(reviewSchema: any) {
     title: reviewSchema.title,
     comment: reviewSchema.comment,
     commentTime: reviewSchema.commentTime,
-    response: reviewSchema.response,
-    responseTime: reviewSchema.responseTime,
+    followups: reviewSchema.followups.map(
+      ({ _id, comment, followupTime, isCommittee }: any) => {
+        return { followupId: _id, comment, followupTime, isCommittee };
+      }
+    ),
     anonymousReview: reviewSchema.anonymousReview,
     reviewer: { userName },
   };

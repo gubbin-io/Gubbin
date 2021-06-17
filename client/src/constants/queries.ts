@@ -160,6 +160,12 @@ export const GET_CLUB_INFO = gql`
         reviewer {
           userName
         }
+        followups {
+          followupId
+          comment
+          followupTime
+          isCommittee
+        }
       }
     }
   }

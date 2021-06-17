@@ -1,7 +1,6 @@
 import { UserInputError } from "apollo-server-errors";
 
 import Club, { Review } from "../models/club";
-import User from "../models/user";
 import utils from "./utils";
 
 const reviewResolvers = {
@@ -36,15 +35,20 @@ const reviewResolvers = {
       return savedReview._id;
     },
 
-    postResponse: async (_: any, data: any, { user }: any) => {
+    postFollowup: async (_: any, data: any, { user }: any) => {
       await utils.authenticateUser(user);
-      const { reviewId, response } = data.answerPost;
+      const { reviewId, comment, isCommittee } = data.followupPost;
 
       const updated = await Review.updateOne(
         { _id: reviewId },
         {
-          response,
-          responseTime: Date.now(),
+          $push: {
+            followups: {
+              comment,
+              followupTime: Date.now(),
+              isCommittee,
+            },
+          },
         }
       );
 
