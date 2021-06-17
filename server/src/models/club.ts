@@ -19,9 +19,7 @@ const reviewSchema = new Schema({
   commentTime: Date,
   reviewer: { type: Schema.Types.ObjectId, ref: "User" },
   anonymousReview: Boolean,
-  response: String,
-  responseTime: Date,
-  responser: { type: Schema.Types.ObjectId, ref: "User" },
+  followups: [{ comment: String, followupTime: Date, isCommittee: Boolean }],
 });
 
 const clubSchema = new Schema({

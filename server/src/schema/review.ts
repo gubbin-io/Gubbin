@@ -3,7 +3,7 @@ import { gql } from "apollo-server";
 const reviewSchema = gql`
   extend type Mutation {
     addReview(review: NewReview!): ID!
-    postResponse(responsePost: ResponsePost!): Int!
+    postFollowup(followupPost: FollowupPost!): Int!
   }
 
   input NewReview {
@@ -14,9 +14,10 @@ const reviewSchema = gql`
     anonymousReview: Boolean
   }
 
-  input ResponsePost {
+  input FollowupPost {
     reviewId: ID!
-    response: String!
+    comment: String!
+    isCommittee: Boolean!
   }
 `;
 

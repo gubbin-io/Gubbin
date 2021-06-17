@@ -58,8 +58,14 @@ const clubSchema = gql`
     title: String
     comment: String
     commentTime: Date
-    response: String
-    responseTime: Date
+    followups: [ReviewFollowup!]
+  }
+
+  type ReviewFollowup {
+    followupId: ID!
+    comment: String!
+    followupTime: Date
+    isCommittee: Boolean!
   }
 
   type Question {

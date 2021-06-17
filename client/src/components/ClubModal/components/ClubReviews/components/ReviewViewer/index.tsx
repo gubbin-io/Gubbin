@@ -24,6 +24,7 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
             commentTime,
             anonymousReview,
             reviewer,
+            followups,
           }) => (
             <Card className={classes.reviewCard} key={id}>
               <Card.Body className={classes.reviewBody}>
@@ -34,7 +35,7 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
                   </div>
                   <div className={classes.headerRight}>
                     <span className={classes.smallText}>
-                      {new Date(commentTime).toLocaleString()}
+                      {new Date(commentTime).toLocaleDateString()}
                     </span>
                     <span className={classes.mediumText}>
                       {anonymousReview === false && reviewer
@@ -44,6 +45,31 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
                   </div>
                 </div>
                 <Card.Text className={classes.bodyText}>{comment}</Card.Text>
+                {followups &&
+                  followups.map((followup) => (
+                    <>
+                      <hr />
+                      <div className={classes.bodyHeader}>
+                        <div className={classes.headerLeft}>
+                          <span className={classes.largeText}>
+                            {followup.isCommittee
+                              ? "Committee Response"
+                              : "Followup"}
+                          </span>
+                        </div>
+                        <div className={classes.headerRight}>
+                          <span className={classes.mediumText}>
+                            {new Date(
+                              followup.followupTime
+                            ).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                      <Card.Text className={classes.bodyText}>
+                        {followup.comment}
+                      </Card.Text>
+                    </>
+                  ))}
               </Card.Body>
             </Card>
           )
