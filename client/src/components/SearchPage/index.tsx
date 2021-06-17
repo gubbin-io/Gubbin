@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { FIND_CLUBS } from "../../constants/queries";
 import CollectionsPage from "../CollectionsPage";
+import LoadingScreen from "../LoadingScreen";
 
 export interface SearchPageProp {
   searchString: String;
@@ -18,7 +19,7 @@ const SearchPage: React.FC<SearchPageProp> = ({
     },
   });
 
-  if (loading) return <></>;
+  if (loading) return <LoadingScreen />;
   if (error) return <p>`Error! ${error}`</p>;
 
   return (
