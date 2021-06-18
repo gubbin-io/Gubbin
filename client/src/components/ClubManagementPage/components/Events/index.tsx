@@ -59,7 +59,7 @@ const Events: React.FC<EventsProp> = ({ clubId, themeColor }) => {
               <Form.Control
                 type="text"
                 name="title"
-                placeholder="Enter event title"
+                placeholder="Enter event highlight title"
                 value={values.title}
                 onChange={handleChange}
                 isInvalid={!!errors.title}
