@@ -20,6 +20,16 @@ const ClubSocialMedia: React.FC<SocialMediaProp> = ({
   const classes = useStyles();
   let body = <p>No social media provided.</p>;
 
+  const keys = [
+    "facebook",
+    "twitter",
+    "instagram",
+    "website",
+    "discord",
+    "whatsapp",
+    "messager",
+  ];
+
   if (socialMedia) {
     const {
       facebook,
@@ -96,7 +106,7 @@ const ClubSocialMedia: React.FC<SocialMediaProp> = ({
     <>
       <span className={classes.sectionHeading}>{`Contact`}</span>
       <hr className={classes.divider} />
-      {socialMedia && checkProperties(socialMedia) && (
+      {socialMedia && checkProperties(socialMedia, keys) && (
         <>
           <span className={classes.largeText}>Social Media</span>
           <div className={classes.cards}>
@@ -128,11 +138,8 @@ const ClubSocialMedia: React.FC<SocialMediaProp> = ({
           </div>
         </div>
       )}
-      {!(
-        socialMedia &&
-        checkProperties(socialMedia) &&
-        committee.length === 0
-      ) && <p>No contact info provided. </p>}
+      {!(socialMedia && checkProperties(socialMedia, keys)) &&
+        committee.length === 0 && <p>No contact info provided. </p>}
     </>
   );
 };

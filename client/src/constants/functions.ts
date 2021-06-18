@@ -6,10 +6,9 @@ export const toBase64 = (file: Blob) =>
     reader.onerror = (error) => reject(error);
   });
 
-export function checkProperties(obj: any) {
-  for (let key in obj) {
-    if (key !== "__typename" && obj[key] !== null && obj[key] !== "")
-      return true;
+export function checkProperties(obj: any, keys: string[]) {
+  for (let key of keys) {
+    if (obj[key]) return true;
   }
   return false;
 }
