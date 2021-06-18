@@ -7,9 +7,9 @@ import {
   StarHalf,
   InfoCircleFill,
   QuestionCircleFill,
-  CalendarEventFill,
   ExclamationSquareFill,
   PeopleFill,
+  Stars,
 } from "react-bootstrap-icons";
 
 export interface ClubSideBarProp {
@@ -66,8 +66,8 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
 
         <Nav.Item>
           <Nav.Link className={classes.tabButton} eventKey="events">
-            <CalendarEventFill size={20} className={classes.icon} />
-            {`Events`}
+            <Stars size={20} className={classes.icon} />
+            {`Highlights`}
           </Nav.Link>
         </Nav.Item>
 
@@ -77,7 +77,7 @@ const ClubSideBar: React.FC<ClubSideBarProp> = ({
             {`Updates`}
           </Nav.Link>
         </Nav.Item>
-        
+
         <Nav.Item>
           <Nav.Link className={classes.tabButton} eventKey="social">
             <PeopleFill size={20} className={classes.icon} />

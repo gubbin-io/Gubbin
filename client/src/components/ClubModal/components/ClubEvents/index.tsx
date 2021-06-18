@@ -12,9 +12,11 @@ const ClubEvents: React.FC<ClubEventsProp> = ({ events }) => {
 
   return (
     <>
-      <span className={classes.sectionHeading}>{`Events`}</span>
+      <span className={classes.sectionHeading}>{`Highlights`}</span>
       <hr className={classes.divider} />
-      {events.length === 0 && <p>No events published at the moment.</p>}
+      {events.length === 0 && (
+        <p>No events highlights published at the moment.</p>
+      )}
       {events.map(({ eventId, title, link }) => (
         <div className={classes.eventCard} key={eventId}>
           <span className={classes.largeText}>{title}</span>

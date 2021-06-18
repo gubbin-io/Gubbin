@@ -131,7 +131,7 @@ const ClubSocialMedia: React.FC<SocialMediaProp> = ({
       {!(
         socialMedia &&
         checkProperties(socialMedia) &&
-        committee.length > 0
+        committee.length === 0
       ) && <p>No contact info provided. </p>}
     </>
   );
