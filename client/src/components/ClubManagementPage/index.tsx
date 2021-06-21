@@ -18,6 +18,7 @@ const ClubManagementPage: React.FC<ClubManagementPageProp> = ({ clubId }) => {
   const history = useHistory();
   const { loading, error, data } = useQuery(GET_CLUB_INFO, {
     variables: { clubId },
+    pollInterval: 10000,
   });
 
   let body = <></>;

@@ -24,19 +24,15 @@ const JoinButton: React.FC<JoinButtonProp> = ({
 }) => {
   const classes = useStyles({ clubColor });
   const [joinState, setJoinState] = useState(joined);
-
-  const [addMemberClub] = useMutation(ADD_MEMBER_CLUB, {
-    refetchQueries: [
-      { query: GET_MEMBER_CLUBS },
-      { query: GET_CLUB_INFO, variables: { clubId } },
-    ],
-  });
+  const refetchQueries = [
+    { query: GET_MEMBER_CLUBS },
+    "GetClubCollection",
+    { query: GET_CLUB_INFO, variables: { clubId } },
+  ];
+  const [addMemberClub] = useMutation(ADD_MEMBER_CLUB, { refetchQueries });
 
   const [removeMemberClub] = useMutation(REMOVE_MEMBER_CLUB, {
-    refetchQueries: [
-      { query: GET_MEMBER_CLUBS },
-      { query: GET_CLUB_INFO, variables: { clubId } },
-    ],
+    refetchQueries,
   });
 
   function handleJoin() {
