@@ -81,7 +81,7 @@ export const FIND_CLUBS = gql`
 `;
 
 export const GET_CLUB_COLLECTION = gql`
-  query ($collectionId: ID!) {
+  query GetClubCollection($collectionId: ID!) {
     clubCollection(collectionId: $collectionId) {
       collectionId
       collectionName
