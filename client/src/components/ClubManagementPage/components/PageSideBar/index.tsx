@@ -6,6 +6,7 @@ import {
   QuestionCircleFill,
   ExclamationSquareFill,
   Stars,
+  StarHalf,
 } from "react-bootstrap-icons";
 import useStyles from "./style";
 
@@ -29,6 +30,13 @@ const PageSideBar: React.FC<PageSideBarProp> = ({ clubColor }) => {
           <Nav.Link className={classes.tabButton} eventKey="social">
             <Globe2 size={20} className={classes.icon} />
             {`Social Media`}
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
+          <Nav.Link className={classes.tabButton} eventKey="reviews">
+            <StarHalf size={20} className={classes.icon} />
+            {`Reviews`}
           </Nav.Link>
         </Nav.Item>
 
