@@ -171,6 +171,9 @@ const BasicInfo: React.FC<BasicInfoProp> = ({
                   isValid={touched.about && !errors.about}
                   required
                 />
+                <Form.Text className="text-muted">
+                  Markdown Supported!
+                </Form.Text>
                 <Form.Control.Feedback type="invalid">
                   {errors.about}
                 </Form.Control.Feedback>

@@ -15,6 +15,8 @@ import ClubSideBar from "../ClubSideBar";
 import ClubEvents from "../ClubEvents";
 import ClubUpdates from "../ClubUpdates";
 import ClubSocialMedia from "../ClubSocialMedia";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 export interface ClubBodyProp {
   clubId: string;
@@ -61,7 +63,11 @@ const ClubBody: React.FC<ClubBodyProp> = ({
             <Tab.Pane eventKey="about">
               <span className={classes.sectionHeading}>{`About`}</span>
               <hr className={classes.divider} />
-              <p>{about}</p>
+              <ReactMarkdown
+                remarkPlugins={[gfm]}
+                children={about}
+                className={classes.markdown}
+              />
             </Tab.Pane>
             <Tab.Pane eventKey="reviews">
               <ClubReviews
