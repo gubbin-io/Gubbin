@@ -18,6 +18,7 @@ const ClubModal: React.FC<ClubModalProp> = ({ show, setShow, clubId }) => {
   const { loading, error, data } = useQuery(GET_CLUB_INFO, {
     variables: { clubId },
     pollInterval: 10000,
+    skip: !clubId,
   });
 
   const classes = useStyles();
