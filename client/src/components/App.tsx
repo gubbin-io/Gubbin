@@ -43,7 +43,7 @@ const App: React.FC<any> = () => {
   const isOrganiser = data.currentUser.organizerClubs.length > 0;
   return (
     <>
-      <TopBar />
+      <TopBar userName={data.currentUser.userName} />
       <div className={classes.outerContainer}>
         <SideBar
           searchString={searchString}
