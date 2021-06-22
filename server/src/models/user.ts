@@ -10,8 +10,8 @@ const userSchema = new Schema({
     trim: true,
     minlength: 3,
   },
-
   password: String,
+  isImperial: Boolean,
   memberClubs: [{ type: Schema.Types.ObjectId, ref: "Club" }],
   organizerClubs: [{ type: Schema.Types.ObjectId, ref: "Club" }],
 });
