@@ -29,7 +29,10 @@ const ReviewResponding: React.FC<ReviewRespondingProp> = ({
                   <div className={classes.headerLeft}>
                     <span className={classes.extraLargeText}>{title}</span>
                     <StarBox score={rating} />
-                    <span className={classes.smallText}>
+                    <span
+                      className={classes.smallText}
+                      style={{ marginTop: "8px" }}
+                    >
                       {new Date(commentTime).toLocaleString()}
                     </span>
                   </div>
