@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserInputError } from "apollo-server-errors";
 import utils from "./utils";
+import authImperial from "auth-imperial";
 
 const userResolvers = {
   Query: {
@@ -40,10 +41,30 @@ const userResolvers = {
     },
 
     login: async (_: any, { userInfo: { userName, password } }: any) => {
-      const user = await User.findOne({ userName });
-      if (!user) throw new UserInputError("Invalid username");
+      let user = await User.findOne({ userName });
+      if (!user) {
+        const loggedIn = await authImperial(userName, password);
+        if (loggedIn) {
+          user = new User({
+            userName,
+            isImperial: true,
+            memberClubs: [],
+            organizerClubs: [],
+          });
+          await user.save();
+        } else {
+          throw new UserInputError("Invalid username");
+        }
+      }
 
-      const valid = await bcrypt.compare(password, user.password);
+      let valid = false;
+
+      if (user.isImperial) {
+        valid = await authImperial(userName, password);
+      } else {
+        valid = await bcrypt.compare(password, user.password);
+      }
+
       if (!valid) return new UserInputError("Invalid Credentials");
 
       // TODO: user SECRET from .env
