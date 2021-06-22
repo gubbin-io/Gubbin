@@ -34,6 +34,7 @@ const ClubManagementPage: React.FC<ClubManagementPageProp> = ({ clubId }) => {
       about,
       socialMedia,
       questions,
+      reviews,
     }: Club = data.club;
 
     body = (
@@ -45,6 +46,7 @@ const ClubManagementPage: React.FC<ClubManagementPageProp> = ({ clubId }) => {
         themeColor={themeColor}
         socialMedia={socialMedia}
         questions={questions}
+        reviews={reviews}
       />
     );
   }
