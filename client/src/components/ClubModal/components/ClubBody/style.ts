@@ -36,6 +36,12 @@ const useStyles = createUseStyles((theme: any) => ({
     marginTop: "8px",
     marginBottom: "12px",
   },
+  markdown: {
+    "& img": {
+      width: "100%",
+      maxWidth: "512px",
+    },
+  },
 }));
 
 export default useStyles;
