@@ -209,6 +209,22 @@ export const ADD_REVIEW = gql`
   }
 `;
 
+export const POST_FOLLOWUP = gql`
+  mutation FollowupPost(
+    $reviewId: ID!
+    $comment: String!
+    $isCommittee: Boolean!
+  ) {
+    postFollowup(
+      followupPost: {
+        reviewId: $reviewId
+        comment: $comment
+        isCommittee: $isCommittee
+      }
+    )
+  }
+`;
+
 export const UPDATE_BASIC_INFO = gql`
   mutation (
     $about: String

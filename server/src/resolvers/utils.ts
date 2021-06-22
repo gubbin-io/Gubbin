@@ -1,5 +1,6 @@
 import User from "../models/user";
 import ImageKit from "imagekit";
+import { Review } from "../models/club";
 import { AuthenticationError, ForbiddenError } from "apollo-server";
 
 function avgRating(reviews: any) {
@@ -154,6 +155,42 @@ async function checkIsOrganizer(userId: any, clubId: any) {
   }
 }
 
+async function postCommitteeFollowup(reviewId: any, comment: any) {
+  const review = await Review.findById(reviewId);
+  if (!review.followups || review.followups.length == 0) {
+    const ok = await addNewFollowup(reviewId, comment, true);
+    return ok;
+  } else {
+    let newFollowups = review.followups;
+    newFollowups[0].comment = comment;
+    newFollowups[0].followupTime = Date.now();
+    const updated = await Review.updateOne(
+      { _id: reviewId },
+      {
+        followups: newFollowups,
+      }
+    );
+    return updated.ok;
+  }
+}
+
+async function addNewFollowup(reviewId: any, comment: any, isCommittee: any) {
+  const updated = await Review.updateOne(
+    { _id: reviewId },
+    {
+      $push: {
+        followups: {
+          comment,
+          followupTime: Date.now(),
+          isCommittee,
+        },
+      },
+    }
+  );
+
+  return updated.ok;
+}
+
 export default {
   avgRating,
   clubFromSchema,
@@ -165,4 +202,6 @@ export default {
   authenticateUser,
   checkIsMember,
   checkIsOrganizer,
+  addNewFollowup,
+  postCommitteeFollowup,
 };

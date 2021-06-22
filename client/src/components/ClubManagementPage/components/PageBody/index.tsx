@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "react-bootstrap";
-import { Question, SocialMedia } from "../../../../constants/types";
+import { Question, SocialMedia, Review } from "../../../../constants/types";
 import BasicInfo from "../BasicInfo";
 import PageSideBar from "../PageSideBar";
 import QuestionAnswering from "../QuestionAnswering";
@@ -8,6 +8,7 @@ import Updates from "../Updates";
 import SocialMediaPage from "../SocialMedia";
 import useStyles from "./style";
 import Events from "../Events";
+import ReviewResponding from "../ReviewResponding";
 
 export interface PageBodyProp {
   clubId: string;
@@ -16,6 +17,7 @@ export interface PageBodyProp {
   about: string;
   themeColor: string;
   questions: Question[];
+  reviews: Review[];
   socialMedia?: SocialMedia;
 }
 
@@ -26,6 +28,7 @@ const PageBody: React.FC<PageBodyProp> = ({
   about,
   themeColor,
   questions,
+  reviews,
   socialMedia,
 }) => {
   const classes = useStyles();
@@ -58,6 +61,14 @@ const PageBody: React.FC<PageBodyProp> = ({
               <Tab.Pane eventKey="questions">
                 <QuestionAnswering
                   questions={questions}
+                  clubId={clubId}
+                  themeColor={themeColor}
+                />
+              </Tab.Pane>
+
+              <Tab.Pane eventKey="reviews">
+                <ReviewResponding
+                  reviews={reviews}
                   clubId={clubId}
                   themeColor={themeColor}
                 />

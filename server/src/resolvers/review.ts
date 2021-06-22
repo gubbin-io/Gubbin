@@ -39,20 +39,11 @@ const reviewResolvers = {
       await utils.authenticateUser(user);
       const { reviewId, comment, isCommittee } = data.followupPost;
 
-      const updated = await Review.updateOne(
-        { _id: reviewId },
-        {
-          $push: {
-            followups: {
-              comment,
-              followupTime: Date.now(),
-              isCommittee,
-            },
-          },
-        }
-      );
+      if (isCommittee) {
+        return utils.postCommitteeFollowup(reviewId, comment);
+      }
 
-      return updated.ok;
+      return utils.addNewFollowup(reviewId, comment, false);
     },
   },
 };

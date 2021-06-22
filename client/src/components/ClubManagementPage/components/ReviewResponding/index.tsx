@@ -1,46 +1,44 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { Review } from "../../../../../../constants/types";
-import StarBox from "../../../../../StarBox";
+import { Review } from "../../../../constants/types";
+import ResponseEditor from "./ResponseEditor";
 import useStyles from "./style";
+import StarBox from "../../../StarBox";
 
-export interface ReviewViewerProp {
+export interface ReviewRespondingProp {
+  clubId: string;
   reviews: Review[];
+  themeColor: string;
 }
 
-const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
+const ReviewResponding: React.FC<ReviewRespondingProp> = ({
+  clubId,
+  reviews,
+  themeColor,
+}) => {
   const classes = useStyles();
 
   return (
     <>
-      {reviews
-        .filter(({ title }) => title)
-        .map(
-          ({
-            id,
-            rating,
-            title,
-            comment,
-            commentTime,
-            anonymousReview,
-            reviewer,
-            followups,
-          }) => (
+      {reviews.map(
+        ({ id, rating, title, comment, commentTime, reviewer, followups }) => (
+          <div key={id}>
             <Card className={classes.reviewCard} key={id}>
               <Card.Body className={classes.reviewBody}>
                 <div className={classes.bodyHeader}>
                   <div className={classes.headerLeft}>
-                    <span className={classes.largeText}>{title}</span>
+                    <span className={classes.extraLargeText}>{title}</span>
                     <StarBox score={rating} />
+                    <span
+                      className={classes.smallText}
+                      style={{ marginTop: "8px" }}
+                    >
+                      {new Date(commentTime).toLocaleString()}
+                    </span>
                   </div>
                   <div className={classes.headerRight}>
-                    <span className={classes.smallText}>
-                      {new Date(commentTime).toLocaleDateString()}
-                    </span>
                     <span className={classes.mediumText}>
-                      {anonymousReview === false && reviewer
-                        ? reviewer.userName
-                        : "Anonymous"}
+                      {reviewer?.userName}
                     </span>
                   </div>
                 </div>
@@ -56,14 +54,11 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
                               ? "Committee Response"
                               : reviewer?.userName}
                           </span>
-                        </div>
-                        <div className={classes.headerRight}>
-                          <span className={classes.mediumText}>
-                            {new Date(
-                              followup.followupTime
-                            ).toLocaleDateString()}
+                          <span className={classes.smallText}>
+                            {new Date(followup.followupTime).toLocaleString()}
                           </span>
                         </div>
+                        <div className={classes.headerRight}></div>
                       </div>
                       <Card.Text className={classes.bodyText}>
                         {followup.comment}
@@ -72,10 +67,22 @@ const ReviewViewer: React.FC<ReviewViewerProp> = ({ reviews }) => {
                   ))}
               </Card.Body>
             </Card>
-          )
-        )}
+
+            {!followups || followups?.length <= 1 ? (
+              <ResponseEditor
+                response={
+                  followups && followups.length > 0 ? followups[0].comment : ""
+                }
+                themeColor={themeColor}
+                reviewId={id}
+                clubId={clubId}
+              />
+            ) : null}
+          </div>
+        )
+      )}
     </>
   );
 };
 
-export default ReviewViewer;
+export default ReviewResponding;
