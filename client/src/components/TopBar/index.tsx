@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import ProfileToggle from "./profile";
 import { client } from "../../constants/routes";
 
-export interface TopBarProp {}
+export interface TopBarProp {
+  userName: string;
+}
 
-const TopBar: React.FC<TopBarProp> = () => {
+const TopBar: React.FC<TopBarProp> = ({ userName }) => {
   const classes = useStyles();
 
   function handleSignOut() {
@@ -31,10 +33,18 @@ const TopBar: React.FC<TopBarProp> = () => {
         </Navbar.Brand>
 
         <Dropdown>
-          <Dropdown.Toggle as={ProfileToggle}></Dropdown.Toggle>
+          <Dropdown.Toggle
+            as={ProfileToggle}
+            userName={userName}
+          ></Dropdown.Toggle>
 
-          <Dropdown.Menu align="right">
+          <Dropdown.Menu align="right" className={classes.dropdownMenu}>
+            <Dropdown.ItemText className={classes.usernameText}>
+              {userName}
+            </Dropdown.ItemText>
+            <Dropdown.Divider className={classes.divider} />
             <Dropdown.Item
+              className={classes.dropdownItem}
               onClick={(e) => {
                 e.preventDefault();
                 handleSignOut();
