@@ -96,7 +96,7 @@ const Events: React.FC<EventsProp> = ({ clubId, themeColor }) => {
           <Form.Group as={Row}>
             <Col sm={{ span: 10, offset: 2 }}>
               <Button className={classes.submitButton} type="submit">
-                Add Event
+                Add Highlight
               </Button>
             </Col>
           </Form.Group>
