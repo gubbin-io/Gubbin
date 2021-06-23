@@ -11,7 +11,6 @@
     "coverage": "jest --coverage"
   },
   "repository": "https://github.com/gubbin-io/Gubbin",
-  "license": "MIT",
   "private": true,
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
